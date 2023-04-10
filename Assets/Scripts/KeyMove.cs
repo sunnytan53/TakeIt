@@ -5,10 +5,13 @@ public class KeyMove : MonoBehaviour {
     public float speed = 6.0f;
     public float gravityMultiplier = 5f;
     public float jumpMultiplier = 10f;
+    public float mouseSensitivity = 100f;
 
     // moving CharacterController for collision detection instead of transform
     private CharacterController _charController;
     private ParticleSystem ps;
+
+    // placeholders for changing variables in Update()
     private Vector3 movement = new Vector3();
 
     void Start(){
@@ -36,6 +39,12 @@ public class KeyMove : MonoBehaviour {
 
         movement = transform.TransformDirection(movement);
         _charController.Move(movement * Time.deltaTime);
+
+        //float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        //float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+
+        //transform.Rotate(Vector3.up * mouseX);
+        //transform.Rotate(Vector3.left * mouseY);
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)

@@ -11,10 +11,9 @@ GameObject:
   - component: {fileID: 4324315682250014323}
   - component: {fileID: 4324315682250014322}
   - component: {fileID: 4324315682250014325}
+  - component: {fileID: 4324315682250014335}
   - component: {fileID: 4324315682250014320}
   - component: {fileID: 4324315682250014334}
-  - component: {fileID: 4324315682250014335}
-  - component: {fileID: 4324315682250014332}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -88,6 +87,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &4324315682250014335
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4324315682250014327}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!143 &4324315682250014320
 CharacterController:
   m_ObjectHideFlags: 0
@@ -119,35 +132,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 30
-  gravity: -9.8
---- !u!136 &4324315682250014335
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4324315682250014327}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4324315682250014332
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4324315682250014327}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6888ca9e2d9f4a49866b019d3db86dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  horizontalRotationSpeed: 3
-  verticalRotationSpeed: 3
+  gravityMultiplier: 5
+  jumpMultiplier: 10
+  mouseSensitivity: 300
 --- !u!1 &4324315682595259239
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,6 +146,7 @@ GameObject:
   - component: {fileID: 4324315682595259234}
   - component: {fileID: 4324315682595259237}
   - component: {fileID: 4324315682595259235}
+  - component: {fileID: 2859852051415566586}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -232,3 +220,17 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4324315682595259239}
   m_Enabled: 1
+--- !u!114 &2859852051415566586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4324315682595259239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0be12d80e2f444029aa7aa7bf75995e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 4324315682250014323}
+  cameraDistance: 15
