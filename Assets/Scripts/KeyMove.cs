@@ -3,32 +3,39 @@ using System.Collections;
 
 public class KeyMove : MonoBehaviour {
     public float speed = 6.0f;
-    public float gravity = -9.8f;
+    public float gravityMultiplier = 5f;
+    public float jumpMultiplier = 10f;
 
     // moving CharacterController for collision detection instead of transform
     private CharacterController _charController;
     private ParticleSystem ps;
+    private Vector3 movement = new Vector3();
 
     void Start(){
         _charController = GetComponent<CharacterController>();
         ps = GameObject.Find("ParticleCollision").GetComponent<ParticleSystem>();
-
+        gravityMultiplier *= Physics.gravity.y;
     }
 
     void Update(){
-        // "Horizontal" and "Veritcal" are indirect names for keyboard mappings
-        float deltaX = Input.GetAxis("Horizontal") * speed;
-        float deltaZ = Input.GetAxis("Vertical") * speed;
-        //transform.Translate(deltaX, 0, deltaZ);
-        //Frame rate independent movement using deltaTime
-        //transform.Translate(deltaX * Time.deltaTime, 0, deltaZ * Time.deltaTime)
-        Vector3 movement = new Vector3(deltaX, 0, deltaZ);
-        movement = Vector3.ClampMagnitude(movement, speed);
-        movement.y = gravity;
+        // use GetButton instead of GetButtonDown for continous pressing
+        if (_charController.isGrounded && Input.GetButton("Jump"))
+        {
+            movement.y = Mathf.Sqrt(jumpMultiplier * -gravityMultiplier);
+        }
+        else
+        {
+            // do not set y=0 when not moving for isGrounded check
+            // NOTE: isGrounded is True only when last move collide
+            movement.y += gravityMultiplier * Time.deltaTime;
+        }
 
-        movement *= Time.deltaTime;
+        // "Horizontal" and "Veritcal" are indirect names for keyboard mappings
+        movement.x = Input.GetAxis("Horizontal") * speed;
+        movement.z = Input.GetAxis("Vertical") * speed;
+
         movement = transform.TransformDirection(movement);
-        _charController.Move(movement);
+        _charController.Move(movement * Time.deltaTime);
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
