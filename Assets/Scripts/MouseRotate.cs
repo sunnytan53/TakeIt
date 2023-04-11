@@ -20,22 +20,18 @@ public class MouseRotate : MonoBehaviour {
     ***/
 
     public float horizontalRotationSpeed = 3f;
-    public float verticalRotationSpeed = 3f;
 
     private float currentHorizontalRotation = 0f;
-    private float currentVerticalRotation = 0f;
+
     private Quaternion pos = Quaternion.Euler(0, 0, 0);
 
     void Update()
     {
         float mouseX = Input.GetAxis("Mouse X");
-        float mouseY = Input.GetAxis("Mouse Y");
         currentHorizontalRotation += mouseX * horizontalRotationSpeed;
-        currentVerticalRotation -= mouseY * verticalRotationSpeed;
-        currentVerticalRotation = Mathf.Clamp(currentVerticalRotation, -45f, 45f);
 
         // Rotate the character around the y-axis based on the mouse input
-        pos.y = Quaternion.Euler(currentVerticalRotation, currentHorizontalRotation, 0f).y;
+        pos.y = Quaternion.Euler(0, currentHorizontalRotation, 0).y;
         transform.rotation = pos;
     }
 
@@ -44,7 +40,5 @@ public class MouseRotate : MonoBehaviour {
         if (body != null){
             body.freezeRotation = true;
         }
-        pos.x = 0;
-        pos.z = 0;
     }
 }

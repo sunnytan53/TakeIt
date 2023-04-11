@@ -270,6 +270,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2859852051415566586, guid: d1e13b8ba1aa4438f927f05310447699, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1568079299}
+    - target: {fileID: 2859852051415566586, guid: d1e13b8ba1aa4438f927f05310447699, type: 3}
+      propertyPath: offset.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2859852051415566586, guid: d1e13b8ba1aa4438f927f05310447699, type: 3}
+      propertyPath: offset.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2859852051415566586, guid: d1e13b8ba1aa4438f927f05310447699, type: 3}
+      propertyPath: offset.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2859852051415566586, guid: d1e13b8ba1aa4438f927f05310447699, type: 3}
+      propertyPath: cameraDistance
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4324315682250014323, guid: d1e13b8ba1aa4438f927f05310447699, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -318,12 +338,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 4324315682250014334, guid: d1e13b8ba1aa4438f927f05310447699, type: 3}
-      propertyPath: gravityMultiplier
-      value: -5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1e13b8ba1aa4438f927f05310447699, type: 3}
+--- !u!4 &1568079299 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4324315682250014323, guid: d1e13b8ba1aa4438f927f05310447699, type: 3}
+  m_PrefabInstance: {fileID: 1405105991}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1881452823
 GameObject:
   m_ObjectHideFlags: 0
