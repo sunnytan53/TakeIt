@@ -4,27 +4,31 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform player;
-    public float cameraDistance = 10.0f;
+    public float frontDistance = 20;
+    public float topDistance = 5;
 
+    private Transform player;
     private Vector3 finalPos;
     private float rotationY = 0;
     private Quaternion originalRotation;
 
     private void Start()
     {
+        player = transform.parent;
         originalRotation = transform.localRotation;
     }
 
     void LateUpdate()
     {
-        transform.position = player.position - player.forward * cameraDistance;
-        finalPos = player.position;
-        transform.LookAt(finalPos);
+        finalPos = player.position - player.forward * frontDistance + Vector3.up * topDistance;
+        transform.position = finalPos;
+        transform.LookAt(player.position);
 
 
+        // TODO
+        // the angle should also follow the distance so that it works when we change distance
         rotationY += Input.GetAxis("Mouse Y") * 3f;
-        rotationY = Mathf.Clamp(rotationY, -10f, 10f);
+        rotationY = Mathf.Clamp(rotationY, -20f, 5f);
         Quaternion yQuaternion = Quaternion.AngleAxis(-rotationY, Vector3.right);
         transform.localRotation = originalRotation * yQuaternion;
 

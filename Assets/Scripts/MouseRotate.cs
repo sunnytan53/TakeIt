@@ -2,24 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class MouseRotate : MonoBehaviour {
-    /***
-    public enum RotationAxes {
-        MouseXAndY = 0,
-        MouseX = 1,
-        MouseY = 2
-    }
-    
-    public RotationAxes axes = RotationAxes.MouseXAndY;
-    public float sensitivityHor = 2.0f;
-    public float sensitivityVert = 2.0f;
-
-    public float minimumVert = -45.0f;
-    public float maximumVert = 45.0f;
-
-    private float _rotationX = 0;
-    ***/
-
-    public float horizontalRotationSpeed = 3f;
+    public float horizontalRotationSpeed = 5;
 
     private float currentHorizontalRotation = 0f;
 
