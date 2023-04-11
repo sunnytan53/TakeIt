@@ -16,8 +16,9 @@ public class KeyMove : MonoBehaviour {
 
     void Start(){
         _charController = GetComponent<CharacterController>();
-        ps = GameObject.Find("ParticleCollision").GetComponent<ParticleSystem>();
         gravityMultiplier *= Physics.gravity.y;
+        // ps has a bug so far
+        ps = GameObject.Find("ParticleCollision").GetComponent<ParticleSystem>();
     }
 
     void Update(){
@@ -39,12 +40,6 @@ public class KeyMove : MonoBehaviour {
 
         movement = transform.TransformDirection(movement);
         _charController.Move(movement * Time.deltaTime);
-
-        //float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        //float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
-
-        //transform.Rotate(Vector3.up * mouseX);
-        //transform.Rotate(Vector3.left * mouseY);
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)

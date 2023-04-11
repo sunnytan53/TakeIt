@@ -276,15 +276,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4324315682250014323, guid: d1e13b8ba1aa4438f927f05310447699, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 372
       objectReference: {fileID: 0}
     - target: {fileID: 4324315682250014323, guid: d1e13b8ba1aa4438f927f05310447699, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 4324315682250014323, guid: d1e13b8ba1aa4438f927f05310447699, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -20
+      value: 135
       objectReference: {fileID: 0}
     - target: {fileID: 4324315682250014323, guid: d1e13b8ba1aa4438f927f05310447699, type: 3}
       propertyPath: m_LocalRotation.w
@@ -317,6 +317,10 @@ PrefabInstance:
     - target: {fileID: 4324315682250014327, guid: d1e13b8ba1aa4438f927f05310447699, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4324315682250014334, guid: d1e13b8ba1aa4438f927f05310447699, type: 3}
+      propertyPath: gravityMultiplier
+      value: -5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1e13b8ba1aa4438f927f05310447699, type: 3}
