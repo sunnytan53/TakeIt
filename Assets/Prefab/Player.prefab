@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 4324315682250014335}
   - component: {fileID: 4324315682250014320}
   - component: {fileID: 4324315682250014334}
+  - component: {fileID: 7622735944095722713}
+  - component: {fileID: 4577577707947868818}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -135,6 +137,34 @@ MonoBehaviour:
   gravityMultiplier: 5
   jumpMultiplier: 10
   mouseSensitivity: 300
+--- !u!114 &7622735944095722713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4324315682250014327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6888ca9e2d9f4a49866b019d3db86dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  horizontalRotationSpeed: 3
+  verticalRotationSpeed: 3
+--- !u!114 &4577577707947868818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4324315682250014327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6888ca9e2d9f4a49866b019d3db86dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  horizontalRotationSpeed: 3
+  verticalRotationSpeed: 3
 --- !u!1 &4324315682595259239
 GameObject:
   m_ObjectHideFlags: 0
