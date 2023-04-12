@@ -9,7 +9,7 @@ public class CameraFollow : MonoBehaviour
 
     private Transform player;
     private Vector3 finalPos;
-    private float rotationY = 0;
+    private float rotationUpDown = 0;
     private Quaternion originalRotation;
 
     private void Start()
@@ -25,11 +25,9 @@ public class CameraFollow : MonoBehaviour
         transform.LookAt(player.position);
 
 
-        // TODO
-        // the angle should also follow the distance so that it works when we change distance
-        rotationY += Input.GetAxis("Mouse Y") * 3f;
-        Quaternion yQuaternion = Quaternion.AngleAxis(-Mathf.Clamp(rotationY, -20f, 5f), Vector3.right);
+        // TODO: the angle should also follow the distance so that it works when we change distance
+        rotationUpDown = Mathf.Clamp(rotationUpDown + Input.GetAxis("Mouse Y") * 3f, -20f, 5f);
+        Quaternion yQuaternion = Quaternion.AngleAxis(-rotationUpDown, Vector3.right);
         transform.localRotation = originalRotation * yQuaternion;
-
     }
 }

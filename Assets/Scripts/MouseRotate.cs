@@ -23,5 +23,6 @@ public class MouseRotate : MonoBehaviour {
         if (body != null){
             body.freezeRotation = true;
         }
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }
