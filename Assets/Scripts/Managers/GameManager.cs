@@ -19,8 +19,7 @@ public class GameManager : MonoBehaviour
 
 	void Start()
 	{
-		DontDestroyOnLoad(gameObject);
-		networkManager = GameObject.Find("Network Manager").GetComponent<NetworkManager>();
+		networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
 		MessageQueue msgQueue = networkManager.GetComponent<MessageQueue>();
 		msgQueue.AddCallback(Constants.SMSG_MOVE, OnResponseMove);
 		msgQueue.AddCallback(Constants.SMSG_INTERACT, OnResponseInteract);

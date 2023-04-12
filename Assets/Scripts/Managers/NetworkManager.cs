@@ -9,8 +9,6 @@ public class NetworkManager : MonoBehaviour
 
 	void Awake()
 	{
-		DontDestroyOnLoad(gameObject);
-
 		gameObject.AddComponent<MessageQueue>();
 		gameObject.AddComponent<ConnectionManager>();
 
