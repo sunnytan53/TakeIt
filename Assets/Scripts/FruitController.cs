@@ -4,7 +4,6 @@ using System.Collections;
 public class FruitController : MonoBehaviour {
     private GameObject fruit;
     private Rigidbody rb;
-    private SceneController sc;
     private ParticleSystem ps;
 
     private Color originalColor;
