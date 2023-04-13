@@ -16,8 +16,8 @@ public class KeyMove : MonoBehaviour {
 
     void Start(){
         _charController = GetComponent<CharacterController>();
-        networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
         gravityMultiplier *= Physics.gravity.y;
+        networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
         StartCoroutine(SendMovementRequest());
     }
 
