@@ -5,12 +5,16 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-	public Player[] Players = new Player[3];
+	public Player[] Players = new Player[4];
 	public GameObject playerPrefab;
+	private GameObject playerObjT1P1;
+	private GameObject playerObjT1P2;
+	private GameObject playerObjT2P1;
+	private GameObject playerObjT2P2;
 
 	//private Hero[,] gameBoard = new Hero[6,5];
 
-	//private int currentPlayer = 1;
+	private int currentPlayer = 1;
 	//private bool canInteract = false;
 	//private bool choosingInteraction = false;
 
@@ -19,9 +23,10 @@ public class GameManager : MonoBehaviour
 
 	void Start()
 	{
+		DontDestroyOnLoad(gameObject);
 		networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
 		MessageQueue msgQueue = networkManager.GetComponent<MessageQueue>();
-		msgQueue.AddCallback(Constants.SMSG_MOVE, OnResponseMove);
+		msgQueue.AddCallback(Constants.SMSG_MOVEMENT, OnResponseMovement);
 		msgQueue.AddCallback(Constants.SMSG_INTERACT, OnResponseInteract);
 	}
 /*
@@ -30,36 +35,85 @@ public class GameManager : MonoBehaviour
 		// return Players[currentPlayer - 1];
 	}
 */
-	public void Init(Player t1p1, Player t1p2, Player t2p1, Player t2p2)
+	
+	public void Init(Player t1p1, Player t1p2, Player t2p1, Player t2p2, int currentPlayerId)
 	{
 		Players[0] = t1p1;
 		Players[1] = t1p2;
         Players[2] = t2p1;
         Players[3] = t2p2;
-		//currentPlayer = 1;
-		//useNetwork = (!player1.IsMouseControlled || !player2.IsMouseControlled);
+		currentPlayer = currentPlayerId;
+		Debug.Log("Current player id detected by GameManager is: " + currentPlayerId);
+		// useNetwork = (!player1.IsMouseControlled || !player2.IsMouseControlled);
+	}
+	
+	public void createCharacters() {
+		Debug.Log("Current player id when create characters is: " + currentPlayer);
+		if (currentPlayer==1){
+			playerObjT1P1 = Instantiate(playerPrefab, new Vector3(0, 0, 10), Quaternion.identity);
+			
+			playerObjT1P2 = Instantiate(playerPrefab, new Vector3(0, 0, -10), Quaternion.identity);
+			playerObjT1P2.GetComponentInChildren<Camera>().enabled=false;
+			playerObjT1P2.GetComponent<KeyMove>().enabled = false;
+
+			playerObjT2P1 = Instantiate(playerPrefab, new Vector3(10, 0, 0), Quaternion.identity);
+			playerObjT2P1.GetComponentInChildren<Camera>().enabled=false;
+			playerObjT2P1.GetComponent<KeyMove>().enabled = false;
+
+			playerObjT2P2 = Instantiate(playerPrefab, new Vector3(-10, 0, 0), Quaternion.identity);
+			playerObjT2P2.GetComponentInChildren<Camera>().enabled=false;
+			playerObjT2P2.GetComponent<KeyMove>().enabled = false;
+		}
+		else if (currentPlayer==2){
+			playerObjT1P2 = Instantiate(playerPrefab, new Vector3(0, 0, -10), Quaternion.identity);
+
+			playerObjT1P1 = Instantiate(playerPrefab, new Vector3(0, 0, 10), Quaternion.identity);
+			playerObjT1P1.GetComponentInChildren<Camera>().enabled=false;
+			playerObjT1P1.GetComponent<KeyMove>().enabled = false;
+
+			playerObjT2P1 = Instantiate(playerPrefab, new Vector3(10, 0, 0), Quaternion.identity);
+			playerObjT2P1.GetComponentInChildren<Camera>().enabled=false;
+			playerObjT2P1.GetComponent<KeyMove>().enabled = false;
+
+			playerObjT2P2 = Instantiate(playerPrefab, new Vector3(-10, 0, 0), Quaternion.identity);
+			playerObjT2P2.GetComponentInChildren<Camera>().enabled=false;
+			playerObjT2P2.GetComponent<KeyMove>().enabled = false;
+		}
+		else if (currentPlayer==3){
+			playerObjT2P1 = Instantiate(playerPrefab, new Vector3(10, 0, 0), Quaternion.identity);
+		
+			playerObjT1P1 = Instantiate(playerPrefab, new Vector3(0, 0, 10), Quaternion.identity);
+			playerObjT1P1.GetComponentInChildren<Camera>().enabled=false;
+			playerObjT1P1.GetComponent<KeyMove>().enabled = false;
+
+			playerObjT1P2 = Instantiate(playerPrefab, new Vector3(0, 0, -10), Quaternion.identity);
+			playerObjT1P2.GetComponentInChildren<Camera>().enabled=false;
+			playerObjT1P2.GetComponent<KeyMove>().enabled = false;
+
+			playerObjT2P2 = Instantiate(playerPrefab, new Vector3(-10, 0, 0), Quaternion.identity);
+			playerObjT2P2.GetComponentInChildren<Camera>().enabled=false;
+			playerObjT2P2.GetComponent<KeyMove>().enabled = false;
+		}
+		else if (currentPlayer==4){
+			playerObjT2P2 = Instantiate(playerPrefab, new Vector3(-10, 0, 0), Quaternion.identity);
+		
+			playerObjT1P1 = Instantiate(playerPrefab, new Vector3(0, 0, 10), Quaternion.identity);
+			playerObjT1P1.GetComponentInChildren<Camera>().enabled=false;
+			playerObjT1P1.GetComponent<KeyMove>().enabled = false;
+			
+			playerObjT1P2 = Instantiate(playerPrefab, new Vector3(0, 0, -10), Quaternion.identity);
+			playerObjT1P2.GetComponentInChildren<Camera>().enabled=false;
+			playerObjT1P2.GetComponent<KeyMove>().enabled = false;
+
+			playerObjT2P1 = Instantiate(playerPrefab, new Vector3(10, 0, 0), Quaternion.identity);
+			playerObjT2P1.GetComponentInChildren<Camera>().enabled=false;
+			playerObjT2P1.GetComponent<KeyMove>().enabled = false;
+		}
+		else {
+			Debug.Log("Something went wrong when trying to instantiate character prefabs...");
+		}
 	}
 
-	public void CreateHeroes()
-	{
-        /*
-		for (int i = 0; i < 5; i++)
-		{
-			GameObject heroObj1 = Instantiate(HeroPrefab, new Vector3(0, 0, (float)i), Quaternion.identity);
-			heroObj1.GetComponentInChildren<Renderer>().material.color = Players[0].Color;
-			Hero hero1 = heroObj1.GetComponent<Hero>();
-			hero1.Index = i;
-			Players[0].AddHero(hero1);
-			gameBoard[0, i] = hero1;
-			GameObject heroObj2 = Instantiate(HeroPrefab, new Vector3(5, 0, (float)i), Quaternion.identity);
-			heroObj2.GetComponentInChildren<Renderer>().material.color = Players[1].Color;
-			Hero hero2 = heroObj2.GetComponent<Hero>();
-			hero2.Index = i;
-			gameBoard[5, i] = hero2;
-			Players[1].AddHero(hero2);
-		}
-        */
-	}
 /*
 	public bool CanInteract()
 	{
@@ -236,19 +290,37 @@ public class GameManager : MonoBehaviour
 	}
 */
 
-	public void OnResponseMove(ExtendedEventArgs eventArgs)
+	public void OnResponseMovement(ExtendedEventArgs eventArgs)
 	{
-        /*
-		ResponseMoveEventArgs args = eventArgs as ResponseMoveEventArgs;
-		if (args.user_id == Constants.OP_ID)
+		ResponseMovementEventArgs args = eventArgs as ResponseMovementEventArgs;
+		Debug.Log("OnResponseMovement is activated in the Game Manager....with user_id: " + args.user_id);
+		if (args.user_id != Constants.USER_ID)
 		{
-			int pieceIndex = args.piece_idx;
-			int x = args.x;
-			int y = args.y;
-			Hero hero = Players[args.user_id - 1].Heroes[pieceIndex];
-			gameBoard[hero.x, hero.y] = null;
-			hero.Move(x, y);
-			gameBoard[x, y] = hero;
+			float move_x = args.move_x;
+			float move_y = args.move_y;
+			float move_z = args.move_z;
+			float rotate_x = args.rotate_x;
+			float rotate_y = args.rotate_y;
+			float rotate_z = args.rotate_z;
+			float rotate_w = args.rotate_w;
+			Vector3 position = new Vector3(move_x, move_y, move_z);
+            Quaternion rotation = new Quaternion(rotate_x, rotate_y, rotate_z, rotate_w);
+			Transform transform;
+			if(args.user_id == 1){
+				transform = playerObjT1P1.transform;
+			}
+			else if (args.user_id == 2) {
+				transform = playerObjT1P2.transform;
+			}
+			else if (args.user_id == 3) {
+				transform = playerObjT2P1.transform;
+			}
+			else {
+				transform = playerObjT2P2.transform;
+			}
+			// Set the position and rotation of the transform
+			transform.position = position;
+			transform.rotation = rotation;
 		}
 		else if (args.user_id == Constants.USER_ID)
 		{
@@ -258,7 +330,6 @@ public class GameManager : MonoBehaviour
 		{
 			Debug.Log("ERROR: Invalid user_id in ResponseReady: " + args.user_id);
 		}
-        */
 	}
 
 	public void OnResponseInteract(ExtendedEventArgs eventArgs)

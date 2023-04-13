@@ -322,10 +322,10 @@ public class MainMenu : MonoBehaviour
 			}
 		}
 
-		if (t1p1Ready && t1p2Ready && t2p1Ready && t2p2Ready)
+		if (t1p1Ready && t1p2Ready)
 		{
-			//StartCoroutine(DoDelay(3.0f));
-			StartNetworkGame();
+			StartCoroutine(DoDelay(3.0f));
+			
 		}
 	}
 	#endregion
@@ -377,8 +377,8 @@ public class MainMenu : MonoBehaviour
 
 	private void StartNetworkGame()
 	{
-		/*
-		GameManager gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+		
+		GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 		if (t1p1Name.text.Length == 0)
 		{
 			t1p1Name.text = "t1 Player1";
@@ -395,13 +395,14 @@ public class MainMenu : MonoBehaviour
 		{
 			t2p1Name.text = "t2 Player 2";
 		}
+		
 		Player t1p1 = new Player(1, t1p1Name.text, new Color(0.9f, 0.1f, 0.1f), Constants.USER_ID == 1);
 		Player t1p2 = new Player(2, t1p2Name.text, new Color(0.2f, 0.2f, 1.0f), Constants.USER_ID == 2);
-		Player t2p1 = new Player(1, t2p1Name.text, new Color(0.9f, 0.1f, 0.1f), Constants.USER_ID == 1);
-		Player t2p2 = new Player(2, t2p1Name.text, new Color(0.2f, 0.2f, 1.0f), Constants.USER_ID == 2);
-		gameManager.Init(t1p1, t1p2, t2p1, t2p2);
-		*/
-		SceneManager.LoadScene("Game");
+		Player t2p1 = new Player(3, t2p1Name.text, new Color(0.9f, 0.1f, 0.1f), Constants.USER_ID == 3);
+		Player t2p2 = new Player(4, t2p2Name.text, new Color(0.2f, 0.2f, 1.0f), Constants.USER_ID == 4);
+		gameManager.Init(t1p1, t1p2, t2p1, t2p2, Constants.USER_ID);
+		
+		SceneManager.LoadScene("map");
 	}
 
 	IEnumerator DoDelay(float time)
@@ -413,6 +414,7 @@ public class MainMenu : MonoBehaviour
 		yield return new WaitForSeconds(1.0f);
 		messageBoxMsg.text = "Game Will Start in 1 Seconds!";
 		yield return new WaitForSeconds(1.0f);
+		StartNetworkGame();
     }
 	
 }
