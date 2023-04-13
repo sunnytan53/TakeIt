@@ -5,11 +5,11 @@ using UnityEngine;
 public class PickUpController : MonoBehaviour
 {
     public Transform holdArea;
-    private GameObject heldObj;
-    private Rigidbody heldObjRB;
-
-
     public float range = 10;
+
+    private GameObject heldObj;
+    private float holdStartTime;
+
 
     private void Update()
     {
@@ -22,19 +22,19 @@ public class PickUpController : MonoBehaviour
                 if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, range) && hit.transform.gameObject.CompareTag("Pickable"))
                 {
                     heldObj = hit.transform.gameObject;
-                    heldObjRB = heldObj.GetComponent<Rigidbody>();
 
+                    Rigidbody heldObjRB = heldObj.GetComponent<Rigidbody>();
                     heldObjRB.useGravity = false;
                     heldObjRB.constraints = RigidbodyConstraints.FreezeRotation;
                 }
             }
             else // drop the held object
             {
+                Rigidbody heldObjRB = heldObj.GetComponent<Rigidbody>();
                 heldObjRB.useGravity = true;
                 heldObjRB.constraints = RigidbodyConstraints.None;
 
                 heldObj = null;
-                heldObjRB = null;
             }
         }
 
@@ -42,6 +42,21 @@ public class PickUpController : MonoBehaviour
         if (heldObj != null)
         {
             heldObj.transform.position = holdArea.position;
+
+            // throw the object with timed force
+            if (Input.GetMouseButtonDown(1))
+            {
+                holdStartTime = Time.time;
+            }
+            else if (Input.GetMouseButtonUp(1))
+            {
+                float holdTime = Time.time - holdStartTime;
+                Rigidbody heldObjRB = heldObj.GetComponent<Rigidbody>();
+                heldObjRB.useGravity = true;
+                heldObjRB.constraints = RigidbodyConstraints.None;
+                heldObjRB.AddForce(transform.forward *1000f * holdTime);
+                heldObj = null;
+            }
         }
     }
 }

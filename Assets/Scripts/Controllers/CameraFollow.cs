@@ -26,7 +26,7 @@ public class CameraFollow : MonoBehaviour
 
 
         // TODO: the angle should also follow the distance so that it works when we change distance
-        rotationUpDown = Mathf.Clamp(rotationUpDown + Input.GetAxis("Mouse Y") * 3f, -20f, 5f);
+        rotationUpDown = Mathf.Clamp(rotationUpDown + Input.GetAxis("Mouse Y") * 3f, -25f, 25f);
         Quaternion yQuaternion = Quaternion.AngleAxis(-rotationUpDown, Vector3.right);
         transform.localRotation = originalRotation * yQuaternion;
     }
