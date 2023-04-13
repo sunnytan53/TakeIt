@@ -7,6 +7,7 @@ TagManager:
   - Floor
   - Tree
   - Fruit
+  - Pickable
   layers:
   - Default
   - TransparentFX
