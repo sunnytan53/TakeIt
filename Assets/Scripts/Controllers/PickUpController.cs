@@ -9,8 +9,7 @@ public class PickUpController : MonoBehaviour
     private Rigidbody heldObjRB;
 
 
-    [SerializeField] private float pickUpRange = 10;
-    [SerializeField] private float pickUpForce = 100;
+    public float range = 10;
 
     private void Update()
     {
@@ -20,7 +19,7 @@ public class PickUpController : MonoBehaviour
             // pick the object up if nothing is in hand
             if (heldObj == null)
             {
-                if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, pickUpRange) && hit.transform.gameObject.CompareTag("Pickable"))
+                if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, range) && hit.transform.gameObject.CompareTag("Pickable"))
                 {
                     heldObj = hit.transform.gameObject;
                     heldObjRB = heldObj.GetComponent<Rigidbody>();
