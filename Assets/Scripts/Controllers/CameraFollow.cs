@@ -12,13 +12,14 @@ public class CameraFollow : MonoBehaviour
     private float rotationUpDown = 0;
     private Quaternion originalRotation;
 
+
     private void Start()
     {
         player = transform.parent;
         originalRotation = transform.localRotation;
     }
 
-    void LateUpdate()
+    void Update()
     {
         finalPos = player.position - player.forward * frontDistance + Vector3.up * topDistance;
         transform.position = finalPos;
