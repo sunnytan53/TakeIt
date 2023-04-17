@@ -54,60 +54,60 @@ public class GameManager : MonoBehaviour
 			
 			playerObjT1P2 = Instantiate(playerPrefab, new Vector3(0, 0, -10), Quaternion.identity);
 			playerObjT1P2.GetComponentInChildren<Camera>().enabled=false;
-			playerObjT1P2.GetComponent<KeyMove>().enabled = false;
+			playerObjT1P2.GetComponent<PlayerController>().enabled = false;
 
 			playerObjT2P1 = Instantiate(playerPrefab, new Vector3(10, 0, 0), Quaternion.identity);
 			playerObjT2P1.GetComponentInChildren<Camera>().enabled=false;
-			playerObjT2P1.GetComponent<KeyMove>().enabled = false;
+			playerObjT2P1.GetComponent<PlayerController>().enabled = false;
 
 			playerObjT2P2 = Instantiate(playerPrefab, new Vector3(-10, 0, 0), Quaternion.identity);
 			playerObjT2P2.GetComponentInChildren<Camera>().enabled=false;
-			playerObjT2P2.GetComponent<KeyMove>().enabled = false;
+			playerObjT2P2.GetComponent<PlayerController>().enabled = false;
 		}
 		else if (currentPlayer==2){
 			playerObjT1P2 = Instantiate(playerPrefab, new Vector3(0, 0, -10), Quaternion.identity);
 
 			playerObjT1P1 = Instantiate(playerPrefab, new Vector3(0, 0, 10), Quaternion.identity);
 			playerObjT1P1.GetComponentInChildren<Camera>().enabled=false;
-			playerObjT1P1.GetComponent<KeyMove>().enabled = false;
+			playerObjT1P1.GetComponent<PlayerController>().enabled = false;
 
 			playerObjT2P1 = Instantiate(playerPrefab, new Vector3(10, 0, 0), Quaternion.identity);
 			playerObjT2P1.GetComponentInChildren<Camera>().enabled=false;
-			playerObjT2P1.GetComponent<KeyMove>().enabled = false;
+			playerObjT2P1.GetComponent<PlayerController>().enabled = false;
 
 			playerObjT2P2 = Instantiate(playerPrefab, new Vector3(-10, 0, 0), Quaternion.identity);
 			playerObjT2P2.GetComponentInChildren<Camera>().enabled=false;
-			playerObjT2P2.GetComponent<KeyMove>().enabled = false;
+			playerObjT2P2.GetComponent<PlayerController>().enabled = false;
 		}
 		else if (currentPlayer==3){
 			playerObjT2P1 = Instantiate(playerPrefab, new Vector3(10, 0, 0), Quaternion.identity);
 		
 			playerObjT1P1 = Instantiate(playerPrefab, new Vector3(0, 0, 10), Quaternion.identity);
 			playerObjT1P1.GetComponentInChildren<Camera>().enabled=false;
-			playerObjT1P1.GetComponent<KeyMove>().enabled = false;
+			playerObjT1P1.GetComponent<PlayerController>().enabled = false;
 
 			playerObjT1P2 = Instantiate(playerPrefab, new Vector3(0, 0, -10), Quaternion.identity);
 			playerObjT1P2.GetComponentInChildren<Camera>().enabled=false;
-			playerObjT1P2.GetComponent<KeyMove>().enabled = false;
+			playerObjT1P2.GetComponent<PlayerController>().enabled = false;
 
 			playerObjT2P2 = Instantiate(playerPrefab, new Vector3(-10, 0, 0), Quaternion.identity);
 			playerObjT2P2.GetComponentInChildren<Camera>().enabled=false;
-			playerObjT2P2.GetComponent<KeyMove>().enabled = false;
+			playerObjT2P2.GetComponent<PlayerController>().enabled = false;
 		}
 		else if (currentPlayer==4){
 			playerObjT2P2 = Instantiate(playerPrefab, new Vector3(-10, 0, 0), Quaternion.identity);
 		
 			playerObjT1P1 = Instantiate(playerPrefab, new Vector3(0, 0, 10), Quaternion.identity);
 			playerObjT1P1.GetComponentInChildren<Camera>().enabled=false;
-			playerObjT1P1.GetComponent<KeyMove>().enabled = false;
+			playerObjT1P1.GetComponent<PlayerController>().enabled = false;
 			
 			playerObjT1P2 = Instantiate(playerPrefab, new Vector3(0, 0, -10), Quaternion.identity);
 			playerObjT1P2.GetComponentInChildren<Camera>().enabled=false;
-			playerObjT1P2.GetComponent<KeyMove>().enabled = false;
+			playerObjT1P2.GetComponent<PlayerController>().enabled = false;
 
 			playerObjT2P1 = Instantiate(playerPrefab, new Vector3(10, 0, 0), Quaternion.identity);
 			playerObjT2P1.GetComponentInChildren<Camera>().enabled=false;
-			playerObjT2P1.GetComponent<KeyMove>().enabled = false;
+			playerObjT2P1.GetComponent<PlayerController>().enabled = false;
 		}
 		else {
 			Debug.Log("Something went wrong when trying to instantiate character prefabs...");

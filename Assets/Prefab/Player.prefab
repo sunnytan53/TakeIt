@@ -43,7 +43,6 @@ GameObject:
   - component: {fileID: 6360238589405551945}
   - component: {fileID: 3981378671495393326}
   - component: {fileID: 4374791798235368041}
-  - component: {fileID: 6852795586405881976}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -134,22 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0be12d80e2f444029aa7aa7bf75995e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontDistance: 2
-  topDistance: 2
---- !u!114 &6852795586405881976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3660521583673669347}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab54678e42d4d4455984edcaa67ad81a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  holdArea: {fileID: 4099096578324468602}
-  range: 20
+  rotateSpeed: 3
 --- !u!1 &4324315682250014327
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,7 +148,6 @@ GameObject:
   - component: {fileID: 4324315682250014335}
   - component: {fileID: 4324315682250014320}
   - component: {fileID: 4324315682250014334}
-  - component: {fileID: 7622735944095722713}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -286,17 +269,6 @@ MonoBehaviour:
   speed: 30
   gravityMultiplier: 5
   jumpMultiplier: 10
-  mouseSensitivity: 300
---- !u!114 &7622735944095722713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4324315682250014327}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6888ca9e2d9f4a49866b019d3db86dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  horizontalRotationSpeed: 5
+  rotateSpeed: 3
+  faces: {fileID: 0}
+  SmileBody: {fileID: 0}

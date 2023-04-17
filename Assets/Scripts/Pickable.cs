@@ -6,8 +6,10 @@ public class Pickable : MonoBehaviour {
     //private Rigidbody rb;
     //private ParticleSystem ps;
 
+
+    public bool isPicked;
+
     private Color originalColor;
-    private bool isPicked = false;
 
     //void Awake() {
     //    sc = GameObject.Find("SceneController").GetComponent<SceneController>();
@@ -44,10 +46,10 @@ public class Pickable : MonoBehaviour {
 
     void Start()
     {
+        isPicked = false;
         gameObject.tag = "Pickable";
         originalColor = GetComponent<Renderer>().material.color;
     }
-
 
     void OnMouseEnter()
     {
