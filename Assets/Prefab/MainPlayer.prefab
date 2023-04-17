@@ -75,6 +75,27 @@ MonoBehaviour:
   throwForce: 100
   faces: {fileID: 11400000, guid: 8b8a7554fceb39841840f45a2d8da540, type: 2}
   SmileBody: {fileID: 3624067915567124609}
+  soundJump:
+    Guid:
+      Data1: -192211122
+      Data2: 1155676819
+      Data3: -1597046901
+      Data4: 1908431883
+    Path: event:/SFX/Takeit_SFX_jump1
+  soundPick:
+    Guid:
+      Data1: -480938801
+      Data2: 1257797487
+      Data3: -1822144871
+      Data4: 142283057
+    Path: event:/SFX/Takeit_grabfruit_v1
+  soundThrow:
+    Guid:
+      Data1: 1167510317
+      Data2: 1135537031
+      Data3: -863143545
+      Data4: 668758338
+    Path: event:/SFX/Takeit_Hit_v2
 --- !u!95 &8225300173266175478
 Animator:
   serializedVersion: 5
@@ -197,7 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attenuationObject: {fileID: 0}
+  attenuationObject: {fileID: 724548608846380696}
 --- !u!1 &4737868257189665021
 GameObject:
   m_ObjectHideFlags: 0

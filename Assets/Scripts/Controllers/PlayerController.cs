@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using FMODUnity;
+
 public enum animationCode { idle, walk, throwObj };
 
 public class PlayerController : MonoBehaviour {
@@ -10,7 +12,6 @@ public class PlayerController : MonoBehaviour {
     public float pickRange = 10f;
     public float throwForce = 100f;
     private new Transform camera;
-
 
     private CharacterController characterController;
     private Animator animator;
@@ -32,17 +33,21 @@ public class PlayerController : MonoBehaviour {
 
     private animationCode code;
 
+    public EventReference soundJump;
+    public EventReference soundPick;
+    public EventReference soundThrow;
+
     void Start()
     {
+        gravityMultiplier *= Physics.gravity.y;
         Cursor.lockState = CursorLockMode.Locked;
+
         characterController = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
+        faceMaterial = SmileBody.GetComponent<Renderer>().materials[1];
 
         holdArea = transform.Find("HoldArea");
         camera = transform.Find("Camera");
-
-        animator = GetComponent<Animator>();
-        gravityMultiplier *= Physics.gravity.y;
-        faceMaterial = SmileBody.GetComponent<Renderer>().materials[1];
 
         networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
         StartCoroutine(SendMovementRequest());
@@ -93,6 +98,7 @@ public class PlayerController : MonoBehaviour {
         if (characterController.isGrounded && Input.GetButton("Jump"))
         {
             movement.y = Mathf.Sqrt(jumpMultiplier * -gravityMultiplier);
+            RuntimeManager.PlayOneShot(soundJump);
         }
         else
         {
@@ -131,6 +137,8 @@ public class PlayerController : MonoBehaviour {
             {
                 if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, pickRange) && hit.transform.gameObject.CompareTag("Pickable"))
                 {
+                    RuntimeManager.PlayOneShot(soundPick);
+
                     heldObj = hit.transform.gameObject;
                     heldObj.GetComponent<Pickable>().isPicked = true;
 
@@ -158,6 +166,8 @@ public class PlayerController : MonoBehaviour {
             }
             else if (Input.GetMouseButtonUp(1))
             {
+                RuntimeManager.PlayOneShot(soundThrow);
+
                 float holdTime = Time.time - holdStartTime;
 
                 heldObjRB.useGravity = true;
