@@ -9,8 +9,6 @@ public class Pickable : MonoBehaviour {
 
     public bool isPicked;
 
-    private Color originalColor;
-
     //void Awake() {
     //    sc = GameObject.Find("SceneController").GetComponent<SceneController>();
     //    ps = GameObject.Find("ParticleCollision").GetComponent<ParticleSystem>();
@@ -48,19 +46,18 @@ public class Pickable : MonoBehaviour {
     {
         isPicked = false;
         gameObject.tag = "Pickable";
-        originalColor = GetComponent<Renderer>().material.color;
     }
 
-    void OnMouseEnter()
-    {
-        if (!isPicked)
-        {
-            GetComponent<Renderer>().material.color = Color.yellow;
-        }
-    }
+    //void OnMouseEnter()
+    //{
+    //    if (!isPicked)
+    //    {
+    //        GetComponent<Renderer>().material.color = Color.yellow;
+    //    }
+    //}
 
-    public void OnMouseExit()
-    {
-        GetComponent<Renderer>().material.color = originalColor;
-    }
+    //public void OnMouseExit()
+    //{
+    //    GetComponent<Renderer>().material.color = originalColor;
+    //}
 }

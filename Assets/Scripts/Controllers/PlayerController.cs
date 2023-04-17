@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour {
                 // TODO the idle can't be detected in animator
                 //if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")) return;
                 if (isIdled) return;
-                Debug.Log("IDLE");
+                //Debug.Log("IDLE");
                 isIdled = true;
                 animator.ResetTrigger("Jump");
                 faceMaterial.SetTexture("_MainTex", faces.IdleFace);
