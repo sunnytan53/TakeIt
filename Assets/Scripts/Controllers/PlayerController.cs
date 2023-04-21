@@ -71,22 +71,20 @@ public class PlayerController : MonoBehaviour {
                 //Debug.Log("IDLE");
                 isIdled = true;
                 animator.ResetTrigger("Jump");
-                faceMaterial.SetTexture("_MainTex", faces.IdleFace);
+                //faceMaterial.SetTexture("_MainTex", faces.IdleFace);
                 break;
 
             case animationCode.walk:
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")) return;
-                //Debug.Log("WALK");
                 isIdled = false;
                 animator.SetTrigger("Jump");
-                faceMaterial.SetTexture("_MainTex", (heldObj == null) ? faces.IdleFace: faces.WalkFace);
+                //faceMaterial.SetTexture("_MainTex", (heldObj == null) ? faces.IdleFace: faces.WalkFace);
                 break;
 
             case animationCode.throwObj:
-                //Debug.Log("THROW");
                 isIdled = false;
                 animator.SetTrigger("Attack");
-                faceMaterial.SetTexture("_MainTex", faces.AttackFace);
+                //faceMaterial.SetTexture("_MainTex", faces.AttackFace);
                 break;
         }
     }
@@ -108,7 +106,9 @@ public class PlayerController : MonoBehaviour {
         movement.z = Input.GetAxis("Vertical") * speed;
         characterController.Move(transform.TransformDirection(movement) * Time.deltaTime);
         
-        if ((movement.x == 0 && movement.z == 0) || !characterController.isGrounded || movement.y > 0)
+        if ((movement.x == 0 && movement.z == 0)
+            || !characterController.isGrounded
+            || movement.y > 0)
         {
             code = animationCode.idle;
         }
@@ -183,8 +183,8 @@ public class PlayerController : MonoBehaviour {
                 heldObjRB.drag = 0;
                 heldObjRB.constraints = RigidbodyConstraints.None;
                 //heldObjRB.AddForce(transform.forward * 100f * throwForce * holdTime);
-                heldObjRB.AddForce(camera.forward * throwForce * holdTime);
-                // Debug.Log("camera.forward * throwForce * holdTime is: " + camera.forward * throwForce * holdTime);
+                //heldObjRB.AddForce(camera.forward * throwForce * holdTime);
+                heldObjRB.AddForce((camera.forward + camera.up * 0.3f) * throwForce * holdTime);
                 int fruitTag = heldObj.GetComponent<Pickable>().index;
 
                 heldObjRB = null;

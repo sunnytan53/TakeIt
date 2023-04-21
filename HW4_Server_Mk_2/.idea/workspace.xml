@@ -10,13 +10,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca50f9d1-b623-4afa-8b01-27d3086535b2" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/../Assets/Scenes/GameNight.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assets/Scenes/GameNight.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assets/Scenes/GameTest 1.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assets/Scenes/GameTest 1.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assets/Scenes/GameTest.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assets/Scenes/GameTest.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assets/Scenes/map.unity" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scenes/map.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/../UserSettings/EditorUserSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/../UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
@@ -141,19 +134,6 @@
         </option>
       </method>
     </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="WoB_Server_Basic" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="WoB_Server_Basic" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="TestNG">
       <option name="TEST_OBJECT" value="CLASS" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -205,6 +185,7 @@
       <workItem from="1680285638883" duration="47000" />
       <workItem from="1680285688821" duration="1580000" />
       <workItem from="1681353683583" duration="3670000" />
+      <workItem from="1681935352794" duration="140000" />
     </task>
     <servers />
   </component>
