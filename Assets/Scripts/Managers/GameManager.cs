@@ -317,8 +317,9 @@ public class GameManager : MonoBehaviour
 				target = playerObjT2P2;
 			}
 
-			target.transform.position = args.position;
 			target.transform.rotation = args.rotation;
+			target.transform.position = args.position;
+			//target.GetComponent<CharacterController>().Move(Vector3.Lerp(target.transform.position, args.position, 0.1f));
 			target.GetComponent<PlayerAnimationController>().setCodeFromRequest(args.aCode, args.sCode);
 		}
 		else if (args.user_id == Constants.USER_ID)

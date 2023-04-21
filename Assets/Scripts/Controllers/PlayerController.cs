@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour {
     private Rigidbody heldObjRB;
     private float holdStartTime;
 
+    private bool sendNow = false;
+
     void Start()
     {
         gravityMultiplier *= Physics.gravity.y;
@@ -44,6 +46,11 @@ public class PlayerController : MonoBehaviour {
         Move();
         Rotate();
         PickOrThrow();
+        if (sendNow)
+        {
+            sendRequest();
+            sendNow = false;
+        }
     }
 
     private void Move()
@@ -54,6 +61,7 @@ public class PlayerController : MonoBehaviour {
         {
             movement.y = Mathf.Sqrt(jumpMultiplier * -gravityMultiplier);
             animationController.sCode = soundCode.jump;
+            sendNow = true;
         }
         else
         {
@@ -103,6 +111,8 @@ public class PlayerController : MonoBehaviour {
                     heldObjRB.useGravity = false;
                     heldObjRB.drag = 10;
                     heldObjRB.constraints = RigidbodyConstraints.FreezeRotation;
+
+                    sendNow = true;
                 }
             }
         }
@@ -139,6 +149,8 @@ public class PlayerController : MonoBehaviour {
                 heldObj.GetComponent<PickableController>().isPicked = false;
                 heldObj = null;
                 animationController.aCode = animationCode.throwObj;
+
+                sendNow = true;
             }
         }
     }
@@ -161,12 +173,17 @@ public class PlayerController : MonoBehaviour {
     //    }
     //}
 
+    public void sendRequest()
+    {
+        networkManager.SendPlayerControlRequest(transform.position, transform.rotation, animationController.aCode, animationController.sCode);
+    }
+
     IEnumerator SendPlayerControlRequest()
     {
         while (true)
         {
-            networkManager.SendPlayerControlRequest(transform.position, transform.rotation, animationController.aCode, animationController.sCode);
-            yield return new WaitForSeconds(0.01f);
+            sendRequest();
+            yield return new WaitForSeconds(0.1f);
         }
     }
 }

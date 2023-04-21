@@ -10,24 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca50f9d1-b623-4afa-8b01-27d3086535b2" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/../Assets/Scripts/Controllers/PlayerAnimationController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Assets/Scripts/Network/Request/RequestPlayerControl.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assets/Prefab/MainPlayer.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Prefab/MainPlayer.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assets/Prefab/New Material.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assets/Prefab/New Material.mat.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assets/Scripts/Controllers/CameraController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/Controllers/CameraController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assets/Scripts/Controllers/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/Controllers/PlayerController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assets/Scripts/Managers/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/Managers/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assets/Scripts/Managers/NetworkManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/Managers/NetworkManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assets/Scripts/Network/Constants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/Network/Constants.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assets/Scripts/Network/NetworkRequestTable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/Network/NetworkRequestTable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assets/Scripts/Network/NetworkResponseTable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/Network/NetworkResponseTable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assets/Scripts/Pickable.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assets/Scripts/Pickable.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/metadata/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/metadata/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/metadata/GameRequestTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/metadata/GameRequestTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/../UserSettings/EditorUserSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -211,6 +196,7 @@
       <workItem from="1681353683583" duration="3670000" />
       <workItem from="1681935352794" duration="140000" />
       <workItem from="1682110334907" duration="2845000" />
+      <workItem from="1682115695589" duration="2877000" />
     </task>
     <servers />
   </component>
