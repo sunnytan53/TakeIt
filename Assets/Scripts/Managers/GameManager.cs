@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+	private short numPlayers = 2;
+
 	public Player[] Players = new Player[4];
 	public GameObject playerPrefab;
 	private GameObject playerObjT1P1;
@@ -26,16 +28,17 @@ public class GameManager : MonoBehaviour
 		DontDestroyOnLoad(gameObject);
 		networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
 		MessageQueue msgQueue = networkManager.GetComponent<MessageQueue>();
-		msgQueue.AddCallback(Constants.SMSG_MOVEMENT, OnResponseMovement);
-		msgQueue.AddCallback(Constants.SMSG_INTERACT, OnResponseInteract);
+		msgQueue.AddCallback(Constants.SMSG_PLAYER_CONTROL, OnResponsePlayerControl);
+		//msgQueue.AddCallback(Constants.SMSG_MOVEMENT, OnResponseMovement);
+		//msgQueue.AddCallback(Constants.SMSG_INTERACT, OnResponseInteract);
 	}
-/*
-	public Player GetCurrentPlayer()
-	{
-		// return Players[currentPlayer - 1];
-	}
-*/
-	
+	/*
+		public Player GetCurrentPlayer()
+		{
+			// return Players[currentPlayer - 1];
+		}
+	*/
+
 	public void Init(Player t1p1, Player t1p2, Player t2p1, Player t2p2, int currentPlayerId)
 	{
 		Players[0] = t1p1;
@@ -50,9 +53,9 @@ public class GameManager : MonoBehaviour
 	public void createCharacters() {
 		Debug.Log("Current player id when create characters is: " + currentPlayer);
 		if (currentPlayer==1){
-			playerObjT1P1 = Instantiate(playerPrefab, new Vector3(0, 0, 10), Quaternion.identity);
+			playerObjT1P1 = Instantiate(playerPrefab, new Vector3(80, 0, 80), Quaternion.identity);
 			
-			playerObjT1P2 = Instantiate(playerPrefab, new Vector3(0, 0, -10), Quaternion.identity);
+			playerObjT1P2 = Instantiate(playerPrefab, new Vector3(80, 0, 100), Quaternion.identity);
 			playerObjT1P2.GetComponentInChildren<Camera>().enabled=false;
 			playerObjT1P2.GetComponent<PlayerController>().enabled = false;
 
@@ -65,9 +68,9 @@ public class GameManager : MonoBehaviour
 			playerObjT2P2.GetComponent<PlayerController>().enabled = false;
 		}
 		else if (currentPlayer==2){
-			playerObjT1P2 = Instantiate(playerPrefab, new Vector3(0, 0, -10), Quaternion.identity);
+			playerObjT1P2 = Instantiate(playerPrefab, new Vector3(80, 0, 100), Quaternion.identity);
 
-			playerObjT1P1 = Instantiate(playerPrefab, new Vector3(0, 0, 10), Quaternion.identity);
+			playerObjT1P1 = Instantiate(playerPrefab, new Vector3(80, 0, 80), Quaternion.identity);
 			playerObjT1P1.GetComponentInChildren<Camera>().enabled=false;
 			playerObjT1P1.GetComponent<PlayerController>().enabled = false;
 
@@ -243,68 +246,96 @@ public class GameManager : MonoBehaviour
 		}
         */
 	}
- /*
-	public bool HighlightEnabled(GameObject gameObject)
+	/*
+	   public bool HighlightEnabled(GameObject gameObject)
+	   {
+
+		   if (gameObject.tag == "Tile")
+		   {
+			   Hero hero = ObjectSelector.SelectedObject?.GetComponentInParent<Hero>();
+			   if (hero)
+			   {
+				   int x = (int)gameObject.transform.position.x;
+				   int y = (int)gameObject.transform.position.z;
+				   return (gameBoard[x, y] == null);
+			   }
+		   }
+		   else if (choosingInteraction)
+		   {
+			   Hero hero = gameObject.GetComponentInParent<Hero>();
+			   Hero selectedHero = ObjectSelector.SelectedObject?.GetComponentInParent<Hero>();
+			   if (hero && selectedHero)
+			   {
+				   return AreNeighbors(hero, selectedHero) && hero.Owner != selectedHero.Owner;
+			   }
+			   else
+			   {
+				   return false;
+			   }
+		   }
+		   else
+		   {
+			   Hero hero = gameObject.GetComponentInParent<Hero>();
+			   if (hero)
+			   {
+				   return (hero.Owner.IsMouseControlled && hero.Owner == Players[currentPlayer - 1]);
+			   }
+		   }
+		   return true;
+
+	   }
+
+	   private bool AreNeighbors(Hero hero1, Hero hero2)
+	   {
+
+		   return (Math.Abs(hero1.x - hero2.x) + Math.Abs(hero1.y - hero2.y) == 1);
+
+	   }
+   */
+
+	public void OnResponsePlayerControl(ExtendedEventArgs eventArgs)
 	{
-       
-		if (gameObject.tag == "Tile")
+		ResponsePlayerControlEventArgs args = eventArgs as ResponsePlayerControlEventArgs;
+		Debug.Log("OnResponsePlayerControl is activated in the Game Manager....with user_id: " + args.user_id);
+		if (args.user_id != Constants.USER_ID)
 		{
-			Hero hero = ObjectSelector.SelectedObject?.GetComponentInParent<Hero>();
-			if (hero)
+			GameObject target;
+			if (args.user_id == 1)
 			{
-				int x = (int)gameObject.transform.position.x;
-				int y = (int)gameObject.transform.position.z;
-				return (gameBoard[x, y] == null);
+				target = playerObjT1P1;
 			}
-		}
-		else if (choosingInteraction)
-		{
-			Hero hero = gameObject.GetComponentInParent<Hero>();
-			Hero selectedHero = ObjectSelector.SelectedObject?.GetComponentInParent<Hero>();
-			if (hero && selectedHero)
+			else if (args.user_id == 2)
 			{
-				return AreNeighbors(hero, selectedHero) && hero.Owner != selectedHero.Owner;
+				target = playerObjT1P2;
+			}
+			else if (args.user_id == 3)
+			{
+				target = playerObjT2P1;
 			}
 			else
 			{
-				return false;
+				target = playerObjT2P2;
 			}
+
+			target.transform.position = args.position;
+			target.transform.rotation = args.rotation;
+			target.GetComponent<PlayerAnimationController>().setCodeFromRequest(args.aCode, args.sCode);
+		}
+		else if (args.user_id == Constants.USER_ID)
+		{
+			// Ignore
 		}
 		else
 		{
-			Hero hero = gameObject.GetComponentInParent<Hero>();
-			if (hero)
-			{
-				return (hero.Owner.IsMouseControlled && hero.Owner == Players[currentPlayer - 1]);
-			}
+			Debug.Log("ERROR: Invalid user_id in ResponseReady: " + args.user_id);
 		}
-		return true;
-
 	}
- 
-	private bool AreNeighbors(Hero hero1, Hero hero2)
-	{
-       
-		return (Math.Abs(hero1.x - hero2.x) + Math.Abs(hero1.y - hero2.y) == 1);
-        
-	}
-*/
 
 	public void OnResponseMovement(ExtendedEventArgs eventArgs)
 	{
 		ResponseMovementEventArgs args = eventArgs as ResponseMovementEventArgs;
-		Debug.Log("OnResponseMovement is activated in the Game Manager....with user_id: " + args.user_id);
 		if (args.user_id != Constants.USER_ID)
 		{
-			float move_x = args.move_x;
-			float move_y = args.move_y;
-			float move_z = args.move_z;
-			float rotate_x = args.rotate_x;
-			float rotate_y = args.rotate_y;
-			float rotate_z = args.rotate_z;
-			float rotate_w = args.rotate_w;
-			Vector3 position = new Vector3(move_x, move_y, move_z);
-            Quaternion rotation = new Quaternion(rotate_x, rotate_y, rotate_z, rotate_w);
 			Transform transform;
 			if(args.user_id == 1){
 				transform = playerObjT1P1.transform;
@@ -319,8 +350,8 @@ public class GameManager : MonoBehaviour
 				transform = playerObjT2P2.transform;
 			}
 			// Set the position and rotation of the transform
-			transform.position = position;
-			transform.rotation = rotation;
+			//transform.position = position;
+			//transform.rotation = rotation;
 		}
 		else if (args.user_id == Constants.USER_ID)
 		{

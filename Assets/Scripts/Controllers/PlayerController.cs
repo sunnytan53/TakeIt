@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
-using FMODUnity;
 
+public enum soundCode { none, jump, pick, throwObj };
 public enum animationCode { idle, walk, throwObj };
 
 public class PlayerController : MonoBehaviour {
@@ -14,8 +14,8 @@ public class PlayerController : MonoBehaviour {
     private new Transform camera;
 
     private CharacterController characterController;
-    private Animator animator;
     private NetworkManager networkManager;
+    private PlayerAnimationController animationController;
 
     private Vector3 movement = new Vector3();
     private float horizontalRotation = 0;
@@ -26,67 +26,24 @@ public class PlayerController : MonoBehaviour {
     private Rigidbody heldObjRB;
     private float holdStartTime;
 
-    public Face faces;
-    public GameObject SmileBody; // this should adpat to all individual slimes
-    private Material faceMaterial;
-    private bool isIdled;
-
-    private animationCode code;
-
-    public EventReference soundJump;
-    public EventReference soundPick;
-    public EventReference soundThrow;
-
     void Start()
     {
         gravityMultiplier *= Physics.gravity.y;
         Cursor.lockState = CursorLockMode.Locked;
 
         characterController = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
-        faceMaterial = SmileBody.GetComponent<Renderer>().materials[1];
-
         holdArea = transform.Find("HoldArea");
         camera = transform.Find("Camera");
+        animationController = GetComponent<PlayerAnimationController>();
 
         networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
-        StartCoroutine(SendMovementRequest());
+        StartCoroutine(SendPlayerControlRequest());
     }
 
     void Update(){
         Move();
         Rotate();
         PickOrThrow();
-        PlayAnimation();
-    }
-
-
-    private void PlayAnimation()
-    {
-        switch (code) {
-            case animationCode.idle:
-                // TODO the idle can't be detected in animator
-                //if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")) return;
-                if (isIdled) return;
-                //Debug.Log("IDLE");
-                isIdled = true;
-                animator.ResetTrigger("Jump");
-                //faceMaterial.SetTexture("_MainTex", faces.IdleFace);
-                break;
-
-            case animationCode.walk:
-                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")) return;
-                isIdled = false;
-                animator.SetTrigger("Jump");
-                //faceMaterial.SetTexture("_MainTex", (heldObj == null) ? faces.IdleFace: faces.WalkFace);
-                break;
-
-            case animationCode.throwObj:
-                isIdled = false;
-                animator.SetTrigger("Attack");
-                //faceMaterial.SetTexture("_MainTex", faces.AttackFace);
-                break;
-        }
     }
 
     private void Move()
@@ -96,7 +53,7 @@ public class PlayerController : MonoBehaviour {
         if (characterController.isGrounded && Input.GetButton("Jump"))
         {
             movement.y = Mathf.Sqrt(jumpMultiplier * -gravityMultiplier);
-            RuntimeManager.PlayOneShot(soundJump);
+            animationController.sCode = soundCode.jump;
         }
         else
         {
@@ -110,11 +67,11 @@ public class PlayerController : MonoBehaviour {
             || !characterController.isGrounded
             || movement.y > 0)
         {
-            code = animationCode.idle;
+            animationController.aCode = animationCode.idle;
         }
         else
         {
-            code = animationCode.walk;
+            animationController.aCode = animationCode.walk;
         }
     }
 
@@ -137,10 +94,10 @@ public class PlayerController : MonoBehaviour {
             {
                 if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, pickRange) && hit.transform.gameObject.CompareTag("Pickable"))
                 {
-                    RuntimeManager.PlayOneShot(soundPick);
+                    animationController.sCode = soundCode.pick;
 
                     heldObj = hit.transform.gameObject;
-                    heldObj.GetComponent<Pickable>().isPicked = true;
+                    heldObj.GetComponent<PickableController>().isPicked = true;
 
                     heldObjRB = heldObj.GetComponent<Rigidbody>();
                     heldObjRB.useGravity = false;
@@ -166,7 +123,7 @@ public class PlayerController : MonoBehaviour {
             }
             else if (Input.GetMouseButtonUp(1))
             {
-                RuntimeManager.PlayOneShot(soundThrow);
+                animationController.sCode = soundCode.throwObj;
 
                 float holdTime = Time.time - holdStartTime;
 
@@ -179,28 +136,37 @@ public class PlayerController : MonoBehaviour {
 
 
                 heldObjRB = null;
-                heldObj.GetComponent<Pickable>().isPicked = false;
+                heldObj.GetComponent<PickableController>().isPicked = false;
                 heldObj = null;
-                code = animationCode.throwObj;
+                animationController.aCode = animationCode.throwObj;
             }
         }
     }
 
 
-    IEnumerator SendMovementRequest()
+    //IEnumerator SendMovementRequest()
+    //{
+    //    while (true)
+    //    {
+    //        // Get the current position and rotation of the player
+    //        Vector3 position = transform.position;
+    //        Quaternion rotation = transform.rotation;
+
+    //        // Send the position and rotation to the server
+    //        // TODO: replace with your own networking code
+    //        networkManager.SendMovementRequest(position, rotation);
+
+    //        // Wait for the next update
+    //        yield return new WaitForSeconds(0.1f); // update every 100ms
+    //    }
+    //}
+
+    IEnumerator SendPlayerControlRequest()
     {
         while (true)
         {
-            // Get the current position and rotation of the player
-            Vector3 position = transform.position;
-            Quaternion rotation = transform.rotation;
-
-            // Send the position and rotation to the server
-            // TODO: replace with your own networking code
-            networkManager.SendMovementRequest(position, rotation);
-
-            // Wait for the next update
-            yield return new WaitForSeconds(0.1f); // update every 100ms
+            networkManager.SendPlayerControlRequest(transform.position, transform.rotation, animationController.aCode, animationController.sCode);
+            yield return new WaitForSeconds(0.01f);
         }
     }
 }

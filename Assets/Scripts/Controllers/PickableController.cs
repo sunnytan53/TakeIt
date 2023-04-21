@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Pickable : MonoBehaviour {
+public class PickableController : MonoBehaviour {
     //private GameObject fruit;
     //private Rigidbody rb;
     //private ParticleSystem ps;

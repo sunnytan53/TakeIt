@@ -1128,6 +1128,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 724548608846380696, guid: ee73576a5571642c4ad651d75019377a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4370512012761292691, guid: ee73576a5571642c4ad651d75019377a, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1495,7 +1499,7 @@ GameObject:
   - component: {fileID: 1854227618}
   - component: {fileID: 1854227617}
   m_Layer: 0
-  m_Name: Create
+  m_Name: InitializeGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

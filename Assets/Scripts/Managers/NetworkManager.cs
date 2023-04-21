@@ -150,4 +150,15 @@ public class NetworkManager : MonoBehaviour
 		return false;
 	}
 
+	public bool SendPlayerControlRequest(Vector3 pos, Quaternion rot, animationCode aCode, soundCode sCode)
+    {
+		if (cManager && cManager.IsConnected())
+		{
+			RequestPlayerControl request = new RequestPlayerControl();
+			request.send(pos, rot, aCode, sCode);
+            cManager.send(request);
+			return true;
+		}
+		return false;
+	}
 }
