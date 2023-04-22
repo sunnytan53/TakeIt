@@ -194,11 +194,14 @@ public class PlayerController : MonoBehaviour {
             Quaternion rotation = transform.rotation;
 
             // Send the position and rotation to the server
-            // TODO: replace with your own networking code
             networkManager.SendMovementRequest(position, rotation);
 
             // Wait for the next update
             yield return new WaitForSeconds(0.1f); // update every 100ms
         }
+    }
+
+    public void SendPickRequest() {
+        
     }
 }

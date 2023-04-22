@@ -11,6 +11,7 @@ public class CharacterCreator : MonoBehaviour
 	{
 		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 		gameManager.createCharacters();
+		gameManager.createFruits();
 	}
 
 	// Update is called once per frame

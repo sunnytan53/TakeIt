@@ -5347,7 +5347,7 @@ GameObject:
   - component: {fileID: 1687462533}
   m_Layer: 5
   m_Name: Message
-  m_TagString: Untagged
+  m_TagString: Message
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5782,7 +5782,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae32197bf6e8240e1a40d848c8d27388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Players:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   playerPrefab: {fileID: 4324315682250014327, guid: d1e13b8ba1aa4438f927f05310447699, type: 3}
+  slimePrefab: {fileID: 5618914369587857032, guid: ee73576a5571642c4ad651d75019377a, type: 3}
+  apple: {fileID: 1829371231341652, guid: 426b44a7575f71e479fab4f4e8431989, type: 3}
+  avocado: {fileID: 1369001872449898, guid: 2f2e54b9f3898eb46a0b47f9a4d4c52b, type: 3}
+  banana: {fileID: 1407451490957870, guid: 3ce32ffa6ccf60e4ab65d9e396f43433, type: 3}
+  cherris: {fileID: 1802840387486672, guid: 8f38e57a49b1c844081ad6bb3c553f13, type: 3}
+  lemon: {fileID: 1638444836145330, guid: 031f4f4b1f7d8b7489da0919e18ceac3, type: 3}
+  peach: {fileID: 1541859410316496, guid: 4fe5a7bcbee1651418ea031a87ff53e4, type: 3}
+  peanut: {fileID: 1329430274803916, guid: 8c8c7d8f829a2d24ebe78eddb5eaff57, type: 3}
+  pear: {fileID: 1763817136346132, guid: 0f3575c567ebe8241a4a6ad511fd7017, type: 3}
+  strawberry: {fileID: 1724972533694550, guid: 63e523ab5d9ce7348b431ae1d689a54d, type: 3}
+  watermelon: {fileID: 1125202155953082, guid: 573bb482e4baeec4386587db7cc07515, type: 3}
 --- !u!1 &1972670617
 GameObject:
   m_ObjectHideFlags: 0

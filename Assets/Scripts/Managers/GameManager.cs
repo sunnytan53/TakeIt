@@ -2,17 +2,33 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
 	public Player[] Players = new Player[4];
 	public GameObject playerPrefab;
+	public GameObject slimePrefab;
+	public GameObject apple;
+	public GameObject avocado;
+	public GameObject banana;
+	public GameObject cherris;
+	public GameObject lemon;
+	public GameObject peach;
+	public GameObject peanut;
+	public GameObject pear;
+	public GameObject strawberry;
+	public GameObject watermelon;
+
+	private GameObject currentPrefab;
+	private GameObject[] otherPlayers = new GameObject[10];
 	private GameObject playerObjT1P1;
 	private GameObject playerObjT1P2;
 	private GameObject playerObjT2P1;
 	private GameObject playerObjT2P2;
 
-	//private Hero[,] gameBoard = new Hero[6,5];
+	private HashSet<GameObject> fruitSet = new HashSet<GameObject>();
+	private GameObject[] fruits = new GameObject[20];
 
 	private int currentPlayer = 1;
 	//private bool canInteract = false;
@@ -24,11 +40,23 @@ public class GameManager : MonoBehaviour
 	void Start()
 	{
 		DontDestroyOnLoad(gameObject);
+		fruitSet.Add(apple);
+		fruitSet.Add(avocado);
+		fruitSet.Add(banana);
+		fruitSet.Add(cherris);
+		fruitSet.Add(lemon);
+		fruitSet.Add(peach);
+		fruitSet.Add(peanut);
+		fruitSet.Add(pear);
+		fruitSet.Add(strawberry);
+		fruitSet.Add(watermelon);
+
 		networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
 		MessageQueue msgQueue = networkManager.GetComponent<MessageQueue>();
 		msgQueue.AddCallback(Constants.SMSG_MOVEMENT, OnResponseMovement);
 		msgQueue.AddCallback(Constants.SMSG_INTERACT, OnResponseInteract);
 	}
+
 /*
 	public Player GetCurrentPlayer()
 	{
@@ -47,71 +75,48 @@ public class GameManager : MonoBehaviour
 		// useNetwork = (!player1.IsMouseControlled || !player2.IsMouseControlled);
 	}
 	
+	public void createFruits(){
+		System.Random rand = new System.Random();
+		Debug.Log("Fruits are being instantiated*************************************"); 
+		for (int i = 0; i<fruits.Length; i++){
+			int randomX = rand.Next(70,130);
+        	int randomY = rand.Next(-10,0);
+        	int randomZ = rand.Next(70,130);
+        	Vector3 genPosition = new Vector3(randomX, randomY, randomZ);
+			fruits[i] = Instantiate(fruitSet.ElementAt(rand.Next(0, fruitSet.Count)), genPosition, Quaternion.identity);
+			// Rigidbody rb = fruits[i].GetComponent<Rigidbody>();
+			// rb.useGravity = true;
+		}
+	}
+
 	public void createCharacters() {
 		Debug.Log("Current player id when create characters is: " + currentPlayer);
-		if (currentPlayer==1){
-			playerObjT1P1 = Instantiate(playerPrefab, new Vector3(0, 0, 10), Quaternion.identity);
-			
-			playerObjT1P2 = Instantiate(playerPrefab, new Vector3(0, 0, -10), Quaternion.identity);
-			playerObjT1P2.GetComponentInChildren<Camera>().enabled=false;
-			playerObjT1P2.GetComponent<PlayerController>().enabled = false;
-
-			playerObjT2P1 = Instantiate(playerPrefab, new Vector3(10, 0, 0), Quaternion.identity);
-			playerObjT2P1.GetComponentInChildren<Camera>().enabled=false;
-			playerObjT2P1.GetComponent<PlayerController>().enabled = false;
-
-			playerObjT2P2 = Instantiate(playerPrefab, new Vector3(-10, 0, 0), Quaternion.identity);
-			playerObjT2P2.GetComponentInChildren<Camera>().enabled=false;
-			playerObjT2P2.GetComponent<PlayerController>().enabled = false;
+		int i = 0, j=0;
+		for(; i< 4; i++){
+			if (i == currentPlayer-1) {
+				currentPrefab = Instantiate(slimePrefab, getPosition(i+1), Quaternion.identity);
+			}
+			else {
+				otherPlayers[j] = Instantiate(playerPrefab, getPosition(i+1), Quaternion.identity);
+				otherPlayers[j].GetComponentInChildren<Camera>().enabled=false;
+            	otherPlayers[j].GetComponent<PlayerController>().enabled = false;
+				j++;
+			}
 		}
-		else if (currentPlayer==2){
-			playerObjT1P2 = Instantiate(playerPrefab, new Vector3(0, 0, -10), Quaternion.identity);
 
-			playerObjT1P1 = Instantiate(playerPrefab, new Vector3(0, 0, 10), Quaternion.identity);
-			playerObjT1P1.GetComponentInChildren<Camera>().enabled=false;
-			playerObjT1P1.GetComponent<PlayerController>().enabled = false;
-
-			playerObjT2P1 = Instantiate(playerPrefab, new Vector3(10, 0, 0), Quaternion.identity);
-			playerObjT2P1.GetComponentInChildren<Camera>().enabled=false;
-			playerObjT2P1.GetComponent<PlayerController>().enabled = false;
-
-			playerObjT2P2 = Instantiate(playerPrefab, new Vector3(-10, 0, 0), Quaternion.identity);
-			playerObjT2P2.GetComponentInChildren<Camera>().enabled=false;
-			playerObjT2P2.GetComponent<PlayerController>().enabled = false;
+		// when calling Players[currentPlayer], reference object is not set to object, why?
+		// Debug.Log("Player[0] when create characters is: " + Players[currentPlayer].getPosition(1));
+		/* // this piece of code didn't work, need to check
+		for (int i=0; i<4; i++) {
+			if (i == currentPlayer-1) {
+				// playerObjT1P1 = Instantiate(playerPrefab, new Vector3(100, 0, 110), Quaternion.identity);
+				Players[i].setMainPlayer();
+			}
+			else {
+				Players[i].setPlayer();
+			}
 		}
-		else if (currentPlayer==3){
-			playerObjT2P1 = Instantiate(playerPrefab, new Vector3(10, 0, 0), Quaternion.identity);
-		
-			playerObjT1P1 = Instantiate(playerPrefab, new Vector3(0, 0, 10), Quaternion.identity);
-			playerObjT1P1.GetComponentInChildren<Camera>().enabled=false;
-			playerObjT1P1.GetComponent<PlayerController>().enabled = false;
-
-			playerObjT1P2 = Instantiate(playerPrefab, new Vector3(0, 0, -10), Quaternion.identity);
-			playerObjT1P2.GetComponentInChildren<Camera>().enabled=false;
-			playerObjT1P2.GetComponent<PlayerController>().enabled = false;
-
-			playerObjT2P2 = Instantiate(playerPrefab, new Vector3(-10, 0, 0), Quaternion.identity);
-			playerObjT2P2.GetComponentInChildren<Camera>().enabled=false;
-			playerObjT2P2.GetComponent<PlayerController>().enabled = false;
-		}
-		else if (currentPlayer==4){
-			playerObjT2P2 = Instantiate(playerPrefab, new Vector3(-10, 0, 0), Quaternion.identity);
-		
-			playerObjT1P1 = Instantiate(playerPrefab, new Vector3(0, 0, 10), Quaternion.identity);
-			playerObjT1P1.GetComponentInChildren<Camera>().enabled=false;
-			playerObjT1P1.GetComponent<PlayerController>().enabled = false;
-			
-			playerObjT1P2 = Instantiate(playerPrefab, new Vector3(0, 0, -10), Quaternion.identity);
-			playerObjT1P2.GetComponentInChildren<Camera>().enabled=false;
-			playerObjT1P2.GetComponent<PlayerController>().enabled = false;
-
-			playerObjT2P1 = Instantiate(playerPrefab, new Vector3(10, 0, 0), Quaternion.identity);
-			playerObjT2P1.GetComponentInChildren<Camera>().enabled=false;
-			playerObjT2P1.GetComponent<PlayerController>().enabled = false;
-		}
-		else {
-			Debug.Log("Something went wrong when trying to instantiate character prefabs...");
-		}
+		*/
 	}
 
 /*
@@ -353,5 +358,21 @@ public class GameManager : MonoBehaviour
 			Debug.Log("ERROR: Invalid user_id in ResponseReady: " + args.user_id);
 		}
         */
+	}
+
+	public Vector3 getPosition(int usr_id){
+		switch(usr_id){
+			case 1:
+				return new Vector3(100, 0, 110);
+			case 2:
+				return new Vector3(100, 0, 90);
+			case 3:
+				return new Vector3(110, 0, 100);
+			case 4:
+				return new Vector3(90, 0, 100);
+			default:
+				Debug.Log("Something went wrong when calling getPosition() in Player.cs");
+				return new Vector3(0, 0, 0);
+		}
 	}
 }

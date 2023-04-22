@@ -205,11 +205,11 @@ public class MainMenu : MonoBehaviour
 				t1p1Name.text = "Waiting for others";
 				t1p1Ready = false;
 			}
-			else if (args.user_id == 1) {
+			else if (args.user_id == 2) {
 				t1p2Name.text = "Waiting for others";
 				t1p2Ready = false;
 			}
-			else if (args.user_id == 1) {
+			else if (args.user_id == 3) {
 				t2p1Name.text = "Waiting for others";
 				t2p1Ready = false;
 			}
@@ -322,7 +322,7 @@ public class MainMenu : MonoBehaviour
 			}
 		}
 
-		if (t1p1Ready && t1p2Ready)
+		if (t1p1Ready || t1p2Ready || t2p1Ready || t2p2Ready)
 		{
 			StartCoroutine(DoDelay(3.0f));
 			
