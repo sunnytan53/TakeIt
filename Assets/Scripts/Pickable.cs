@@ -7,7 +7,8 @@ public class Pickable : MonoBehaviour {
     //private ParticleSystem ps;
 
 
-    public bool isPicked;
+    public bool isPicked { get; set; }
+    public int index { get; set; }
 
     //void Awake() {
     //    sc = GameObject.Find("SceneController").GetComponent<SceneController>();

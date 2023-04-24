@@ -150,4 +150,23 @@ public class NetworkManager : MonoBehaviour
 		return false;
 	}
 
+	public bool SendPickRequest(int fruitTag, Vector3 position, Vector3 velocity)
+	{
+		if (cManager && cManager.IsConnected())
+		{
+			Debug.Log("Fruit pick request is sent out from network manager^^^^^^^^^^^^^^^^^^^^^");
+			RequestPick request = new RequestPick();
+			float move_x = position.x;
+			float move_y = position.y;
+			float move_z = position.z;
+			float velocity_x = velocity.x;
+			float velocity_y = velocity.y;
+			float velocity_z = velocity.z;
+			request.send(fruitTag, move_x, move_y, move_z, velocity_x, velocity_y, velocity_z);
+			cManager.send(request);
+			return true;
+		}
+		return false;
+	}
+
 }

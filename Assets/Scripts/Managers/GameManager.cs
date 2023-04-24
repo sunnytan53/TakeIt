@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 	public GameObject watermelon;
 
 	private GameObject currentPrefab;
-	private GameObject[] otherPlayers = new GameObject[10];
+	private GameObject[] otherPlayers = new GameObject[4];
 	private GameObject playerObjT1P1;
 	private GameObject playerObjT1P2;
 	private GameObject playerObjT2P1;
@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
 
 	private HashSet<GameObject> fruitSet = new HashSet<GameObject>();
 	private GameObject[] fruits = new GameObject[20];
+	private GameObject[] fruits2 = new GameObject[10];
 
 	private int currentPlayer = 1;
 	//private bool canInteract = false;
@@ -54,6 +55,8 @@ public class GameManager : MonoBehaviour
 		networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
 		MessageQueue msgQueue = networkManager.GetComponent<MessageQueue>();
 		msgQueue.AddCallback(Constants.SMSG_MOVEMENT, OnResponseMovement);
+		msgQueue.AddCallback(Constants.SMSG_PICK, OnResponsePick);
+		msgQueue.AddCallback(Constants.SMSG_THROW, OnResponseThrow);
 		msgQueue.AddCallback(Constants.SMSG_INTERACT, OnResponseInteract);
 	}
 
@@ -78,31 +81,45 @@ public class GameManager : MonoBehaviour
 	public void createFruits(){
 		System.Random rand = new System.Random();
 		Debug.Log("Fruits are being instantiated*************************************"); 
+		/* // can't generate fruits randomly, since each player may generate different assets
 		for (int i = 0; i<fruits.Length; i++){
+			// Debug.Log("Fruits are being instantiated with i == ************************************* : " + i);
 			int randomX = rand.Next(70,130);
         	int randomY = rand.Next(-10,0);
         	int randomZ = rand.Next(70,130);
         	Vector3 genPosition = new Vector3(randomX, randomY, randomZ);
 			fruits[i] = Instantiate(fruitSet.ElementAt(rand.Next(0, fruitSet.Count)), genPosition, Quaternion.identity);
-			// Rigidbody rb = fruits[i].GetComponent<Rigidbody>();
-			// rb.useGravity = true;
+			fruits[i].GetComponent<Pickable>().index = i;
+			fruits[i].tag = i.ToString();
+			// Debug.Log("fruits[i].GetComponent<Pickable>().tag is *************************************: "+fruits[i].GetComponent<Pickable>().tag); 
+		}
+		*/
+		Vector3[] fruitPos = new Vector3[] {
+			new Vector3(70, 0, 70), new Vector3(80, 0, 70), new Vector3(90, 0, 70), new Vector3(100, 0, 70), new Vector3(120, 0, 70), 
+			new Vector3(70, 0, 70), new Vector3(70, 0, 80), new Vector3(70, 0, 90), new Vector3(70, 0, 100), new Vector3(70, 0, 120)
+		};
+		for (int i=0; i<10; i++) {
+			fruits2[i] = Instantiate(fruitSet.ElementAt(i), fruitPos[i], Quaternion.identity);
+			Debug.Log("i is *************************************: "+i); 
+			fruits2[i].GetComponent<Pickable>().index = i;
+			Debug.Log("fruits2[i].GetComponent<Pickable>().tag is *************************************: "+fruits2[i].GetComponent<Pickable>().tag); 
+			fruits2[i].tag = i.ToString();
 		}
 	}
 
 	public void createCharacters() {
 		Debug.Log("Current player id when create characters is: " + currentPlayer);
-		int i = 0, j=0;
-		for(; i< 4; i++){
+		for(int i = 0; i < 4; i++){
 			if (i == currentPlayer-1) {
 				currentPrefab = Instantiate(slimePrefab, getPosition(i+1), Quaternion.identity);
 			}
 			else {
-				otherPlayers[j] = Instantiate(playerPrefab, getPosition(i+1), Quaternion.identity);
-				otherPlayers[j].GetComponentInChildren<Camera>().enabled=false;
-            	otherPlayers[j].GetComponent<PlayerController>().enabled = false;
-				j++;
+				otherPlayers[i] = Instantiate(playerPrefab, getPosition(i+1), Quaternion.identity);
+				otherPlayers[i].GetComponentInChildren<Camera>().enabled=false;
+            	otherPlayers[i].GetComponent<PlayerController>().enabled = false;
 			}
 		}
+
 
 		// when calling Players[currentPlayer], reference object is not set to object, why?
 		// Debug.Log("Player[0] when create characters is: " + Players[currentPlayer].getPosition(1));
@@ -187,113 +204,6 @@ public class GameManager : MonoBehaviour
         */
 	}
 
-	public void ProcessClick(GameObject hitObject)
-	{
-        /*
-		if (hitObject.tag == "Tile")
-		{
-			if (ObjectSelector.SelectedObject)
-			{
-				Hero hero = ObjectSelector.SelectedObject.GetComponentInParent<Hero>();
-				if (hero)
-				{
-					int x = (int)hitObject.transform.position.x;
-					int y = (int)hitObject.transform.position.z;
-					if (gameBoard[x, y] == null)
-					{
-						if (hero.CanMoveTo(x, y))
-						{
-							if (useNetwork)
-							{
-								networkManager.SendMoveRequest(hero.Index, x, y);
-							}
-							gameBoard[hero.x, hero.y] = null;
-							hero.Move(x, y);
-							gameBoard[x, y] = hero;
-						}
-					}
-				}
-			}
-		}
-		else
-		{
-			Hero hero = hitObject.GetComponentInParent<Hero>();
-			if (hero)
-			{
-				if (choosingInteraction)
-				{
-					Hero selectedHero = ObjectSelector.SelectedObject?.GetComponentInParent<Hero>();
-					if (selectedHero)
-					{
-						if (AreNeighbors(hero, selectedHero) && hero.Owner != selectedHero.Owner)
-						{
-							if (useNetwork)
-							{
-								networkManager.SendInteractRequest(selectedHero.Index, hero.Index);
-							}
-							selectedHero.Interact(hero);
-							choosingInteraction = false;
-						}
-					}
-				}
-				else if (hero.gameObject == ObjectSelector.SelectedObject)
-				{
-					ObjectSelector.SetSelectedObject(null);
-				}
-				else if (hero.Owner.IsMouseControlled && hero.Owner == Players[currentPlayer - 1])
-				{
-					ObjectSelector.SetSelectedObject(hitObject);
-				}
-			}
-		}
-        */
-	}
- /*
-	public bool HighlightEnabled(GameObject gameObject)
-	{
-       
-		if (gameObject.tag == "Tile")
-		{
-			Hero hero = ObjectSelector.SelectedObject?.GetComponentInParent<Hero>();
-			if (hero)
-			{
-				int x = (int)gameObject.transform.position.x;
-				int y = (int)gameObject.transform.position.z;
-				return (gameBoard[x, y] == null);
-			}
-		}
-		else if (choosingInteraction)
-		{
-			Hero hero = gameObject.GetComponentInParent<Hero>();
-			Hero selectedHero = ObjectSelector.SelectedObject?.GetComponentInParent<Hero>();
-			if (hero && selectedHero)
-			{
-				return AreNeighbors(hero, selectedHero) && hero.Owner != selectedHero.Owner;
-			}
-			else
-			{
-				return false;
-			}
-		}
-		else
-		{
-			Hero hero = gameObject.GetComponentInParent<Hero>();
-			if (hero)
-			{
-				return (hero.Owner.IsMouseControlled && hero.Owner == Players[currentPlayer - 1]);
-			}
-		}
-		return true;
-
-	}
- 
-	private bool AreNeighbors(Hero hero1, Hero hero2)
-	{
-       
-		return (Math.Abs(hero1.x - hero2.x) + Math.Abs(hero1.y - hero2.y) == 1);
-        
-	}
-*/
 
 	public void OnResponseMovement(ExtendedEventArgs eventArgs)
 	{
@@ -374,5 +284,39 @@ public class GameManager : MonoBehaviour
 				Debug.Log("Something went wrong when calling getPosition() in Player.cs");
 				return new Vector3(0, 0, 0);
 		}
+	}
+
+	public void OnResponsePick(ExtendedEventArgs eventArgs) {
+		ResponsePickEventArgs args = eventArgs as ResponsePickEventArgs;
+		Debug.Log("In OnResponsePick, the received user id is: " + args.user_id);
+		Debug.Log("In OnResponsePick, the received fruitTag is: " + args.fruitTag);
+		int user_id = args.user_id;
+
+		if (args.user_id != Constants.USER_ID)
+		{
+			int fruitTag = args.fruitTag;
+			float move_x = args.move_x;
+			float move_y = args.move_y;
+			float move_z = args.move_z;
+			float velocity_x = args.velocity_x;
+			float velocity_y = args.velocity_y;
+			float velocity_z = args.velocity_z;
+		
+			// attach fruit with fruitTag to the player with user_id
+			// GameObject playerPick = otherPlayers[user_id-1];
+			GameObject pickedFruit = GameObject.Find(fruitTag.ToString());
+			Rigidbody pickedFruitRB = pickedFruit.GetComponent<Rigidbody>();
+			Debug.Log("In OnResponsePick, the pickedFruit is: " + pickedFruit);
+			Vector3 position = new Vector3(move_x, move_y, move_z);
+			Vector3 velocity = new Vector3(velocity_x, velocity_y, velocity_z);
+			pickedFruit.transform.position = position;
+    		pickedFruitRB.velocity = velocity;
+		}
+	}
+
+	public void OnResponseThrow(ExtendedEventArgs eventArgs) {
+		// ResponsePickEventArgs args = eventArgs as ResponsePickEventArgs;
+		// Debug.Log("In OnResponsePick, the received user id is: " + args.user_id);
+		// Debug.Log("In OnResponsePick, the received fruitTag is: " + args.fruitTag);
 	}
 }

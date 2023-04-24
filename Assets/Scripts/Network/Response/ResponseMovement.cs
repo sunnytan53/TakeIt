@@ -38,12 +38,12 @@ public class ResponseMovement : NetworkResponse
 	{
 		user_id = DataReader.ReadInt(dataStream);
 		move_x = DataReader.ReadFloat(dataStream);
-		move_y = DataReader.ReadFloat(dataStream);;
-		move_z = DataReader.ReadFloat(dataStream);;
-		rotate_x = DataReader.ReadFloat(dataStream);;
-		rotate_y = DataReader.ReadFloat(dataStream);;
-		rotate_z = DataReader.ReadFloat(dataStream);;
-		rotate_w = DataReader.ReadFloat(dataStream);;
+		move_y = DataReader.ReadFloat(dataStream);
+		move_z = DataReader.ReadFloat(dataStream);
+		rotate_x = DataReader.ReadFloat(dataStream);
+		rotate_y = DataReader.ReadFloat(dataStream);
+		rotate_z = DataReader.ReadFloat(dataStream);
+		rotate_w = DataReader.ReadFloat(dataStream);
 	}
 
 	public override ExtendedEventArgs process()

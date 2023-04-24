@@ -30,6 +30,8 @@ public class GameRequestTable {
         add(Constants.CMSG_HEARTBEAT, "RequestHeartbeat");
         add(Constants.CMSG_CHAT, "RequestChat");
         add(Constants.CMSG_MOVEMENT, "RequestMovement");
+        add(Constants.CMSG_PICK, "RequestPick");
+        add(Constants.CMSG_THROW, "RequestThrow");
     }
 
     /**

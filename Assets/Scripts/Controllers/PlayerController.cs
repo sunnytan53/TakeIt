@@ -140,12 +140,18 @@ public class PlayerController : MonoBehaviour {
                     RuntimeManager.PlayOneShot(soundPick);
 
                     heldObj = hit.transform.gameObject;
+
                     heldObj.GetComponent<Pickable>().isPicked = true;
 
                     heldObjRB = heldObj.GetComponent<Rigidbody>();
                     heldObjRB.useGravity = false;
                     heldObjRB.drag = 10;
                     heldObjRB.constraints = RigidbodyConstraints.FreezeRotation;
+
+                    Vector3 heldObjPosition = heldObj.transform.position;
+                    Vector3 heldObjVelocity = heldObjRB.velocity;
+
+                    StartCoroutine(SendPickRequest(heldObjPosition, heldObjVelocity));
                 }
             }
         }
@@ -178,6 +184,7 @@ public class PlayerController : MonoBehaviour {
 
                 heldObjRB = null;
                 heldObj.GetComponent<Pickable>().isPicked = false;
+                
                 heldObj = null;
                 code = animationCode.throwObj;
             }
@@ -201,7 +208,14 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    public void SendPickRequest() {
-        
+    IEnumerator SendPickRequest(Vector3 position, Vector3 velocity) {
+        while (heldObj.GetComponent<Pickable>().isPicked)
+        {
+            Debug.Log("Fruit pick request in player controller with heldObj.tag"+heldObj.GetComponent<Pickable>().index);
+            Debug.Log("Fruit pick request in player controller with tag"+heldObj.tag);
+            int fruitTag = heldObj.GetComponent<Pickable>().index;
+            networkManager.SendPickRequest(fruitTag, position, velocity);
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 }
