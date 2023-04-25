@@ -152,6 +152,7 @@ public class NetworkManager : MonoBehaviour
 
 	public bool SendPickRequest(int fruitTag, Vector3 position, Vector3 velocity)
 	{
+		// Debug.Log("SendPickRequest is triggered^^^^^^^^^^^^^^^^^^^^^^^");
 		if (cManager && cManager.IsConnected())
 		{
 			Debug.Log("Fruit pick request is sent out from network manager^^^^^^^^^^^^^^^^^^^^^");

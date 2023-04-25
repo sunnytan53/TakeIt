@@ -35,7 +35,7 @@ public class ResponseMovement extends GameResponse {
         packet.addFloat(rotate_z);
         packet.addFloat(rotate_w);
 
-        Log.printf("In response movement, Player with id %d has moved to (%f, %f, %f)", player.getID(), move_y, move_y, move_z);
+        // Log.printf("In response movement, Player with id %d has moved to (%f, %f, %f)", player.getID(), move_y, move_y, move_z);
  
         return packet.getBytes();
     }

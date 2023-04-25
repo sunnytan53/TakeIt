@@ -39,8 +39,8 @@ public class RequestPick extends GameRequest {
         responsePick.setPlayer(player);
         responsePick.setData(fruitTag, move_x, move_y, move_z, velocity_x, velocity_y, velocity_z);
 
-        // Log.printf("Player id got from RequestChat is: %d ", player.getID());
-        
+        Log.printf("In request pick, Player with id %d has taken the fruit to (%f, %f, %f)", player.getID(), move_x, move_y, move_z);
+
         NetworkManager.addResponseForAllOnlinePlayers(player.getID(), responsePick);
     }
 }

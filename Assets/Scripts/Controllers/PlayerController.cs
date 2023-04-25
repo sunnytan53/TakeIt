@@ -144,6 +144,9 @@ public class PlayerController : MonoBehaviour {
                     heldObj.GetComponent<Pickable>().isPicked = true;
 
                     heldObjRB = heldObj.GetComponent<Rigidbody>();
+                    // Debug.Log("heldObjPosition before pick: " + heldObj.transform.position);
+                    // Debug.Log("heldObjVelocity before pick: " + heldObj.GetComponent<Rigidbody>().velocity);
+            
                     heldObjRB.useGravity = false;
                     heldObjRB.drag = 10;
                     heldObjRB.constraints = RigidbodyConstraints.FreezeRotation;
@@ -151,7 +154,7 @@ public class PlayerController : MonoBehaviour {
                     Vector3 heldObjPosition = heldObj.transform.position;
                     Vector3 heldObjVelocity = heldObjRB.velocity;
 
-                    StartCoroutine(SendPickRequest(heldObjPosition, heldObjVelocity));
+                    StartCoroutine(SendPickRequest());
                 }
             }
         }
@@ -208,13 +211,17 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    IEnumerator SendPickRequest(Vector3 position, Vector3 velocity) {
+    IEnumerator SendPickRequest() {
         while (heldObj.GetComponent<Pickable>().isPicked)
         {
-            Debug.Log("Fruit pick request in player controller with heldObj.tag"+heldObj.GetComponent<Pickable>().index);
-            Debug.Log("Fruit pick request in player controller with tag"+heldObj.tag);
+            // Debug.Log("Fruit pick request in player controller with heldObj.tag"+heldObj.GetComponent<Pickable>().index);
+            // Debug.Log("Fruit pick request in player controller with tag"+heldObj.tag);
+            Debug.Log("In SendPickRequest, the heldObjPosition: " + heldObj.transform.position);
+            // Debug.Log("Pick request received heldObjVelocity: " + heldObj.GetComponent<Rigidbody>().velocity);
+                    
             int fruitTag = heldObj.GetComponent<Pickable>().index;
-            networkManager.SendPickRequest(fruitTag, position, velocity);
+            Debug.Log("In SendPickRequest, going to call the networkManager***************************");
+            networkManager.SendPickRequest(fruitTag, heldObj.transform.position, heldObj.GetComponent<Rigidbody>().velocity);
             yield return new WaitForSeconds(0.1f);
         }
     }

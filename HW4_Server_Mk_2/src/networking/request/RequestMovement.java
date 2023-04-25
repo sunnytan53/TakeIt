@@ -34,7 +34,7 @@ public class RequestMovement extends GameRequest {
     public void doBusiness() throws Exception {
         
         Player player = client.getPlayer();
-        Log.printf("In request movement, Player with id %d has moved to (%f, %f, %f)", player.getID(), move_y, move_y, move_z);
+        // Log.printf("In request movement, Player with id %d has moved to (%f, %f, %f)", player.getID(), move_y, move_y, move_z);
 
         responseMovement.setPlayer(player);
         responseMovement.setData(move_x, move_y, move_z, rotate_x, rotate_y, rotate_z, rotate_w);

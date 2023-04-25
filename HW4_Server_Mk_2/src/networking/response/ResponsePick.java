@@ -35,7 +35,7 @@ public class ResponsePick extends GameResponse {
         packet.addFloat(velocity_y);
         packet.addFloat(velocity_z);
 
-        Log.printf("Player with id %d has picked a fruit with tag: %s", player.getID(), fruitTag);
+        Log.printf("In ResponsePick, Player with id %d has picked a fruit with tag: %s to (%f, %f, %f)", player.getID(), fruitTag, move_x, move_y, move_z);
  
         return packet.getBytes();
     }

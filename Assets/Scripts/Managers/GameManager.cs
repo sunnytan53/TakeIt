@@ -22,10 +22,6 @@ public class GameManager : MonoBehaviour
 
 	private GameObject currentPrefab;
 	private GameObject[] otherPlayers = new GameObject[4];
-	private GameObject playerObjT1P1;
-	private GameObject playerObjT1P2;
-	private GameObject playerObjT2P1;
-	private GameObject playerObjT2P2;
 
 	private HashSet<GameObject> fruitSet = new HashSet<GameObject>();
 	private GameObject[] fruits = new GameObject[20];
@@ -114,7 +110,7 @@ public class GameManager : MonoBehaviour
 				currentPrefab = Instantiate(slimePrefab, getPosition(i+1), Quaternion.identity);
 			}
 			else {
-				otherPlayers[i] = Instantiate(playerPrefab, getPosition(i+1), Quaternion.identity);
+				otherPlayers[i] = Instantiate(slimePrefab, getPosition(i+1), Quaternion.identity);
 				otherPlayers[i].GetComponentInChildren<Camera>().enabled=false;
             	otherPlayers[i].GetComponent<PlayerController>().enabled = false;
 			}
@@ -221,19 +217,7 @@ public class GameManager : MonoBehaviour
 			Vector3 position = new Vector3(move_x, move_y, move_z);
             Quaternion rotation = new Quaternion(rotate_x, rotate_y, rotate_z, rotate_w);
 			Transform transform;
-			if(args.user_id == 1){
-				transform = playerObjT1P1.transform;
-			}
-			else if (args.user_id == 2) {
-				transform = playerObjT1P2.transform;
-			}
-			else if (args.user_id == 3) {
-				transform = playerObjT2P1.transform;
-			}
-			else {
-				transform = playerObjT2P2.transform;
-			}
-			// Set the position and rotation of the transform
+			transform = otherPlayers[args.user_id-1].transform;
 			transform.position = position;
 			transform.rotation = rotation;
 		}
@@ -301,14 +285,25 @@ public class GameManager : MonoBehaviour
 			float velocity_x = args.velocity_x;
 			float velocity_y = args.velocity_y;
 			float velocity_z = args.velocity_z;
+			Debug.Log("In OnResponsePick, received move_x: " + move_x);
 		
 			// attach fruit with fruitTag to the player with user_id
 			// GameObject playerPick = otherPlayers[user_id-1];
-			GameObject pickedFruit = GameObject.Find(fruitTag.ToString());
+			GameObject pickedFruit = fruits2[fruitTag];
+			// GameObject.Find(fruitTag.ToString());
 			Rigidbody pickedFruitRB = pickedFruit.GetComponent<Rigidbody>();
-			Debug.Log("In OnResponsePick, the pickedFruit is: " + pickedFruit);
+			// pickedFruitRB.useGravity = false;
+            // pickedFruitRB.drag = 10;
+            // pickedFruitRB.constraints = RigidbodyConstraints.FreezeRotation;
+
+			Debug.Log("In OnResponsePick, the pickedFruit is: " + pickedFruit.name);
+			Debug.Log("In OnResponsePick, pickedFruit.transform.position: " + pickedFruit.transform.position);
+			// Debug.Log("In OnResponsePick, pickedFruitRB.velocity: " + pickedFruitRB.velocity);
+
 			Vector3 position = new Vector3(move_x, move_y, move_z);
 			Vector3 velocity = new Vector3(velocity_x, velocity_y, velocity_z);
+			Debug.Log("In OnResponsePick, received transform.position: " + position);
+			Debug.Log("In OnResponsePick, received velocity: " + velocity);
 			pickedFruit.transform.position = position;
     		pickedFruitRB.velocity = velocity;
 		}
