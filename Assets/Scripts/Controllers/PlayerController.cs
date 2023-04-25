@@ -184,12 +184,16 @@ public class PlayerController : MonoBehaviour {
                 heldObjRB.constraints = RigidbodyConstraints.None;
                 //heldObjRB.AddForce(transform.forward * 100f * throwForce * holdTime);
                 heldObjRB.AddForce(camera.forward * throwForce * holdTime);
+                // Debug.Log("camera.forward * throwForce * holdTime is: " + camera.forward * throwForce * holdTime);
+                int fruitTag = heldObj.GetComponent<Pickable>().index;
 
                 heldObjRB = null;
                 heldObj.GetComponent<Pickable>().isPicked = false;
                 
                 heldObj = null;
                 code = animationCode.throwObj;
+
+                SendThrowRequest(fruitTag, camera.forward * throwForce * holdTime);                
             }
         }
     }
@@ -212,11 +216,11 @@ public class PlayerController : MonoBehaviour {
     }
 
     IEnumerator SendPickRequest() {
-        while (heldObj.GetComponent<Pickable>().isPicked)
+        while (heldObj != null && heldObj.GetComponent<Pickable>().isPicked)
         {
             // Debug.Log("Fruit pick request in player controller with heldObj.tag"+heldObj.GetComponent<Pickable>().index);
             // Debug.Log("Fruit pick request in player controller with tag"+heldObj.tag);
-            Debug.Log("In SendPickRequest, the heldObjPosition: " + heldObj.transform.position);
+            // Debug.Log("In SendPickRequest, the heldObjPosition: " + heldObj.transform.position);
             // Debug.Log("Pick request received heldObjVelocity: " + heldObj.GetComponent<Rigidbody>().velocity);
                     
             int fruitTag = heldObj.GetComponent<Pickable>().index;
@@ -224,5 +228,10 @@ public class PlayerController : MonoBehaviour {
             networkManager.SendPickRequest(fruitTag, heldObj.transform.position, heldObj.GetComponent<Rigidbody>().velocity);
             yield return new WaitForSeconds(0.1f);
         }
+    }
+
+    public void SendThrowRequest(int fruitTag, Vector3 force){
+        Debug.Log("In SendThrowRequest, going to call the networkManager***************************");
+        networkManager.SendThrowRequest(fruitTag, force);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using FMODUnity;
 
 public class GameManager : MonoBehaviour
 {
@@ -310,8 +311,26 @@ public class GameManager : MonoBehaviour
 	}
 
 	public void OnResponseThrow(ExtendedEventArgs eventArgs) {
-		// ResponsePickEventArgs args = eventArgs as ResponsePickEventArgs;
-		// Debug.Log("In OnResponsePick, the received user id is: " + args.user_id);
-		// Debug.Log("In OnResponsePick, the received fruitTag is: " + args.fruitTag);
+		ResponseThrowEventArgs args = eventArgs as ResponseThrowEventArgs;
+		Debug.Log("In OnResponseThrow, the received user id is: " + args.user_id);
+		Debug.Log("In OnResponseThrow, the received fruitTag is: " + args.fruitTag);
+		
+		if (args.user_id != Constants.USER_ID)
+		{
+			int fruitTag = args.fruitTag;
+			float force_x = args.force_x;
+			float force_y = args.force_y;
+			float force_z = args.force_z;
+
+			GameObject throwFruit = fruits2[fruitTag];
+			Rigidbody throwFruitRB = throwFruit.GetComponent<Rigidbody>();
+			Vector3 force = new Vector3(force_x, force_y, force_x);
+
+			// throwFruitRB.useGravity = true;
+            // throwFruitRB.drag = 0;
+            // throwFruitRB.constraints = RigidbodyConstraints.None;
+
+			throwFruitRB.AddForce(force);
+		}
 	}
 }

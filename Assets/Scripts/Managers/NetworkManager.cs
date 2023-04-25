@@ -170,4 +170,18 @@ public class NetworkManager : MonoBehaviour
 		return false;
 	}
 
+	public bool SendThrowRequest(int fruitTag, Vector3 force){
+        if (cManager && cManager.IsConnected())
+		{
+			Debug.Log("Fruit throw request is sent out from network manager^^^^^^^^^^^^^^^^^^^^^");
+			RequestThrow request = new RequestThrow();
+			float force_x = force.x;
+			float force_y = force.y;
+			float force_z = force.z;
+			request.send(fruitTag, force_x, force_y, force_z);
+			cManager.send(request);
+			return true;
+		}
+		return false;
+    }
 }
