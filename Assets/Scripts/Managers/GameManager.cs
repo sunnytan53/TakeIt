@@ -29,10 +29,7 @@ public class GameManager : MonoBehaviour
 	private GameObject[] fruits2 = new GameObject[10];
 
 	private int currentPlayer = 1;
-	//private bool canInteract = false;
-	//private bool choosingInteraction = false;
 
-	//private bool useNetwork;
 	private NetworkManager networkManager;
 
 	void Start()
@@ -54,7 +51,6 @@ public class GameManager : MonoBehaviour
 		msgQueue.AddCallback(Constants.SMSG_MOVEMENT, OnResponseMovement);
 		msgQueue.AddCallback(Constants.SMSG_PICK, OnResponsePick);
 		msgQueue.AddCallback(Constants.SMSG_THROW, OnResponseThrow);
-		msgQueue.AddCallback(Constants.SMSG_INTERACT, OnResponseInteract);
 	}
 
 /*
@@ -133,75 +129,6 @@ public class GameManager : MonoBehaviour
 		*/
 	}
 
-/*
-	public bool CanInteract()
-	{
-        
-		return canInteract;
-        
-	}
-*/
-	public void StartInteraction()
-	{
-        /*
-		if (canInteract)
-		{
-			choosingInteraction = true;
-		}
-        */
-	}
-/*
-	public void EndInteraction(Hero hero)
-	{
-		EndTurn();
-	}
-
-	public void EndInteractedWith(Hero hero)
-	{
-		// Do nothing
-	}
-
-	public void EndMove(Hero hero)
-	{
-        
-		bool heroCanInteract = false;
-		int[] deltaX = { 1, 0, -1, 0 };
-		int[] deltaY = { 0, 1, 0, -1 };
-		for (int i = 0; i < 4; ++i)
-		{
-			int x = hero.x + deltaX[i];
-			int y = hero.y + deltaY[i];
-			if (x >= 0 && x < 6 && y >= 0 && y < 5)
-			{
-				if (gameBoard[x, y] && gameBoard[x, y].Owner != hero.Owner)
-				{
-					heroCanInteract = true;
-					break;
-				}
-			}
-		}
-		if (hero.Owner.IsMouseControlled)
-		{
-			canInteract = heroCanInteract;
-		}
-
-		if (!heroCanInteract)
-		{
-			EndTurn();
-		}
-       
-	}
- */
-	public void EndTurn()
-	{
-        /*
-		ObjectSelector.SetSelectedObject(null);
-		canInteract = false;
-		currentPlayer = 3 - currentPlayer;
-        */
-	}
-
-
 	public void OnResponseMovement(ExtendedEventArgs eventArgs)
 	{
 		ResponseMovementEventArgs args = eventArgs as ResponseMovementEventArgs;
@@ -230,29 +157,6 @@ public class GameManager : MonoBehaviour
 		{
 			Debug.Log("ERROR: Invalid user_id in ResponseReady: " + args.user_id);
 		}
-	}
-
-	public void OnResponseInteract(ExtendedEventArgs eventArgs)
-	{
-        /*
-		ResponseInteractEventArgs args = eventArgs as ResponseInteractEventArgs;
-		if (args.user_id == Constants.OP_ID)
-		{
-			int pieceIndex = args.piece_idx;
-			int targetIndex = args.target_idx;
-			Hero hero = Players[args.user_id - 1].Heroes[pieceIndex];
-			Hero target = Players[Constants.USER_ID - 1].Heroes[targetIndex];
-			hero.Interact(target);
-		}
-		else if (args.user_id == Constants.USER_ID)
-		{
-			// Ignore
-		}
-		else
-		{
-			Debug.Log("ERROR: Invalid user_id in ResponseReady: " + args.user_id);
-		}
-        */
 	}
 
 	public Vector3 getPosition(int usr_id){

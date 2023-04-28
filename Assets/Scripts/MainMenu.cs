@@ -297,21 +297,17 @@ public class MainMenu : MonoBehaviour
 			if (args.user_id == 1)
 			{
 				t1p1Ready = true;
-				// Debug.Log("t1p1 is ready!" );
 			}
 			else if (args.user_id == 2)
 			{
 				t1p2Ready = true;
-				// Debug.Log("t1p2 is ready!" );
 			}
 			else if (args.user_id == 3)
 			{
 				t2p1Ready = true;
-				// Debug.Log("t2p1 is ready!" );
 			}
 			else if (args.user_id == 4) {
 				t2p2Ready = true;
-				// Debug.Log("t2p2 is ready!" );
 			}
 			else
 			{
