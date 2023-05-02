@@ -5788,7 +5788,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   playerPrefab: {fileID: 4324315682250014327, guid: d1e13b8ba1aa4438f927f05310447699, type: 3}
-  slimePrefab: {fileID: 5618914369587857032, guid: ee73576a5571642c4ad651d75019377a, type: 3}
+  slimePrefab: {fileID: 724548608846380696, guid: ee73576a5571642c4ad651d75019377a, type: 3}
   apple: {fileID: 7322781235588886315, guid: 9aba50e20279a4e9b986487697f17bcd, type: 3}
   avocado: {fileID: 6477220166380757193, guid: 8e13b9abbf1cd4f39a7a09119e6dc5db, type: 3}
   banana: {fileID: 1349553258569061810, guid: 5294a572f7b7342829b5f54b8a75b91b, type: 3}
