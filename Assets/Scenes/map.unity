@@ -466,7 +466,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &646149923
 GameObject:
@@ -806,7 +806,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1590218664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1054,6 +1054,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53b497834f863427e99de967e759a5c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timerText: {fileID: 0}
+  team1ScoreText: {fileID: 0}
+  team2ScoreText: {fileID: 0}
 --- !u!4 &1854227618
 Transform:
   m_ObjectHideFlags: 0
@@ -1899,6 +1902,18 @@ PrefabInstance:
     - target: {fileID: 3535930318493748812, guid: ee73576a5571642c4ad651d75019377a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4370512012761292691, guid: ee73576a5571642c4ad651d75019377a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4370512012761292691, guid: ee73576a5571642c4ad651d75019377a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4370512012761292691, guid: ee73576a5571642c4ad651d75019377a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 5618914369587857032, guid: ee73576a5571642c4ad651d75019377a, type: 3}
       propertyPath: m_Name
