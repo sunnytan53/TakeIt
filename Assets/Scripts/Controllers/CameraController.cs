@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    //public float frontDistance = 20;
-    //public float topDistance = 5;
     public float rotateSpeed = 3f;
 
     private Transform player;
-    private Vector3 finalPos;
     private float rotationUpDown = 0;
     private Quaternion originalRotation;
 
@@ -22,10 +19,7 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        //finalPos = player.position - player.forward * frontDistance + Vector3.up * topDistance;
-        //transform.position = finalPos;
         transform.LookAt(player.position);
-
 
         // TODO: the angle should also follow the distance so that it works when we change distance
         rotationUpDown = Mathf.Clamp(rotationUpDown + Input.GetAxis("Mouse Y") * rotateSpeed, 0f, 60f);

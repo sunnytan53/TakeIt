@@ -2,8 +2,6 @@ using UnityEngine;
 using System.Collections;
 using FMODUnity;
 
-public enum animationCode { idle, walk, throwObj };
-
 public class PlayerController : MonoBehaviour {
     public float speed = 5f;
     public float gravityMultiplier = 5f;
@@ -14,7 +12,7 @@ public class PlayerController : MonoBehaviour {
     private new Transform camera;
 
     private CharacterController characterController;
-    private Animator animator;
+    private PlayerArtController artController;
     private NetworkManager networkManager;
 
     private Vector3 movement = new Vector3();
@@ -26,16 +24,8 @@ public class PlayerController : MonoBehaviour {
     private Rigidbody heldObjRB;
     private float holdStartTime;
 
-    public Face faces;
-    public GameObject SmileBody; // this should adpat to all individual slimes
-    private Material faceMaterial;
-    private bool isIdled;
+    private bool sendArtNow = false;
 
-    private animationCode code;
-
-    public EventReference soundJump;
-    public EventReference soundPick;
-    public EventReference soundThrow;
 
     void Start()
     {
@@ -43,11 +33,9 @@ public class PlayerController : MonoBehaviour {
         Cursor.lockState = CursorLockMode.Locked;
 
         characterController = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
-        faceMaterial = SmileBody.GetComponent<Renderer>().materials[1];
-
         holdArea = transform.Find("HoldArea");
         camera = transform.Find("Camera");
+        artController = GetComponent<PlayerArtController>();
 
         networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
         StartCoroutine(SendMovementRequest());
@@ -57,35 +45,10 @@ public class PlayerController : MonoBehaviour {
         Move();
         Rotate();
         PickOrThrow();
-        PlayAnimation();
-    }
-
-
-    private void PlayAnimation()
-    {
-        switch (code) {
-            case animationCode.idle:
-                // TODO the idle can't be detected in animator
-                //if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")) return;
-                if (isIdled) return;
-                //Debug.Log("IDLE");
-                isIdled = true;
-                animator.ResetTrigger("Jump");
-                //faceMaterial.SetTexture("_MainTex", faces.IdleFace);
-                break;
-
-            case animationCode.walk:
-                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")) return;
-                isIdled = false;
-                animator.SetTrigger("Jump");
-                //faceMaterial.SetTexture("_MainTex", (heldObj == null) ? faces.IdleFace: faces.WalkFace);
-                break;
-
-            case animationCode.throwObj:
-                isIdled = false;
-                animator.SetTrigger("Attack");
-                //faceMaterial.SetTexture("_MainTex", faces.AttackFace);
-                break;
+        if (sendArtNow)
+        {
+            sendRequest();
+            sendArtNow = false;
         }
     }
 
@@ -96,7 +59,8 @@ public class PlayerController : MonoBehaviour {
         if (characterController.isGrounded && Input.GetButton("Jump"))
         {
             movement.y = Mathf.Sqrt(jumpMultiplier * -gravityMultiplier);
-            RuntimeManager.PlayOneShot(soundJump);
+            artController.sCode = soundCode.jump;
+            sendArtNow = true;
         }
         else
         {
@@ -110,11 +74,11 @@ public class PlayerController : MonoBehaviour {
             || !characterController.isGrounded
             || movement.y > 0)
         {
-            code = animationCode.idle;
+            artController.aCode = animationCode.idle;
         }
         else
         {
-            code = animationCode.walk;
+            artController.aCode = animationCode.walk;
         }
     }
 
@@ -137,7 +101,8 @@ public class PlayerController : MonoBehaviour {
             {
                 if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, pickRange) && hit.transform.gameObject.CompareTag("Pickable"))
                 {
-                    RuntimeManager.PlayOneShot(soundPick);
+                    artController.sCode = soundCode.pick;
+                    sendArtNow = true;
 
                     heldObj = hit.transform.gameObject;
 
@@ -175,7 +140,9 @@ public class PlayerController : MonoBehaviour {
             }
             else if (Input.GetMouseButtonUp(1))
             {
-                RuntimeManager.PlayOneShot(soundThrow);
+                artController.sCode = soundCode.throwObj;
+                artController.aCode = animationCode.throwObj;
+                sendArtNow = true;
 
                 float holdTime = Time.time - holdStartTime;
 
@@ -191,11 +158,20 @@ public class PlayerController : MonoBehaviour {
                 heldObj.GetComponent<Pickable>().isPicked = false;
                 
                 heldObj = null;
-                code = animationCode.throwObj;
 
                 SendThrowRequest(fruitTag, camera.forward * throwForce * holdTime);                
             }
         }
+    }
+
+    private void sendRequest()
+    {
+        // Get the current position and rotation of the player
+        Vector3 position = transform.position;
+        Quaternion rotation = transform.rotation;
+
+        // Send the position and rotation to the server
+        networkManager.SendMovementRequest(position, rotation);
     }
 
 
@@ -203,13 +179,7 @@ public class PlayerController : MonoBehaviour {
     {
         while (true)
         {
-            // Get the current position and rotation of the player
-            Vector3 position = transform.position;
-            Quaternion rotation = transform.rotation;
-
-            // Send the position and rotation to the server
-            networkManager.SendMovementRequest(position, rotation);
-
+            sendRequest();
             // Wait for the next update
             yield return new WaitForSeconds(0.1f); // update every 100ms
         }
