@@ -1,9 +1,9 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using FMODUnity;
 
-public enum SoundCodeEnum { none, jump, pick, throwObj };
-public enum AnimationCodeEnum { idle, walk, throwObj };
+public enum AnimationCodeEnum { idle, walk, jump, pick, throwObj, landing};
 
 public class PlayerArtController : MonoBehaviour
 {
@@ -14,10 +14,11 @@ public class PlayerArtController : MonoBehaviour
     private Material faceMaterial;
     private bool wasIdled;
 
-    public AnimationCodeEnum animationCode = AnimationCodeEnum.idle;
-    public SoundCodeEnum soundCode = SoundCodeEnum.none;
+    private AnimationCodeEnum animationCode = AnimationCodeEnum.idle;
 
+    public EventReference soundWalk;
     public EventReference soundJump;
+    public EventReference soundLanding;
     public EventReference soundPick;
     public EventReference soundThrow;
 
@@ -29,27 +30,32 @@ public class PlayerArtController : MonoBehaviour
 
     void Update()
     {
-        PlaySound();
         PlayAnimation();
+        animationCode = AnimationCodeEnum.idle;
     }
 
-    private void PlaySound()
+    public void setAnimationCode(AnimationCodeEnum aCode)
     {
-        switch (soundCode)
+        switch (aCode)
         {
-            case SoundCodeEnum.jump:
+            case AnimationCodeEnum.walk:
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")) return;
+                RuntimeManager.PlayOneShot(soundWalk);
+                break;
+            case AnimationCodeEnum.jump:
                 RuntimeManager.PlayOneShot(soundJump);
-                soundCode = SoundCodeEnum.none;
                 break;
-            case SoundCodeEnum.pick:
+            case AnimationCodeEnum.pick:
                 RuntimeManager.PlayOneShot(soundPick);
-                soundCode = SoundCodeEnum.none;
                 break;
-            case SoundCodeEnum.throwObj:
+            case AnimationCodeEnum.throwObj:
                 RuntimeManager.PlayOneShot(soundThrow);
-                soundCode = SoundCodeEnum.none;
+                break;
+            case AnimationCodeEnum.landing:
+                RuntimeManager.PlayOneShot(soundLanding);
                 break;
         }
+        animationCode = aCode;
     }
 
 
@@ -57,14 +63,6 @@ public class PlayerArtController : MonoBehaviour
     {
         switch (animationCode)
         {
-            case AnimationCodeEnum.idle:
-                // the idle state info is not included in animator
-                if (wasIdled) return;
-                wasIdled = true;
-                animator.ResetTrigger("Jump");
-                //faceMaterial.SetTexture("_MainTex", faces.IdleFace);
-                break;
-
             case AnimationCodeEnum.walk:
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")) return;
                 animator.SetTrigger("Jump");
@@ -78,6 +76,12 @@ public class PlayerArtController : MonoBehaviour
                 wasIdled = false;
                 //faceMaterial.SetTexture("_MainTex", faces.AttackFace);
                 break;
+            default:
+                // the idle state info is not included in animator
+                if (wasIdled) return;
+                wasIdled = true;
+                //faceMaterial.SetTexture("_MainTex", faces.IdleFace);
+                break;
         }
     }
 
@@ -85,14 +89,5 @@ public class PlayerArtController : MonoBehaviour
     {
         // this is triggered after some animation ends
         // simply have this method to remove errors shown in console
-    }
-
-
-    public void playByRequest(AnimationCodeEnum aCode, SoundCodeEnum sCode)
-    {
-        this.animationCode = aCode;
-        this.soundCode = sCode;
-        PlaySound();
-        PlayAnimation();
     }
 }

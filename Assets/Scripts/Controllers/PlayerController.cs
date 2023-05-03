@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour {
     private Rigidbody heldObjRB;
     private float holdStartTime;
 
-    private bool sendArtNow = false;
+    private bool wasLanded = false;
 
 
     void Start()
@@ -45,11 +45,6 @@ public class PlayerController : MonoBehaviour {
         Move();
         Rotate();
         PickOrThrow();
-        if (sendArtNow)
-        {
-            sendMovementRequest();
-            sendArtNow = false;
-        }
     }
 
     private void Move()
@@ -59,8 +54,8 @@ public class PlayerController : MonoBehaviour {
         if (characterController.isGrounded && Input.GetButton("Jump"))
         {
             movement.y = Mathf.Sqrt(jumpMultiplier * -gravityMultiplier);
-            artController.soundCode = SoundCodeEnum.jump;
-            sendArtNow = true;
+            artController.setAnimationCode(AnimationCodeEnum.jump);
+            wasLanded = false;
         }
         else
         {
@@ -69,18 +64,21 @@ public class PlayerController : MonoBehaviour {
         movement.x = Input.GetAxis("Horizontal") * speed;
         movement.z = Input.GetAxis("Vertical") * speed;
         characterController.Move(transform.TransformDirection(movement) * Time.deltaTime);
-        
-        if ((movement.x == 0 && movement.z == 0)
-            || !characterController.isGrounded
-            || movement.y > 0)
+
+        if (characterController.isGrounded)
         {
-            artController.animationCode = AnimationCodeEnum.idle;
-        }
-        else
-        {
-            if (!Input.GetButton("Jump"))
+            if (movement.x == 0 && movement.z == 0)
             {
-                artController.animationCode = AnimationCodeEnum.walk;
+                artController.setAnimationCode(AnimationCodeEnum.idle);
+            }
+            else
+            {
+                artController.setAnimationCode(AnimationCodeEnum.walk);
+            }
+            if (!wasLanded)
+            {
+                artController.setAnimationCode(AnimationCodeEnum.landing);
+                wasLanded = true;
             }
         }
     }
@@ -104,9 +102,7 @@ public class PlayerController : MonoBehaviour {
             {
                 if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, pickRange) && hit.transform.gameObject.CompareTag("Pickable"))
                 {
-                    artController.soundCode = SoundCodeEnum.pick;
-                    sendArtNow = true;
-
+                    artController.setAnimationCode(AnimationCodeEnum.pick);
                     heldObj = hit.transform.gameObject;
 
                     heldObj.GetComponent<Pickable>().isPicked = true;
@@ -140,9 +136,7 @@ public class PlayerController : MonoBehaviour {
             }
             else if (Input.GetMouseButtonUp(1))
             {
-                artController.soundCode = SoundCodeEnum.throwObj;
-                artController.animationCode = AnimationCodeEnum.throwObj;
-                sendArtNow = true;
+                artController.setAnimationCode(AnimationCodeEnum.throwObj);
 
                 float holdTime = Time.time - holdStartTime;
 

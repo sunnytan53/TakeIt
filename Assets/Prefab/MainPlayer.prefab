@@ -108,8 +108,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   faces: {fileID: 11400000, guid: 8b8a7554fceb39841840f45a2d8da540, type: 2}
   SmileBody: {fileID: 3624067915567124609}
-  aCode: 0
-  sCode: 0
+  soundWalk:
+    Guid:
+      Data1: 1859463681
+      Data2: 1088473570
+      Data3: -1031591522
+      Data4: -1457495282
+    Path: event:/SFX/Takeit_Footsteps_Dirt
   soundJump:
     Guid:
       Data1: -192211122
@@ -117,6 +122,13 @@ MonoBehaviour:
       Data3: -1597046901
       Data4: 1908431883
     Path: event:/SFX/Takeit_SFX_jump1
+  soundLanding:
+    Guid:
+      Data1: -940835949
+      Data2: 1226651614
+      Data3: 805166005
+      Data4: 808327710
+    Path: event:/SFX/Takeit_SFX_jumpLanding_v1
   soundPick:
     Guid:
       Data1: -480938801
