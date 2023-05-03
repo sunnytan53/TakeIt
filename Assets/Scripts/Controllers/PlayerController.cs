@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour {
         PickOrThrow();
         if (sendArtNow)
         {
-            sendRequest();
+            sendMovementRequest();
             sendArtNow = false;
         }
     }
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour {
         if (characterController.isGrounded && Input.GetButton("Jump"))
         {
             movement.y = Mathf.Sqrt(jumpMultiplier * -gravityMultiplier);
-            artController.sCode = soundCode.jump;
+            artController.soundCode = SoundCodeEnum.jump;
             sendArtNow = true;
         }
         else
@@ -74,11 +74,14 @@ public class PlayerController : MonoBehaviour {
             || !characterController.isGrounded
             || movement.y > 0)
         {
-            artController.aCode = animationCode.idle;
+            artController.animationCode = AnimationCodeEnum.idle;
         }
         else
         {
-            artController.aCode = animationCode.walk;
+            if (!Input.GetButton("Jump"))
+            {
+                artController.animationCode = AnimationCodeEnum.walk;
+            }
         }
     }
 
@@ -101,7 +104,7 @@ public class PlayerController : MonoBehaviour {
             {
                 if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, pickRange) && hit.transform.gameObject.CompareTag("Pickable"))
                 {
-                    artController.sCode = soundCode.pick;
+                    artController.soundCode = SoundCodeEnum.pick;
                     sendArtNow = true;
 
                     heldObj = hit.transform.gameObject;
@@ -115,9 +118,6 @@ public class PlayerController : MonoBehaviour {
                     heldObjRB.useGravity = false;
                     heldObjRB.drag = 10;
                     heldObjRB.constraints = RigidbodyConstraints.FreezeRotation;
-
-                    Vector3 heldObjPosition = heldObj.transform.position;
-                    Vector3 heldObjVelocity = heldObjRB.velocity;
 
                     StartCoroutine(SendPickRequest());
                 }
@@ -140,8 +140,8 @@ public class PlayerController : MonoBehaviour {
             }
             else if (Input.GetMouseButtonUp(1))
             {
-                artController.sCode = soundCode.throwObj;
-                artController.aCode = animationCode.throwObj;
+                artController.soundCode = SoundCodeEnum.throwObj;
+                artController.animationCode = AnimationCodeEnum.throwObj;
                 sendArtNow = true;
 
                 float holdTime = Time.time - holdStartTime;
@@ -164,14 +164,10 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    private void sendRequest()
+    private void sendMovementRequest()
     {
-        // Get the current position and rotation of the player
-        Vector3 position = transform.position;
-        Quaternion rotation = transform.rotation;
-
         // Send the position and rotation to the server
-        networkManager.SendMovementRequest(position, rotation);
+        networkManager.SendMovementRequest(transform.position, transform.rotation);
     }
 
 
@@ -179,7 +175,7 @@ public class PlayerController : MonoBehaviour {
     {
         while (true)
         {
-            sendRequest();
+            sendMovementRequest();
             // Wait for the next update
             yield return new WaitForSeconds(0.1f); // update every 100ms
         }

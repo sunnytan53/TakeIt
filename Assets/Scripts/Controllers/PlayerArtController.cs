@@ -2,8 +2,8 @@ using UnityEngine;
 using System.Collections;
 using FMODUnity;
 
-public enum soundCode { none, jump, pick, throwObj };
-public enum animationCode { idle, walk, throwObj };
+public enum SoundCodeEnum { none, jump, pick, throwObj };
+public enum AnimationCodeEnum { idle, walk, throwObj };
 
 public class PlayerArtController : MonoBehaviour
 {
@@ -14,8 +14,8 @@ public class PlayerArtController : MonoBehaviour
     private Material faceMaterial;
     private bool wasIdled;
 
-    public animationCode aCode = animationCode.idle;
-    public soundCode sCode = soundCode.none;
+    public AnimationCodeEnum animationCode = AnimationCodeEnum.idle;
+    public SoundCodeEnum soundCode = SoundCodeEnum.none;
 
     public EventReference soundJump;
     public EventReference soundPick;
@@ -35,19 +35,19 @@ public class PlayerArtController : MonoBehaviour
 
     private void PlaySound()
     {
-        switch (sCode)
+        switch (soundCode)
         {
-            case soundCode.jump:
+            case SoundCodeEnum.jump:
                 RuntimeManager.PlayOneShot(soundJump);
-                sCode = soundCode.none;
+                soundCode = SoundCodeEnum.none;
                 break;
-            case soundCode.pick:
+            case SoundCodeEnum.pick:
                 RuntimeManager.PlayOneShot(soundPick);
-                sCode = soundCode.none;
+                soundCode = SoundCodeEnum.none;
                 break;
-            case soundCode.throwObj:
+            case SoundCodeEnum.throwObj:
                 RuntimeManager.PlayOneShot(soundThrow);
-                sCode = soundCode.none;
+                soundCode = SoundCodeEnum.none;
                 break;
         }
     }
@@ -55,9 +55,9 @@ public class PlayerArtController : MonoBehaviour
 
     private void PlayAnimation()
     {
-        switch (aCode)
+        switch (animationCode)
         {
-            case animationCode.idle:
+            case AnimationCodeEnum.idle:
                 // the idle state info is not included in animator
                 if (wasIdled) return;
                 wasIdled = true;
@@ -65,14 +65,14 @@ public class PlayerArtController : MonoBehaviour
                 //faceMaterial.SetTexture("_MainTex", faces.IdleFace);
                 break;
 
-            case animationCode.walk:
+            case AnimationCodeEnum.walk:
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")) return;
                 animator.SetTrigger("Jump");
                 wasIdled = false;
                 //faceMaterial.SetTexture("_MainTex", (heldObj == null) ? faces.IdleFace: faces.WalkFace);
                 break;
 
-            case animationCode.throwObj:
+            case AnimationCodeEnum.throwObj:
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) return;
                 animator.SetTrigger("Attack");
                 wasIdled = false;
@@ -81,10 +81,18 @@ public class PlayerArtController : MonoBehaviour
         }
     }
 
-
-    public void setCodeFromRequest(animationCode aCode, soundCode sCode)
+    public void AlertObservers()
     {
-        this.aCode = aCode;
-        this.sCode = sCode;
+        // this is triggered after some animation ends
+        // simply have this method to remove errors shown in console
+    }
+
+
+    public void playByRequest(AnimationCodeEnum aCode, SoundCodeEnum sCode)
+    {
+        this.animationCode = aCode;
+        this.soundCode = sCode;
+        PlaySound();
+        PlayAnimation();
     }
 }
