@@ -8,7 +8,6 @@ using FMODUnity;
 public class GameManager : MonoBehaviour
 {
 	public Player[] Players = new Player[4];
-	public GameObject playerPrefab;
 	public GameObject slimePrefab;
 	public GameObject apple;
 	public GameObject avocado;
@@ -112,21 +111,6 @@ public class GameManager : MonoBehaviour
             	otherPlayers[i].GetComponent<PlayerController>().enabled = false;
 			}
 		}
-
-
-		// when calling Players[currentPlayer], reference object is not set to object, why?
-		// Debug.Log("Player[0] when create characters is: " + Players[currentPlayer].getPosition(1));
-		/* // this piece of code didn't work, need to check
-		for (int i=0; i<4; i++) {
-			if (i == currentPlayer-1) {
-				// playerObjT1P1 = Instantiate(playerPrefab, new Vector3(100, 0, 110), Quaternion.identity);
-				Players[i].setMainPlayer();
-			}
-			else {
-				Players[i].setPlayer();
-			}
-		}
-		*/
 	}
 
 	public void OnResponseMovement(ExtendedEventArgs eventArgs)
