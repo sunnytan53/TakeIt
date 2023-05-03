@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
+using FMODUnity;
 
 public class MainMenu : MonoBehaviour
 {
@@ -46,6 +47,11 @@ public class MainMenu : MonoBehaviour
 	private TMP_InputField chatInput;
     private TMP_Text chatOutput;
     private Button sendButton;
+
+	public EventReference soundRegular;
+	public EventReference soundJoin;
+	public EventReference soundReady;
+	public EventReference soundQuit;
 
 	void Start()
     {
@@ -92,6 +98,7 @@ public class MainMenu : MonoBehaviour
 	#region RootMenu
 	public void OnNetworkClick()
 	{
+		RuntimeManager.PlayOneShot(soundRegular);
 		Debug.Log("Send JoinReq");
 		bool connected = networkManager.SendJoinRequest();
 		if (!connected)
@@ -109,6 +116,7 @@ public class MainMenu : MonoBehaviour
 
 	public void OnExitClick()
 	{
+		RuntimeManager.PlayOneShot(soundRegular);
 #if UNITY_EDITOR
 		UnityEditor.EditorApplication.isPlaying = false;
 #else
@@ -133,6 +141,8 @@ public class MainMenu : MonoBehaviour
 		ResponseJoinEventArgs args = eventArgs as ResponseJoinEventArgs;
 		if (args.status == 0)
 		{
+			Debug.Log("Someone joins");
+			RuntimeManager.PlayOneShot(soundJoin);
 			if (args.user_id == 1)
 			{
 				playerName = t1p1Name;
@@ -197,7 +207,7 @@ public class MainMenu : MonoBehaviour
 
 	public void OnResponseLeave(ExtendedEventArgs eventArgs)
 	{
-		
+		RuntimeManager.PlayOneShot(soundQuit);
 		ResponseLeaveEventArgs args = eventArgs as ResponseLeaveEventArgs;
 		if (args.user_id != Constants.USER_ID)
 		{
@@ -286,6 +296,7 @@ public class MainMenu : MonoBehaviour
 
 	public void OnResponseReady(ExtendedEventArgs eventArgs)
 	{
+		RuntimeManager.PlayOneShot(soundReady);
 		ResponseReadyEventArgs args = eventArgs as ResponseReadyEventArgs;
 		if (Constants.USER_ID == -1) // Haven't joined, but got ready message
 		{
@@ -367,6 +378,7 @@ public class MainMenu : MonoBehaviour
 
 	public void OnOKClick()
 	{
+		RuntimeManager.PlayOneShot(soundRegular);
 		messageBox.SetActive(false);
 		rootMenuPanel.SetActive(true);
 	}

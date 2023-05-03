@@ -959,6 +959,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputField: {fileID: 0}
+  soundRegular:
+    Guid:
+      Data1: -186553168
+      Data2: 1187595377
+      Data3: -1571730801
+      Data4: 1551514971
+    Path: event:/UI_SFX/Takeit_UI_playerscores_v1
+  soundJoin:
+    Guid:
+      Data1: 978679781
+      Data2: 1153940163
+      Data3: 1698800782
+      Data4: -1160537782
+    Path: event:/UI_SFX/PTakeit_UI_PlayerJoins_v1
+  soundReady:
+    Guid:
+      Data1: 941317015
+      Data2: 1319906935
+      Data3: -1052174957
+      Data4: 1264361286
+    Path: event:/UI_SFX/Takeit_UI_Ready_v1
+  soundQuit:
+    Guid:
+      Data1: -1113325577
+      Data2: 1139043244
+      Data3: 201440896
+      Data4: -1584556627
+    Path: event:/UI_SFX/Takeit_UI_Quit_v3
 --- !u!1 &329055430
 GameObject:
   m_ObjectHideFlags: 0
@@ -2594,7 +2622,7 @@ GameObject:
   m_Component:
   - component: {fileID: 647780889}
   - component: {fileID: 647780888}
-  - component: {fileID: 647780887}
+  - component: {fileID: 647780890}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2602,14 +2630,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &647780887
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 647780886}
-  m_Enabled: 1
 --- !u!20 &647780888
 Camera:
   m_ObjectHideFlags: 0
@@ -2668,6 +2688,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &647780890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647780886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
 --- !u!1 &686839649
 GameObject:
   m_ObjectHideFlags: 0
@@ -3130,7 +3163,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &760053503
 Transform:
   m_ObjectHideFlags: 0

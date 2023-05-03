@@ -16,6 +16,8 @@ public class PlayerArtController : MonoBehaviour
 
     private AnimationCodeEnum animationCode = AnimationCodeEnum.idle;
 
+    private AnimatorStateInfo curAnimation;
+
     public EventReference soundWalk;
     public EventReference soundJump;
     public EventReference soundLanding;
@@ -32,6 +34,7 @@ public class PlayerArtController : MonoBehaviour
     {
         PlayAnimation();
         animationCode = AnimationCodeEnum.idle;
+        curAnimation = animator.GetCurrentAnimatorStateInfo(0);
     }
 
     public void setAnimationCode(AnimationCodeEnum aCode)
@@ -39,7 +42,8 @@ public class PlayerArtController : MonoBehaviour
         switch (aCode)
         {
             case AnimationCodeEnum.walk:
-                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")) return;
+                if (curAnimation.IsName("Jump")) return;
+                if (curAnimation.IsName("Attack")) return;
                 RuntimeManager.PlayOneShot(soundWalk);
                 break;
             case AnimationCodeEnum.jump:
@@ -64,14 +68,14 @@ public class PlayerArtController : MonoBehaviour
         switch (animationCode)
         {
             case AnimationCodeEnum.walk:
-                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")) return;
+                if (curAnimation.IsName("Jump")) return;
                 animator.SetTrigger("Jump");
                 wasIdled = false;
                 //faceMaterial.SetTexture("_MainTex", (heldObj == null) ? faces.IdleFace: faces.WalkFace);
                 break;
 
             case AnimationCodeEnum.throwObj:
-                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) return;
+                if (curAnimation.IsName("Attack")) return;
                 animator.SetTrigger("Attack");
                 wasIdled = false;
                 //faceMaterial.SetTexture("_MainTex", faces.AttackFace);
@@ -79,6 +83,7 @@ public class PlayerArtController : MonoBehaviour
             default:
                 // the idle state info is not included in animator
                 if (wasIdled) return;
+                animator.ResetTrigger("Jump");
                 wasIdled = true;
                 //faceMaterial.SetTexture("_MainTex", faces.IdleFace);
                 break;
