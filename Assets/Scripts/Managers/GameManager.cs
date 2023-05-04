@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
 		msgQueue.AddCallback(Constants.SMSG_MOVEMENT, OnResponseMovement);
 		msgQueue.AddCallback(Constants.SMSG_PICK, OnResponsePick);
 		msgQueue.AddCallback(Constants.SMSG_THROW, OnResponseThrow);
+		msgQueue.AddCallback(Constants.SMSG_ART, OnResponseArt);
 	}
 
 /*
@@ -212,7 +213,7 @@ public class GameManager : MonoBehaviour
 
 			GameObject throwFruit = fruits2[fruitTag];
 			Rigidbody throwFruitRB = throwFruit.GetComponent<Rigidbody>();
-			Vector3 force = new Vector3(force_x, force_y, force_x);
+			Vector3 force = new Vector3(force_x, force_y, force_z);
 
 			// throwFruitRB.useGravity = true;
             // throwFruitRB.drag = 0;
@@ -221,4 +222,16 @@ public class GameManager : MonoBehaviour
 			throwFruitRB.AddForce(force);
 		}
 	}
+
+
+	public void OnResponseArt(ExtendedEventArgs eventArgs)
+	{
+		ResponseArtEventArgs args = eventArgs as ResponseArtEventArgs;
+		Debug.Log("OnResponseArt is activated in the Game Manager....with user_id: " + args.user_id);
+		if (args.user_id != Constants.USER_ID)
+		{
+			otherPlayers[args.user_id - 1].GetComponent<PlayerArtController>().setAnimationCode((AnimationCodeEnum)args.code, true);
+		}
+	}
+
 }

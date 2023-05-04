@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FMODUnity;
 
-public enum AnimationCodeEnum { idle, walk, jump, pick, throwObj, landing};
+public enum AnimationCodeEnum { idle, walk, jump, pick, throwObj, landing };
 
 public class PlayerArtController : MonoBehaviour
 {
@@ -14,8 +14,6 @@ public class PlayerArtController : MonoBehaviour
     private Material faceMaterial;
     private bool wasIdled;
 
-    private AnimationCodeEnum animationCode = AnimationCodeEnum.idle;
-
     private AnimatorStateInfo curAnimation;
 
     public EventReference soundWalk;
@@ -24,61 +22,63 @@ public class PlayerArtController : MonoBehaviour
     public EventReference soundPick;
     public EventReference soundThrow;
 
+    private NetworkManager networkManager;
+
+    private bool wasWalking;
+    private float lastWalkTime;
+
+    private bool sendNow;
+
     void Start()
     {
         animator = GetComponent<Animator>();
         faceMaterial = SmileBody.GetComponent<Renderer>().materials[1];
+        networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
     }
 
-    void Update()
+    public void setAnimationCode(AnimationCodeEnum aCode, bool fromRequest = false)
     {
-        PlayAnimation();
-        animationCode = AnimationCodeEnum.idle;
         curAnimation = animator.GetCurrentAnimatorStateInfo(0);
-    }
+        sendNow = false;
+        if (Time.time - lastWalkTime > 1)
+        {
+            wasWalking = false;
+        }
 
-    public void setAnimationCode(AnimationCodeEnum aCode)
-    {
         switch (aCode)
         {
             case AnimationCodeEnum.walk:
                 if (curAnimation.IsName("Jump")) return;
                 if (curAnimation.IsName("Attack")) return;
-                RuntimeManager.PlayOneShot(soundWalk);
-                break;
-            case AnimationCodeEnum.jump:
-                RuntimeManager.PlayOneShot(soundJump);
-                break;
-            case AnimationCodeEnum.pick:
-                RuntimeManager.PlayOneShot(soundPick);
-                break;
-            case AnimationCodeEnum.throwObj:
-                RuntimeManager.PlayOneShot(soundThrow);
-                break;
-            case AnimationCodeEnum.landing:
-                RuntimeManager.PlayOneShot(soundLanding);
-                break;
-        }
-        animationCode = aCode;
-    }
-
-
-    private void PlayAnimation()
-    {
-        switch (animationCode)
-        {
-            case AnimationCodeEnum.walk:
-                if (curAnimation.IsName("Jump")) return;
+                if (wasWalking) return;
                 animator.SetTrigger("Jump");
                 wasIdled = false;
-                //faceMaterial.SetTexture("_MainTex", (heldObj == null) ? faces.IdleFace: faces.WalkFace);
+                wasWalking = true;
+                lastWalkTime = Time.time;
+                RuntimeManager.PlayOneShot(soundWalk, transform.position);
+                sendNow = true;
                 break;
-
+            case AnimationCodeEnum.jump:
+                wasIdled = false;
+                RuntimeManager.PlayOneShot(soundJump, transform.position);
+                sendNow = true;
+                break;
+            case AnimationCodeEnum.pick:
+                RuntimeManager.PlayOneShot(soundPick, transform.position);
+                wasIdled = false;
+                sendNow = true;
+                break;
             case AnimationCodeEnum.throwObj:
                 if (curAnimation.IsName("Attack")) return;
                 animator.SetTrigger("Attack");
                 wasIdled = false;
-                //faceMaterial.SetTexture("_MainTex", faces.AttackFace);
+                RuntimeManager.PlayOneShot(soundThrow, transform.position);
+                sendNow = true;
+                break;
+            case AnimationCodeEnum.landing:
+                wasIdled = false;
+                RuntimeManager.PlayOneShot(soundLanding, transform.position);
+                sendNow = true;
                 break;
             default:
                 // the idle state info is not included in animator
@@ -88,11 +88,21 @@ public class PlayerArtController : MonoBehaviour
                 //faceMaterial.SetTexture("_MainTex", faces.IdleFace);
                 break;
         }
+
+        if (sendNow && !fromRequest)
+        {
+            sendRequest(aCode);
+        }
     }
 
     public void AlertObservers()
     {
         // this is triggered after some animation ends
         // simply have this method to remove errors shown in console
+    }
+
+    public void sendRequest(AnimationCodeEnum code)
+    {
+        networkManager.SendArtRequest(code);
     }
 }

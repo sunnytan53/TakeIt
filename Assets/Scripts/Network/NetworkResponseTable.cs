@@ -19,6 +19,7 @@ public class NetworkResponseTable {
 		add(Constants.SMSG_MOVEMENT, "ResponseMovement");
 		add(Constants.SMSG_PICK, "ResponsePick");
 		add(Constants.SMSG_THROW, "ResponseThrow");
+		add(Constants.SMSG_ART, "ResponseArt");
 	}
 	
 	public static void add(short response_id, string name) {

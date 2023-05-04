@@ -32,6 +32,7 @@ public class GameRequestTable {
         add(Constants.CMSG_MOVEMENT, "RequestMovement");
         add(Constants.CMSG_PICK, "RequestPick");
         add(Constants.CMSG_THROW, "RequestThrow");
+        add(Constants.CMSG_ART, "RequestArt");
     }
 
     /**

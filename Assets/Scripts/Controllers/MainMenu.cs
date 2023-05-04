@@ -141,7 +141,6 @@ public class MainMenu : MonoBehaviour
 		ResponseJoinEventArgs args = eventArgs as ResponseJoinEventArgs;
 		if (args.status == 0)
 		{
-			Debug.Log("Someone joins");
 			RuntimeManager.PlayOneShot(soundJoin);
 			if (args.user_id == 1)
 			{
@@ -191,6 +190,8 @@ public class MainMenu : MonoBehaviour
 		{
 			messageBoxMsg.text = "Server is full.";
 			messageBox.SetActive(true);
+			networkMenuPanel.SetActive(false);
+			chatPanel.SetActive(false);
 		}
 
 	}
@@ -379,8 +380,10 @@ public class MainMenu : MonoBehaviour
 	public void OnOKClick()
 	{
 		RuntimeManager.PlayOneShot(soundRegular);
-		messageBox.SetActive(false);
 		rootMenuPanel.SetActive(true);
+		messageBox.SetActive(false);
+		networkMenuPanel.SetActive(false);
+		chatPanel.SetActive(false);
 	}
 
 	private void StartNetworkGame()
@@ -416,10 +419,10 @@ public class MainMenu : MonoBehaviour
 	IEnumerator DoDelay(float time)
     {
 		messageBox.SetActive(true);
-		messageBoxMsg.text = "Game Will Start in 3 Seconds!";
-        yield return new WaitForSeconds(1.0f);
-		messageBoxMsg.text = "Game Will Start in 2 Seconds!";
-		yield return new WaitForSeconds(1.0f);
+		//messageBoxMsg.text = "Game Will Start in 3 Seconds!";
+  //      yield return new WaitForSeconds(1.0f);
+		//messageBoxMsg.text = "Game Will Start in 2 Seconds!";
+		//yield return new WaitForSeconds(1.0f);
 		messageBoxMsg.text = "Game Will Start in 1 Seconds!";
 		yield return new WaitForSeconds(1.0f);
 		StartNetworkGame();

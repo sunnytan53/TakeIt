@@ -19,6 +19,7 @@ public class NetworkRequestTable {
 		add(Constants.CMSG_MOVEMENT, "RequestMovement");
 		add(Constants.CMSG_PICK, "RequestPick");
 		add(Constants.CMSG_THROW, "RequestThrow");
+		add(Constants.CMSG_ART, "RequestArt");
 	}
 	
 	public static void add(short request_id, string name) {

@@ -67,11 +67,7 @@ public class PlayerController : MonoBehaviour {
 
         if (characterController.isGrounded)
         {
-            if (movement.x == 0 && movement.z == 0)
-            {
-                artController.setAnimationCode(AnimationCodeEnum.idle);
-            }
-            else
+            if ((movement.x != 0 || movement.z != 0))
             {
                 artController.setAnimationCode(AnimationCodeEnum.walk);
             }
@@ -126,7 +122,7 @@ public class PlayerController : MonoBehaviour {
             //heldObj.transform.position = holdArea.position;
             if (Vector3.Distance(heldObj.transform.position, holdArea.position) > 0.1f)
             {
-                heldObjRB.AddForce((holdArea.position - heldObj.transform.position) * 10);
+                heldObjRB.AddForce((holdArea.position - heldObj.transform.position) * 30);
             }
 
             // throw the object with timed force
@@ -158,18 +154,12 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    private void sendMovementRequest()
-    {
-        // Send the position and rotation to the server
-        networkManager.SendMovementRequest(transform.position, transform.rotation);
-    }
-
 
     IEnumerator SendMovementRequest()
     {
         while (true)
         {
-            sendMovementRequest();
+            networkManager.SendMovementRequest(transform.position, transform.rotation);
             // Wait for the next update
             yield return new WaitForSeconds(0.1f); // update every 100ms
         }

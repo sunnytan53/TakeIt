@@ -183,4 +183,17 @@ public class NetworkManager : MonoBehaviour
 		}
 		return false;
     }
+
+
+	public bool SendArtRequest(AnimationCodeEnum code)
+	{
+		if (cManager && cManager.IsConnected())
+		{
+			RequestArt request = new RequestArt();
+			request.send(code);
+			cManager.send(request);
+			return true;
+		}
+		return false;
+	}
 }
