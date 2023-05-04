@@ -70,7 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   gravityMultiplier: 5
-  jumpMultiplier: 30
+  jumpMultiplier: 20
   rotateSpeed: 3
   pickRange: 10
   throwForce: 1000
