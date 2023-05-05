@@ -33,6 +33,8 @@ public class Constants {
 	final public static short SMSG_THROW = 210;
 	final public static short CMSG_ART = 120;
 	final public static short SMSG_ART = 220;
+	final public static short CMSG_FRUIT = 121;
+	final public static short SMSG_FRUIT = 221;
 
 	final public static short CMSG_HEARTBEAT = 111;
 

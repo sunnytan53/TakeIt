@@ -136,14 +136,7 @@ public class NetworkManager : MonoBehaviour
 		{
 			Debug.Log("Send Movement Request is activated in network manager......");
 			RequestMovement request = new RequestMovement();
-			float move_x = position.x;
-			float move_y = position.y;
-			float move_z = position.z;
-			float rotate_x = rotation.x;
-			float rotate_y = rotation.y;
-			float rotate_z = rotation.z;
-			float rotate_w = rotation.w;
-			request.send(move_x, move_y, move_z, rotate_x, rotate_y, rotate_z, rotate_w);
+			request.send(position.x, position.y, position.z, rotation.x, rotation.y, rotation.z, rotation.w);
 			cManager.send(request);
 			return true;
 		}
@@ -196,4 +189,16 @@ public class NetworkManager : MonoBehaviour
 		}
 		return false;
 	}
+
+	public bool SendFruitUpdateRequest(GameObject[] fruits)
+	{
+		if (cManager && cManager.IsConnected())
+		{
+			RequestFruitUpdate request = new RequestFruitUpdate();
+            request.send(fruits);
+            cManager.send(request);
+            return true;
+        }
+		return true;
+    }
 }

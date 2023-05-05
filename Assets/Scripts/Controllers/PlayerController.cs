@@ -96,22 +96,23 @@ public class PlayerController : MonoBehaviour {
             // pick the object up if nothing is in hand
             if (heldObj == null)
             {
-                if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, pickRange) && hit.transform.gameObject.CompareTag("Pickable"))
+                if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, pickRange))
                 {
-                    artController.setAnimationCode(AnimationCodeEnum.pick);
-                    heldObj = hit.transform.gameObject;
+                    GameObject hitObj = hit.transform.gameObject;
+                    if (hitObj.CompareTag("Pickable") && !hitObj.GetComponent<Pickable>().isPicked)
+                    {
+                        artController.setAnimationCode(AnimationCodeEnum.pick);
 
-                    heldObj.GetComponent<Pickable>().isPicked = true;
+                        heldObj = hitObj;
 
-                    heldObjRB = heldObj.GetComponent<Rigidbody>();
-                    // Debug.Log("heldObjPosition before pick: " + heldObj.transform.position);
-                    // Debug.Log("heldObjVelocity before pick: " + heldObj.GetComponent<Rigidbody>().velocity);
-            
-                    heldObjRB.useGravity = false;
-                    heldObjRB.drag = 10;
-                    heldObjRB.constraints = RigidbodyConstraints.FreezeRotation;
+                        heldObjRB = heldObj.GetComponent<Rigidbody>();
+                        heldObjRB.useGravity = false;
+                        heldObjRB.drag = 10;
+                        heldObjRB.constraints = RigidbodyConstraints.FreezeRotation;
+                        heldObj.GetComponent<Pickable>().isPicked = true;
 
-                    StartCoroutine(SendPickRequest());
+                        StartCoroutine(SendPickRequest());
+                    }
                 }
             }
         }
@@ -139,17 +140,13 @@ public class PlayerController : MonoBehaviour {
                 heldObjRB.useGravity = true;
                 heldObjRB.drag = 0;
                 heldObjRB.constraints = RigidbodyConstraints.None;
-                //heldObjRB.AddForce(transform.forward * 100f * throwForce * holdTime);
-                //heldObjRB.AddForce(camera.forward * throwForce * holdTime);
                 heldObjRB.AddForce((camera.forward + camera.up * 0.3f) * throwForce * holdTime);
-                int fruitTag = heldObj.GetComponent<Pickable>().index;
-
                 heldObjRB = null;
+
                 heldObj.GetComponent<Pickable>().isPicked = false;
-                
                 heldObj = null;
 
-                SendThrowRequest(fruitTag, camera.forward * throwForce * holdTime);                
+                SendThrowRequest(1, camera.forward * throwForce * holdTime);                
             }
         }
     }
@@ -161,21 +158,20 @@ public class PlayerController : MonoBehaviour {
         {
             networkManager.SendMovementRequest(transform.position, transform.rotation);
             // Wait for the next update
-            yield return new WaitForSeconds(0.1f); // update every 100ms
+            yield return new WaitForSeconds(0.03f); // update every 30ms
         }
     }
 
     IEnumerator SendPickRequest() {
-        while (heldObj != null && heldObj.GetComponent<Pickable>().isPicked)
+        while (heldObj != null)
         {
             // Debug.Log("Fruit pick request in player controller with heldObj.tag"+heldObj.GetComponent<Pickable>().index);
             // Debug.Log("Fruit pick request in player controller with tag"+heldObj.tag);
             // Debug.Log("In SendPickRequest, the heldObjPosition: " + heldObj.transform.position);
             // Debug.Log("Pick request received heldObjVelocity: " + heldObj.GetComponent<Rigidbody>().velocity);
-                    
-            int fruitTag = heldObj.GetComponent<Pickable>().index;
+
             Debug.Log("In SendPickRequest, going to call the networkManager***************************");
-            networkManager.SendPickRequest(fruitTag, heldObj.transform.position, heldObj.GetComponent<Rigidbody>().velocity);
+            networkManager.SendPickRequest(1, heldObj.transform.position, heldObj.GetComponent<Rigidbody>().velocity);
             yield return new WaitForSeconds(0.1f);
         }
     }

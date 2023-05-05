@@ -9,22 +9,13 @@ public class GameManager : MonoBehaviour
 {
 	public Player[] Players = new Player[4];
 	public GameObject slimePrefab;
-	public GameObject apple;
-	public GameObject avocado;
-	public GameObject banana;
-	public GameObject cherris;
-	public GameObject lemon;
-	public GameObject peach;
-	public GameObject peanut;
-	public GameObject pear;
-	public GameObject strawberry;
-	public GameObject watermelon;
+	public GameObject apple, avocado, banana, cherris, lemon,
+		peach, peanut, pear, strawberry, watermelon;
 
 	private GameObject currentPrefab;
 	private GameObject[] otherPlayers = new GameObject[4];
 
 	private HashSet<GameObject> fruitSet = new HashSet<GameObject>();
-	private GameObject[] fruits = new GameObject[20];
 	private GameObject[] fruits2 = new GameObject[10];
 
 	private int currentPlayer = 1;
@@ -51,6 +42,7 @@ public class GameManager : MonoBehaviour
 		msgQueue.AddCallback(Constants.SMSG_PICK, OnResponsePick);
 		msgQueue.AddCallback(Constants.SMSG_THROW, OnResponseThrow);
 		msgQueue.AddCallback(Constants.SMSG_ART, OnResponseArt);
+		msgQueue.AddCallback(Constants.SMSG_FRUIT, OnResponseFruitUpdate);
 	}
 
 /*
@@ -72,33 +64,26 @@ public class GameManager : MonoBehaviour
 	}
 	
 	public void createFruits(){
-		System.Random rand = new System.Random();
-		Debug.Log("Fruits are being instantiated*************************************"); 
-		/* // can't generate fruits randomly, since each player may generate different assets
-		for (int i = 0; i<fruits.Length; i++){
-			// Debug.Log("Fruits are being instantiated with i == ************************************* : " + i);
-			int randomX = rand.Next(70,130);
-        	int randomY = rand.Next(-10,0);
-        	int randomZ = rand.Next(70,130);
-        	Vector3 genPosition = new Vector3(randomX, randomY, randomZ);
-			fruits[i] = Instantiate(fruitSet.ElementAt(rand.Next(0, fruitSet.Count)), genPosition, Quaternion.identity);
-			fruits[i].GetComponent<Pickable>().index = i;
-			fruits[i].tag = i.ToString();
-			// Debug.Log("fruits[i].GetComponent<Pickable>().tag is *************************************: "+fruits[i].GetComponent<Pickable>().tag); 
-		}
-		*/
+		Debug.Log("Fruits are being instantiated*************************************");
+		// an efficient way to do it is find the empty gameobject in the map to init
 		Vector3[] fruitPos = new Vector3[] {
 			new Vector3(70, 0, 70), new Vector3(80, 0, 70), new Vector3(90, 0, 70), new Vector3(100, 0, 70), new Vector3(120, 0, 70), 
 			new Vector3(70, 0, 70), new Vector3(70, 0, 80), new Vector3(70, 0, 90), new Vector3(70, 0, 100), new Vector3(70, 0, 120)
 		};
 		for (int i=0; i<10; i++) {
 			fruits2[i] = Instantiate(fruitSet.ElementAt(i), fruitPos[i], Quaternion.identity);
-			Debug.Log("i is *************************************: "+i); 
-			fruits2[i].GetComponent<Pickable>().index = i;
-			Debug.Log("fruits2[i].GetComponent<Pickable>().tag is *************************************: "+fruits2[i].GetComponent<Pickable>().tag); 
-			fruits2[i].tag = i.ToString();
 		}
+		StartCoroutine(updateFruitLocation());
 	}
+
+	IEnumerator updateFruitLocation()
+    {
+		while (true)
+        {
+			networkManager.SendFruitUpdateRequest(fruits2);
+			yield return new WaitForSeconds(0.1f);
+		}
+    }
 
 	public void createCharacters() {
 		Debug.Log("Current player id when create characters is: " + currentPlayer);
@@ -120,27 +105,9 @@ public class GameManager : MonoBehaviour
 		Debug.Log("OnResponseMovement is activated in the Game Manager....with user_id: " + args.user_id);
 		if (args.user_id != Constants.USER_ID)
 		{
-			float move_x = args.move_x;
-			float move_y = args.move_y;
-			float move_z = args.move_z;
-			float rotate_x = args.rotate_x;
-			float rotate_y = args.rotate_y;
-			float rotate_z = args.rotate_z;
-			float rotate_w = args.rotate_w;
-			Vector3 position = new Vector3(move_x, move_y, move_z);
-            Quaternion rotation = new Quaternion(rotate_x, rotate_y, rotate_z, rotate_w);
-			Transform transform;
-			transform = otherPlayers[args.user_id-1].transform;
-			transform.position = position;
-			transform.rotation = rotation;
-		}
-		else if (args.user_id == Constants.USER_ID)
-		{
-			// Ignore
-		}
-		else
-		{
-			Debug.Log("ERROR: Invalid user_id in ResponseReady: " + args.user_id);
+			Transform transform = otherPlayers[args.user_id-1].transform;
+			transform.position = Vector3.Lerp(new Vector3(args.move_x, args.move_y, args.move_z), transform.position, 0.03f);
+			transform.rotation = Quaternion.Lerp(new Quaternion(args.rotate_x, args.rotate_y, args.rotate_z, args.rotate_w), transform.rotation, 0.03f);
 		}
 	}
 
@@ -164,38 +131,28 @@ public class GameManager : MonoBehaviour
 		ResponsePickEventArgs args = eventArgs as ResponsePickEventArgs;
 		Debug.Log("In OnResponsePick, the received user id is: " + args.user_id);
 		Debug.Log("In OnResponsePick, the received fruitTag is: " + args.fruitTag);
-		int user_id = args.user_id;
 
 		if (args.user_id != Constants.USER_ID)
 		{
-			int fruitTag = args.fruitTag;
-			float move_x = args.move_x;
-			float move_y = args.move_y;
-			float move_z = args.move_z;
-			float velocity_x = args.velocity_x;
-			float velocity_y = args.velocity_y;
-			float velocity_z = args.velocity_z;
-			Debug.Log("In OnResponsePick, received move_x: " + move_x);
-		
-			// attach fruit with fruitTag to the player with user_id
-			// GameObject playerPick = otherPlayers[user_id-1];
-			GameObject pickedFruit = fruits2[fruitTag];
-			// GameObject.Find(fruitTag.ToString());
+			GameObject pickedFruit = fruits2[args.fruitTag];
 			Rigidbody pickedFruitRB = pickedFruit.GetComponent<Rigidbody>();
-			// pickedFruitRB.useGravity = false;
-            // pickedFruitRB.drag = 10;
-            // pickedFruitRB.constraints = RigidbodyConstraints.FreezeRotation;
+			// avoid constant updating on fruits
+			if (!pickedFruit.GetComponent<Pickable>().isPicked)
+			{
+				pickedFruit.GetComponent<Pickable>().isPicked = true;
+				pickedFruitRB.useGravity = false;
+				pickedFruitRB.drag = 10;
+				pickedFruitRB.constraints = RigidbodyConstraints.FreezeRotation;
+			}
 
-			Debug.Log("In OnResponsePick, the pickedFruit is: " + pickedFruit.name);
-			Debug.Log("In OnResponsePick, pickedFruit.transform.position: " + pickedFruit.transform.position);
+			pickedFruit.transform.position = new Vector3(args.move_x, args.move_y, args.move_z);
+			pickedFruitRB.velocity = new Vector3(args.velocity_x, args.velocity_y, args.velocity_z);
+
+			//Debug.Log("In OnResponsePick, the pickedFruit is: " + pickedFruit.name);
+			//Debug.Log("In OnResponsePick, pickedFruit.transform.position: " + pickedFruit.transform.position);
 			// Debug.Log("In OnResponsePick, pickedFruitRB.velocity: " + pickedFruitRB.velocity);
-
-			Vector3 position = new Vector3(move_x, move_y, move_z);
-			Vector3 velocity = new Vector3(velocity_x, velocity_y, velocity_z);
-			Debug.Log("In OnResponsePick, received transform.position: " + position);
-			Debug.Log("In OnResponsePick, received velocity: " + velocity);
-			pickedFruit.transform.position = position;
-    		pickedFruitRB.velocity = velocity;
+			//Debug.Log("In OnResponsePick, received transform.position: " + position);
+			//Debug.Log("In OnResponsePick, received velocity: " + velocity);
 		}
 	}
 
@@ -206,20 +163,15 @@ public class GameManager : MonoBehaviour
 		
 		if (args.user_id != Constants.USER_ID)
 		{
-			int fruitTag = args.fruitTag;
-			float force_x = args.force_x;
-			float force_y = args.force_y;
-			float force_z = args.force_z;
+			GameObject throwFruit = fruits2[args.fruitTag];
+			throwFruit.GetComponent<Pickable>().isPicked = false;
 
-			GameObject throwFruit = fruits2[fruitTag];
 			Rigidbody throwFruitRB = throwFruit.GetComponent<Rigidbody>();
-			Vector3 force = new Vector3(force_x, force_y, force_z);
+            throwFruitRB.useGravity = true;
+            throwFruitRB.drag = 0;
+            throwFruitRB.constraints = RigidbodyConstraints.None;
 
-			// throwFruitRB.useGravity = true;
-            // throwFruitRB.drag = 0;
-            // throwFruitRB.constraints = RigidbodyConstraints.None;
-
-			throwFruitRB.AddForce(force);
+			throwFruitRB.AddForce(new Vector3(args.force_x, args.force_y, args.force_z));
 		}
 	}
 
@@ -231,6 +183,20 @@ public class GameManager : MonoBehaviour
 		if (args.user_id != Constants.USER_ID)
 		{
 			otherPlayers[args.user_id - 1].GetComponent<PlayerArtController>().setAnimationCode((AnimationCodeEnum)args.code, true);
+		}
+	}
+
+	public void OnResponseFruitUpdate(ExtendedEventArgs eventArgs)
+	{
+		ResponseFruitUpdateEventArgs args = eventArgs as ResponseFruitUpdateEventArgs;
+		Debug.Log("OnResponseResponseFruitUpdateEventArgs is activated in the Game Manager....with user_id: " + args.user_id);
+		if (args.user_id != Constants.USER_ID)
+		{
+			for (int i = 0; i < fruits2.Length; i++)
+            {
+				Transform transform = fruits2[i].transform;
+				transform.position = Vector3.Lerp(transform.position, args.positions[i], 0.1f);
+            }
 		}
 	}
 

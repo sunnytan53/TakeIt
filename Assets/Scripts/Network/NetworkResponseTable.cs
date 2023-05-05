@@ -20,6 +20,7 @@ public class NetworkResponseTable {
 		add(Constants.SMSG_PICK, "ResponsePick");
 		add(Constants.SMSG_THROW, "ResponseThrow");
 		add(Constants.SMSG_ART, "ResponseArt");
+		add(Constants.SMSG_FRUIT, "ResponseFruitUpdate");
 	}
 	
 	public static void add(short response_id, string name) {

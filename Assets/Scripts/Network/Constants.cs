@@ -30,6 +30,8 @@ public class Constants
 	public static readonly short SMSG_THROW = 210;
 	public static readonly short CMSG_ART = 120;
 	public static readonly short SMSG_ART = 220;
+	public static readonly short CMSG_FRUIT = 121;
+	public static readonly short SMSG_FRUIT = 221;
 
 	public static readonly short CMSG_HEARTBEAT = 111;
 
