@@ -9,14 +9,12 @@ public class GameManager : MonoBehaviour
 {
 	public Player[] Players = new Player[4];
 	public GameObject slimePrefab;
-	public GameObject apple, avocado, banana, cherris, lemon,
-		peach, peanut, pear, strawberry, watermelon;
+	public GameObject[] fruitToSpawn;
+	public GameObject[] rockToSpawn;
+	private GameObject[] fruitAndRock;
 
 	private GameObject currentPrefab;
 	private GameObject[] otherPlayers = new GameObject[4];
-
-	private HashSet<GameObject> fruitSet = new HashSet<GameObject>();
-	private GameObject[] fruits2 = new GameObject[10];
 
 	private int currentPlayer = 1;
 
@@ -25,18 +23,9 @@ public class GameManager : MonoBehaviour
 
 	void Start()
 	{
-		DontDestroyOnLoad(gameObject);
-		fruitSet.Add(apple);
-		fruitSet.Add(avocado);
-		fruitSet.Add(banana);
-		fruitSet.Add(cherris);
-		fruitSet.Add(lemon);
-		fruitSet.Add(peach);
-		fruitSet.Add(peanut);
-		fruitSet.Add(pear);
-		fruitSet.Add(strawberry);
-		fruitSet.Add(watermelon);
+		fruitAndRock = new GameObject[fruitToSpawn.Length + rockToSpawn.Length];
 
+		DontDestroyOnLoad(gameObject);
 		networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
 		MessageQueue msgQueue = networkManager.GetComponent<MessageQueue>();
 		msgQueue.AddCallback(Constants.SMSG_MOVEMENT, OnResponseMovement);
@@ -66,14 +55,25 @@ public class GameManager : MonoBehaviour
 	
 	public void createFruits(){
 		Debug.Log("Fruits are being instantiated*************************************");
-		// an efficient way to do it is find the empty gameobject in the map to init
+		// an efficient way to do it is through angle and spawn them around middle
+		// need middle tree position first
 		Vector3[] fruitPos = new Vector3[] {
 			new Vector3(70, 0, 70), new Vector3(80, 0, 70), new Vector3(90, 0, 70), new Vector3(100, 0, 70), new Vector3(120, 0, 70), 
 			new Vector3(70, 0, 70), new Vector3(70, 0, 80), new Vector3(70, 0, 90), new Vector3(70, 0, 100), new Vector3(70, 0, 120)
 		};
-		for (int i=0; i<10; i++) {
-			fruits2[i] = Instantiate(fruitSet.ElementAt(i), fruitPos[i], Quaternion.identity);
-			fruits2[i].GetComponent<Pickable>().index = i;
+		for (int i=0; i< fruitToSpawn.Length; i++) {
+			fruitAndRock[i] = Instantiate(fruitToSpawn[i], fruitPos[i], Quaternion.identity);
+			Pickable pickable = fruitAndRock[i].GetComponent<Pickable>();
+			pickable.index = i;
+			pickable.isFruit = true;
+		}
+
+		for (int i = 0; i < rockToSpawn.Length; i++)
+		{
+			int real_index = i + fruitToSpawn.Length;
+			fruitAndRock[real_index] = Instantiate(rockToSpawn[i], fruitPos[i], Quaternion.identity);
+			Pickable pickable = fruitAndRock[real_index].GetComponent<Pickable>();
+			pickable.index = real_index;
 		}
 
 		StartCoroutine(updateFruitLocation());
@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
     {
 		while (true)
         {
-			networkManager.SendFruitUpdateRequest(fruits2);
+			networkManager.SendFruitUpdateRequest(fruitAndRock);
 			yield return new WaitForSeconds(0.1f);
 		}
     }
@@ -138,7 +138,7 @@ public class GameManager : MonoBehaviour
 
 		if (args.user_id != Constants.USER_ID)
 		{
-			GameObject pickedFruit = fruits2[args.index];
+			GameObject pickedFruit = fruitAndRock[args.index];
 			Rigidbody pickedFruitRB = pickedFruit.GetComponent<Rigidbody>();
 			Pickable pickable = pickedFruit.GetComponent<Pickable>();
 			if (!pickable.isPicked)
@@ -158,7 +158,7 @@ public class GameManager : MonoBehaviour
 		
 		if (args.user_id != Constants.USER_ID)
 		{
-			GameObject throwFruit = fruits2[args.index];
+			GameObject throwFruit = fruitAndRock[args.index];
 			Rigidbody throwFruitRB = throwFruit.GetComponent<Rigidbody>();
 
 			throwFruit.GetComponent<Pickable>().isPicked = false;
@@ -187,9 +187,9 @@ public class GameManager : MonoBehaviour
 		Debug.Log("OnResponseResponseFruitUpdateEventArgs is activated in the Game Manager....with user_id: " + args.user_id);
 		if (args.user_id != Constants.USER_ID)
 		{
-			for (int i = 0; i < fruits2.Length; i++)
+			for (int i = 0; i < fruitAndRock.Length; i++)
             {
-				Transform transform = fruits2[i].transform;
+				Transform transform = fruitAndRock[i].transform;
                 transform.position = Vector3.Lerp(transform.position, args.positions[i], 0.1f);
 			}
 		}

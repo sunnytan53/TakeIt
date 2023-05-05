@@ -6066,16 +6066,28 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   slimePrefab: {fileID: 724548608846380696, guid: ee73576a5571642c4ad651d75019377a, type: 3}
-  apple: {fileID: 7322781235588886315, guid: 9aba50e20279a4e9b986487697f17bcd, type: 3}
-  avocado: {fileID: 6477220166380757193, guid: 8e13b9abbf1cd4f39a7a09119e6dc5db, type: 3}
-  banana: {fileID: 1349553258569061810, guid: 5294a572f7b7342829b5f54b8a75b91b, type: 3}
-  cherris: {fileID: 1771092976398890249, guid: 87db2d8cae2be4bc38e8998bb80690f3, type: 3}
-  lemon: {fileID: 3475390446823807163, guid: 24fe6736846bd449e9ca5a7d6823e9a3, type: 3}
-  peach: {fileID: 5858143839850228389, guid: c80cf3a89f8a54692aba48df73f9852a, type: 3}
-  peanut: {fileID: 1291452432090170914, guid: ef357f154af7d49f5b21944b4a12a609, type: 3}
-  pear: {fileID: 8590497669545041163, guid: a4cec7cd201e24aac80bdac912ba77a6, type: 3}
-  strawberry: {fileID: 2952156540963345961, guid: 8e73487320d8b4c5b992571f6a03875f, type: 3}
-  watermelon: {fileID: 4008115369577813473, guid: fa996a6ded78647038ad7738661a2e1d, type: 3}
+  fruitToSpawn:
+  - {fileID: 7322781235588886315, guid: 9aba50e20279a4e9b986487697f17bcd, type: 3}
+  - {fileID: 6477220166380757193, guid: 8e13b9abbf1cd4f39a7a09119e6dc5db, type: 3}
+  - {fileID: 1349553258569061810, guid: 5294a572f7b7342829b5f54b8a75b91b, type: 3}
+  - {fileID: 1771092976398890249, guid: 87db2d8cae2be4bc38e8998bb80690f3, type: 3}
+  - {fileID: 3475390446823807163, guid: 24fe6736846bd449e9ca5a7d6823e9a3, type: 3}
+  - {fileID: 5858143839850228389, guid: c80cf3a89f8a54692aba48df73f9852a, type: 3}
+  - {fileID: 1291452432090170914, guid: ef357f154af7d49f5b21944b4a12a609, type: 3}
+  - {fileID: 8590497669545041163, guid: a4cec7cd201e24aac80bdac912ba77a6, type: 3}
+  - {fileID: 2952156540963345961, guid: 8e73487320d8b4c5b992571f6a03875f, type: 3}
+  - {fileID: 4008115369577813473, guid: fa996a6ded78647038ad7738661a2e1d, type: 3}
+  rockToSpawn:
+  - {fileID: 2791988192147266103, guid: 8c7c90162352d429fa9c43b24cf73e92, type: 3}
+  - {fileID: 5895559091999707662, guid: b58f5959bc2eb4b299b151d36cb07b7c, type: 3}
+  - {fileID: 5620780789726837660, guid: 9a9916c50c72f4568ab7b1b6b0e638fa, type: 3}
+  - {fileID: 5068901398538201366, guid: f13260dfb369f4b19993804ede0271b5, type: 3}
+  - {fileID: 8632568543697623676, guid: 6ef6cbf03b5f944538dca1a34c189df1, type: 3}
+  - {fileID: 2791988192147266103, guid: 8c7c90162352d429fa9c43b24cf73e92, type: 3}
+  - {fileID: 5895559091999707662, guid: b58f5959bc2eb4b299b151d36cb07b7c, type: 3}
+  - {fileID: 5620780789726837660, guid: 9a9916c50c72f4568ab7b1b6b0e638fa, type: 3}
+  - {fileID: 5068901398538201366, guid: f13260dfb369f4b19993804ede0271b5, type: 3}
+  - {fileID: 8632568543697623676, guid: 6ef6cbf03b5f944538dca1a34c189df1, type: 3}
 --- !u!1 &1972670617
 GameObject:
   m_ObjectHideFlags: 0
