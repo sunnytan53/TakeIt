@@ -11,7 +11,7 @@ import core.NetworkManager;
 import utility.Log;
 
 public class RequestThrow extends GameRequest {
-    private int fruitTag;
+    private int index;
     private float force_x, force_y, force_z;
 
     // Responses
@@ -23,7 +23,7 @@ public class RequestThrow extends GameRequest {
 
     @Override
     public void parse() throws IOException {
-        fruitTag = DataReader.readInt(dataInput);
+        index = DataReader.readInt(dataInput);
         force_x = DataReader.readFloat(dataInput);
         force_y = DataReader.readFloat(dataInput);
         force_z = DataReader.readFloat(dataInput);
@@ -34,7 +34,7 @@ public class RequestThrow extends GameRequest {
         Player player = client.getPlayer();
 
         responsePick.setPlayer(player);
-        responsePick.setData(fruitTag, force_x, force_y, force_z);
+        responsePick.setData(index, force_x, force_y, force_z);
 
         // Log.printf("In request pick, Player with id %d has taken the fruit to (%f, %f, %f)", player.getID(), force_x, force_y, force_z);
 

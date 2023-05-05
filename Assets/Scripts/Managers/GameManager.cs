@@ -130,43 +130,35 @@ public class GameManager : MonoBehaviour
 	public void OnResponsePick(ExtendedEventArgs eventArgs) {
 		ResponsePickEventArgs args = eventArgs as ResponsePickEventArgs;
 		Debug.Log("In OnResponsePick, the received user id is: " + args.user_id);
-		Debug.Log("In OnResponsePick, the received fruitTag is: " + args.fruitTag);
+		Debug.Log("In OnResponsePick, the received fruitTag is: " + args.index);
 
+		if (args.index < 0 || args.index >= fruits2.Length) return;
 		if (args.user_id != Constants.USER_ID)
 		{
-			GameObject pickedFruit = fruits2[args.fruitTag];
+			GameObject pickedFruit = fruits2[args.index];
 			Rigidbody pickedFruitRB = pickedFruit.GetComponent<Rigidbody>();
-			// avoid constant updating on fruits
-			if (!pickedFruit.GetComponent<Pickable>().isPicked)
+			Pickable pickable = pickedFruit.GetComponent<Pickable>();
+			if (!pickable.isPicked)
 			{
-				pickedFruit.GetComponent<Pickable>().isPicked = true;
+				pickable.isPicked = true;
 				pickedFruitRB.useGravity = false;
 				pickedFruitRB.drag = 10;
 				pickedFruitRB.constraints = RigidbodyConstraints.FreezeRotation;
 			}
-
-			pickedFruit.transform.position = new Vector3(args.move_x, args.move_y, args.move_z);
-			pickedFruitRB.velocity = new Vector3(args.velocity_x, args.velocity_y, args.velocity_z);
-
-			//Debug.Log("In OnResponsePick, the pickedFruit is: " + pickedFruit.name);
-			//Debug.Log("In OnResponsePick, pickedFruit.transform.position: " + pickedFruit.transform.position);
-			// Debug.Log("In OnResponsePick, pickedFruitRB.velocity: " + pickedFruitRB.velocity);
-			//Debug.Log("In OnResponsePick, received transform.position: " + position);
-			//Debug.Log("In OnResponsePick, received velocity: " + velocity);
 		}
 	}
 
 	public void OnResponseThrow(ExtendedEventArgs eventArgs) {
 		ResponseThrowEventArgs args = eventArgs as ResponseThrowEventArgs;
 		Debug.Log("In OnResponseThrow, the received user id is: " + args.user_id);
-		Debug.Log("In OnResponseThrow, the received fruitTag is: " + args.fruitTag);
+		Debug.Log("In OnResponseThrow, the received fruitTag is: " + args.index);
 		
 		if (args.user_id != Constants.USER_ID)
 		{
-			GameObject throwFruit = fruits2[args.fruitTag];
-			throwFruit.GetComponent<Pickable>().isPicked = false;
-
+			GameObject throwFruit = fruits2[args.index];
 			Rigidbody throwFruitRB = throwFruit.GetComponent<Rigidbody>();
+
+			throwFruit.GetComponent<Pickable>().isPicked = false;
             throwFruitRB.useGravity = true;
             throwFruitRB.drag = 0;
             throwFruitRB.constraints = RigidbodyConstraints.None;

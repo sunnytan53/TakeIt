@@ -9,10 +9,10 @@ public class RequestThrow : NetworkRequest
 		request_id = Constants.CMSG_THROW;
 	}
 
-	public void send(int fruitTag, float force_x, float force_y, float force_z)
+	public void send(int index, float force_x, float force_y, float force_z)
 	{
 		packet = new GamePacket(request_id);
-		packet.addInt32(fruitTag);
+		packet.addInt32(index);
 		packet.addFloat32(force_x);
 		packet.addFloat32(force_y);
 		packet.addFloat32(force_z);

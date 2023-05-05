@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3476430482783604572}
   m_Layer: 0
   m_Name: lemon
-  m_TagString: 4
+  m_TagString: Pickable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

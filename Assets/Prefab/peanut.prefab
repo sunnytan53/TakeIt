@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1290439869435362969}
   m_Layer: 0
   m_Name: peanut
-  m_TagString: 6
+  m_TagString: Pickable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

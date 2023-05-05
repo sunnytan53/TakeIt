@@ -143,26 +143,20 @@ public class NetworkManager : MonoBehaviour
 		return false;
 	}
 
-	public bool SendPickRequest(int fruitTag, Vector3 position, Vector3 velocity)
+	public bool SendPickRequest(int index)
 	{
 		if (cManager && cManager.IsConnected())
 		{
 			Debug.Log("Fruit pick request is sent out from network manager^^^^^^^^^^^^^^^^^^^^^");
 			RequestPick request = new RequestPick();
-			float move_x = position.x;
-			float move_y = position.y;
-			float move_z = position.z;
-			float velocity_x = velocity.x;
-			float velocity_y = velocity.y;
-			float velocity_z = velocity.z;
-			request.send(fruitTag, move_x, move_y, move_z, velocity_x, velocity_y, velocity_z);
+			request.send(index);
 			cManager.send(request);
 			return true;
 		}
 		return false;
 	}
 
-	public bool SendThrowRequest(int fruitTag, Vector3 force){
+	public bool SendThrowRequest(int index, Vector3 force){
         if (cManager && cManager.IsConnected())
 		{
 			Debug.Log("Fruit throw request is sent out from network manager^^^^^^^^^^^^^^^^^^^^^");
@@ -170,7 +164,7 @@ public class NetworkManager : MonoBehaviour
 			float force_x = force.x;
 			float force_y = force.y;
 			float force_z = force.z;
-			request.send(fruitTag, force_x, force_y, force_z);
+			request.send(index, force_x, force_y, force_z);
 			cManager.send(request);
 			return true;
 		}

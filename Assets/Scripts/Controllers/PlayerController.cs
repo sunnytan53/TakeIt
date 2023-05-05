@@ -96,22 +96,23 @@ public class PlayerController : MonoBehaviour {
             // pick the object up if nothing is in hand
             if (heldObj == null)
             {
-                if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, pickRange))
+                if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, pickRange)
+                    && hit.transform.gameObject.CompareTag("Pickable"))
                 {
                     GameObject hitObj = hit.transform.gameObject;
-                    if (hitObj.CompareTag("Pickable") && !hitObj.GetComponent<Pickable>().isPicked)
+                    Pickable pickable = hitObj.GetComponent<Pickable>();
+                    if (!pickable.isPicked)
                     {
                         artController.setAnimationCode(AnimationCodeEnum.pick);
 
-                        heldObj = hitObj;
-
+                        heldObj = hit.transform.gameObject;
                         heldObjRB = heldObj.GetComponent<Rigidbody>();
                         heldObjRB.useGravity = false;
                         heldObjRB.drag = 10;
                         heldObjRB.constraints = RigidbodyConstraints.FreezeRotation;
-                        heldObj.GetComponent<Pickable>().isPicked = true;
+                        pickable.isPicked = true;
 
-                        StartCoroutine(SendPickRequest());
+                        SendPickRequest(pickable.index);
                     }
                 }
             }
@@ -140,13 +141,14 @@ public class PlayerController : MonoBehaviour {
                 heldObjRB.useGravity = true;
                 heldObjRB.drag = 0;
                 heldObjRB.constraints = RigidbodyConstraints.None;
-                heldObjRB.AddForce((camera.forward + camera.up * 0.3f) * throwForce * holdTime);
+                Vector3 addedForce = (camera.forward + camera.up * 0.3f) * throwForce * holdTime;
+                heldObjRB.AddForce(addedForce);
                 heldObjRB = null;
-
-                heldObj.GetComponent<Pickable>().isPicked = false;
+                Pickable pickable = heldObj.GetComponent<Pickable>();
+                pickable.isPicked = false;
                 heldObj = null;
 
-                SendThrowRequest(1, camera.forward * throwForce * holdTime);                
+                SendThrowRequest(pickable.index, addedForce);                
             }
         }
     }
@@ -162,22 +164,14 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    IEnumerator SendPickRequest() {
-        while (heldObj != null)
-        {
-            // Debug.Log("Fruit pick request in player controller with heldObj.tag"+heldObj.GetComponent<Pickable>().index);
-            // Debug.Log("Fruit pick request in player controller with tag"+heldObj.tag);
-            // Debug.Log("In SendPickRequest, the heldObjPosition: " + heldObj.transform.position);
-            // Debug.Log("Pick request received heldObjVelocity: " + heldObj.GetComponent<Rigidbody>().velocity);
+    public void SendPickRequest(int index) {
 
-            Debug.Log("In SendPickRequest, going to call the networkManager***************************");
-            networkManager.SendPickRequest(1, heldObj.transform.position, heldObj.GetComponent<Rigidbody>().velocity);
-            yield return new WaitForSeconds(0.1f);
-        }
+        Debug.Log("In SendPickRequest, going to call the networkManager***************************");
+        networkManager.SendPickRequest(index);
     }
 
-    public void SendThrowRequest(int fruitTag, Vector3 force){
+    public void SendThrowRequest(int index, Vector3 force){
         Debug.Log("In SendThrowRequest, going to call the networkManager***************************");
-        networkManager.SendThrowRequest(fruitTag, force);
+        networkManager.SendThrowRequest(index, force);
     }
 }

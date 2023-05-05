@@ -8,7 +8,7 @@ using System.Text;
 public class ResponseThrowEventArgs : ExtendedEventArgs
 {
 	public int user_id { get; set; } // The user_id of whom who sent the request
-	public int fruitTag { get; set; } // The fruitTag sent back from server
+	public int index { get; set; } // The fruitTag sent back from server
 	public float force_x { get; set; } // The force in x direction
 	public float force_y { get; set; } // The force in y direction
 	public float force_z { get; set; } // The force in z direction
@@ -22,7 +22,7 @@ public class ResponseThrowEventArgs : ExtendedEventArgs
 public class ResponseThrow : NetworkResponse
 {
 	private int user_id;
-	private int fruitTag;
+	private int index;
 	public float force_x;
 	public float force_y;
 	public float force_z;
@@ -35,7 +35,7 @@ public class ResponseThrow : NetworkResponse
 	{
 		user_id = DataReader.ReadInt(dataStream);
 		Debug.Log("user_id got from ResponseThrow is: " + user_id);
-		fruitTag = DataReader.ReadInt(dataStream);
+		index = DataReader.ReadInt(dataStream);
 		force_x = DataReader.ReadFloat(dataStream);
 		force_y = DataReader.ReadFloat(dataStream);
 		force_z = DataReader.ReadFloat(dataStream);
@@ -46,7 +46,7 @@ public class ResponseThrow : NetworkResponse
 		ResponseThrowEventArgs args = new ResponseThrowEventArgs
 		{
 			user_id = user_id,
-			fruitTag = fruitTag,
+			index = index,
 			force_x = force_x,
 			force_y = force_y,
 			force_z = force_z

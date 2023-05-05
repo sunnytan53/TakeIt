@@ -9,18 +9,7 @@ TagManager:
   - Fruit
   - Pickable
   - Message
-  - 1
-  - 2
-  - 3
-  - 4
-  - 5
-  - 6
-  - 7
-  - 8
-  - 9
-  - 10
   - Team1 Score
-  - 0
   layers:
   - Default
   - TransparentFX

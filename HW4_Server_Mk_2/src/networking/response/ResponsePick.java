@@ -11,13 +11,7 @@ import utility.Log;
  */
 public class ResponsePick extends GameResponse {
     private Player player;
-    private int fruitTag;
-    private float move_x;
-    private float move_y;
-    private float move_z;
-    private float velocity_x;
-    private float velocity_y;
-    private float velocity_z;
+    private int index;
 
     public ResponsePick() {
         responseCode = Constants.SMSG_PICK;
@@ -27,15 +21,9 @@ public class ResponsePick extends GameResponse {
     public byte[] constructResponseInBytes() {
         GamePacket packet = new GamePacket(responseCode);
         packet.addInt32(player.getID());
-        packet.addInt32(fruitTag);
-        packet.addFloat(move_x);
-        packet.addFloat(move_y);
-        packet.addFloat(move_z);
-        packet.addFloat(velocity_x);
-        packet.addFloat(velocity_y);
-        packet.addFloat(velocity_z);
+        packet.addInt32(index);
 
-        Log.printf("In ResponsePick, Player with id %d has picked a fruit with tag: %s to (%f, %f, %f)", player.getID(), fruitTag, move_x, move_y, move_z);
+        // Log.printf("In ResponsePick, Player with id %d has picked a fruit with tag: %s to (%f, %f, %f)", player.getID(), fruitTag, move_x, move_y, move_z);
  
         return packet.getBytes();
     }
@@ -44,13 +32,7 @@ public class ResponsePick extends GameResponse {
         this.player = player;
     }
 
-    public void setData(int fruitTag, float move_x, float move_y, float move_z, float velocity_x, float velocity_y, float velocity_z) {
-        this.fruitTag = fruitTag;
-        this.move_x = move_x;
-        this.move_y = move_y; 
-        this.move_z = move_z;
-        this.velocity_x = velocity_x;
-        this.velocity_y = velocity_y;
-        this.velocity_z = velocity_z;
+    public void setData(int index) {
+        this.index = index;
     }
 }
