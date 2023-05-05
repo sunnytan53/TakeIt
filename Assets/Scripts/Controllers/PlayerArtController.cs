@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FMODUnity;
 
-public enum AnimationCodeEnum { idle, walk, jump, pick, throwObj, landing };
+public enum AnimationCodeEnum { idle, walk, jump, pick, throwObj, landing, stun };
 
 public class PlayerArtController : MonoBehaviour
 {
@@ -21,6 +21,7 @@ public class PlayerArtController : MonoBehaviour
     public EventReference soundLanding;
     public EventReference soundPick;
     public EventReference soundThrow;
+    public EventReference soundStun;
 
     private NetworkManager networkManager;
 
@@ -34,6 +35,7 @@ public class PlayerArtController : MonoBehaviour
         animator = GetComponent<Animator>();
         faceMaterial = SmileBody.GetComponent<Renderer>().materials[1];
         networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
+        animator.SetInteger("DamageType", 2);
     }
 
     public void setAnimationCode(AnimationCodeEnum aCode, bool fromRequest = false)
@@ -78,6 +80,13 @@ public class PlayerArtController : MonoBehaviour
             case AnimationCodeEnum.landing:
                 wasIdled = false;
                 RuntimeManager.PlayOneShot(soundLanding, transform.position);
+                sendNow = true;
+                break;
+            case AnimationCodeEnum.stun:
+                if (curAnimation.IsName("Damage2")) return;
+                wasIdled = false;
+                RuntimeManager.PlayOneShot(soundStun, transform.position);
+                animator.SetTrigger("Damage");
                 sendNow = true;
                 break;
             default:

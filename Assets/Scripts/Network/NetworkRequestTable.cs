@@ -13,8 +13,6 @@ public class NetworkRequestTable {
 		add(Constants.CMSG_LEAVE, "RequestLeave");
 		add(Constants.CMSG_SETNAME, "RequestSetName");
 		add(Constants.CMSG_READY, "RequestReady");
-		add(Constants.CMSG_MOVE, "RequestMove");
-		add(Constants.CMSG_INTERACT, "RequestInteract");
 		add(Constants.CMSG_CHAT, "RequestChat");
 		add(Constants.CMSG_MOVEMENT, "RequestMovement");
 		add(Constants.CMSG_PICK, "RequestPick");

@@ -19,10 +19,10 @@ public class Constants {
 	final public static short SMSG_SETNAME = 203;
 	final public static short CMSG_READY = 104;
 	final public static short SMSG_READY = 204;
-	final public static short CMSG_MOVE = 105;
-	final public static short SMSG_MOVE = 205;
-	final public static short CMSG_INTERACT = 106;
-	final public static short SMSG_INTERACT = 206;
+	// final public static short CMSG_MOVE = 105;
+	// final public static short SMSG_MOVE = 205;
+	// final public static short CMSG_INTERACT = 106;
+	// final public static short SMSG_INTERACT = 206;
 	final public static short CMSG_CHAT = 107;
 	final public static short SMSG_CHAT = 207;
 	final public static short CMSG_MOVEMENT = 108;

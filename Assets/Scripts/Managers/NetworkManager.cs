@@ -80,30 +80,6 @@ public class NetworkManager : MonoBehaviour
 		return false;
 	}
 
-	public bool SendMoveRequest(int pieceIndex, int x, int y)
-	{
-		if (cManager && cManager.IsConnected())
-		{
-			RequestMove request = new RequestMove();
-			request.send(pieceIndex, x, y);
-			cManager.send(request);
-			return true;
-		}
-		return false;
-	}
-
-	public bool SendInteractRequest(int pieceIndex, int targetIndex)
-	{
-		if (cManager && cManager.IsConnected())
-		{
-			RequestInteract request = new RequestInteract();
-			request.send(pieceIndex, targetIndex);
-			cManager.send(request);
-			return true;
-		}
-		return false;
-	}
-
 	public IEnumerator RequestHeartbeat(float time)
 	{
 		yield return new WaitForSeconds(time);
@@ -134,7 +110,7 @@ public class NetworkManager : MonoBehaviour
 	{
 		if (cManager && cManager.IsConnected())
 		{
-			Debug.Log("Send Movement Request is activated in network manager......");
+			//Debug.Log("Send Movement Request is activated in network manager......");
 			RequestMovement request = new RequestMovement();
 			request.send(position.x, position.y, position.z, rotation.x, rotation.y, rotation.z, rotation.w);
 			cManager.send(request);
@@ -147,7 +123,7 @@ public class NetworkManager : MonoBehaviour
 	{
 		if (cManager && cManager.IsConnected())
 		{
-			Debug.Log("Fruit pick request is sent out from network manager^^^^^^^^^^^^^^^^^^^^^");
+			Debug.Log("Fruit pick request is sent out from network manager...");
 			RequestPick request = new RequestPick();
 			request.send(index);
 			cManager.send(request);
@@ -159,7 +135,7 @@ public class NetworkManager : MonoBehaviour
 	public bool SendThrowRequest(int index, Vector3 force){
         if (cManager && cManager.IsConnected())
 		{
-			Debug.Log("Fruit throw request is sent out from network manager^^^^^^^^^^^^^^^^^^^^^");
+			Debug.Log("Fruit throw request is sent out from network manager...");
 			RequestThrow request = new RequestThrow();
 			float force_x = force.x;
 			float force_y = force.y;

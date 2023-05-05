@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4183575211541589324}
   - component: {fileID: 8225300173266175478}
   - component: {fileID: 821009122}
+  - component: {fileID: 7629705307020496650}
   m_Layer: 0
   m_Name: MainPlayer
   m_TagString: Untagged
@@ -138,11 +139,32 @@ MonoBehaviour:
     Path: event:/SFX/Takeit_grabfruit_v1
   soundThrow:
     Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  soundStun:
+    Guid:
       Data1: 1167510317
       Data2: 1135537031
       Data3: -863143545
       Data4: 668758338
     Path: event:/SFX/Takeit_Hit_v2
+--- !u!136 &7629705307020496650
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724548608846380696}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.4
+  m_Height: 0.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!1 &1384067708658123723
 GameObject:
   m_ObjectHideFlags: 0

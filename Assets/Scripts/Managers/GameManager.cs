@@ -98,6 +98,7 @@ public class GameManager : MonoBehaviour
 				otherPlayers[i] = Instantiate(slimePrefab, getPosition(i+1), Quaternion.identity);
 				otherPlayers[i].GetComponentInChildren<Camera>().enabled=false;
             	otherPlayers[i].GetComponent<PlayerController>().enabled = false;
+				otherPlayers[i].GetComponent<CapsuleCollider>().enabled = false;
 			}
 		}
 	}
@@ -105,7 +106,7 @@ public class GameManager : MonoBehaviour
 	public void OnResponseMovement(ExtendedEventArgs eventArgs)
 	{
 		ResponseMovementEventArgs args = eventArgs as ResponseMovementEventArgs;
-		Debug.Log("OnResponseMovement is activated in the Game Manager....with user_id: " + args.user_id);
+		//Debug.Log("OnResponseMovement is activated in the Game Manager....with user_id: " + args.user_id);
 		if (args.user_id != Constants.USER_ID)
 		{
 			Transform transform = otherPlayers[args.user_id-1].transform;

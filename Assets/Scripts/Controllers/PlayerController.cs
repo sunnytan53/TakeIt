@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour {
             //heldObj.transform.position = holdArea.position;
             if (Vector3.Distance(heldObj.transform.position, holdArea.position) > 0.1f)
             {
-                heldObjRB.AddForce((holdArea.position - heldObj.transform.position) * 30);
+                heldObjRB.AddForce((holdArea.position - heldObj.transform.position) * 10);
             }
 
             // throw the object with timed force
@@ -151,6 +151,36 @@ public class PlayerController : MonoBehaviour {
                 SendThrowRequest(pickable.index, addedForce);                
             }
         }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Pickable"))
+        {
+            if (collision.relativeVelocity.magnitude > 10f)
+            {
+                // force to throw the fruit
+                artController.setAnimationCode(AnimationCodeEnum.stun);
+
+                heldObjRB.useGravity = true;
+                heldObjRB.drag = 0;
+                heldObjRB.constraints = RigidbodyConstraints.None;
+                heldObjRB = null;
+                Pickable pickable = heldObj.GetComponent<Pickable>();
+                pickable.isPicked = false;
+                heldObj = null;
+                SendThrowRequest(pickable.index, new Vector3(0,0,0));
+
+                StartCoroutine(UnstunPlayer(collision.relativeVelocity.magnitude/10f));
+                this.enabled = false;
+            }
+        }
+    }
+
+    IEnumerator UnstunPlayer(float time)
+    {
+        yield return new WaitForSeconds(time);
+        this.enabled = true;
     }
 
 
