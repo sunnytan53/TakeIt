@@ -160,7 +160,7 @@ public class PlayerController : MonoBehaviour {
         {
             networkManager.SendMovementRequest(transform.position, transform.rotation);
             // Wait for the next update
-            yield return new WaitForSeconds(0.03f); // update every 30ms
+            yield return new WaitForSeconds(0.1f); // update every 100ms
         }
     }
 
