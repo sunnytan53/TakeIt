@@ -145,7 +145,7 @@ public class GameManager : MonoBehaviour
 			{
 				pickable.isPicked = true;
 				pickedFruitRB.useGravity = false;
-				pickedFruitRB.drag = 10;
+				//pickedFruitRB.drag = 10;
 				pickedFruitRB.constraints = RigidbodyConstraints.FreezeRotation;
 			}
 		}
@@ -163,7 +163,7 @@ public class GameManager : MonoBehaviour
 
 			throwFruit.GetComponent<Pickable>().isPicked = false;
             throwFruitRB.useGravity = true;
-            throwFruitRB.drag = 0;
+            //throwFruitRB.drag = 0;
             throwFruitRB.constraints = RigidbodyConstraints.None;
 
 			throwFruitRB.AddForce(new Vector3(args.force_x, args.force_y, args.force_z));

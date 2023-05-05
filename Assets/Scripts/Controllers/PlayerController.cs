@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour {
                         heldObj = hit.transform.gameObject;
                         heldObjRB = heldObj.GetComponent<Rigidbody>();
                         heldObjRB.useGravity = false;
-                        heldObjRB.drag = 10;
+                        //heldObjRB.drag = 10;
                         heldObjRB.constraints = RigidbodyConstraints.FreezeRotation;
                         pickable.isPicked = true;
 
@@ -121,11 +121,11 @@ public class PlayerController : MonoBehaviour {
         // update the held object
         if (heldObj != null)
         {
-            //heldObj.transform.position = holdArea.position;
-            if (Vector3.Distance(heldObj.transform.position, holdArea.position) > 0.1f)
-            {
-                heldObjRB.AddForce((holdArea.position - heldObj.transform.position) * 10);
-            }
+            heldObj.transform.position = holdArea.position;
+            //if (Vector3.Distance(heldObj.transform.position, holdArea.position) > 0.1f)
+            //{
+            //    heldObjRB.AddForce((holdArea.position - heldObj.transform.position) * 10);
+            //}
 
             // throw the object with timed force
             if (Input.GetMouseButtonDown(1))
@@ -139,7 +139,7 @@ public class PlayerController : MonoBehaviour {
                 float holdTime = Time.time - holdStartTime;
 
                 heldObjRB.useGravity = true;
-                heldObjRB.drag = 0;
+                //heldObjRB.drag = 0;
                 heldObjRB.constraints = RigidbodyConstraints.None;
                 Vector3 addedForce = (camera.forward + camera.up * 0.3f) * throwForce * holdTime;
                 heldObjRB.AddForce(addedForce);
@@ -163,7 +163,7 @@ public class PlayerController : MonoBehaviour {
                 artController.setAnimationCode(AnimationCodeEnum.stun);
 
                 heldObjRB.useGravity = true;
-                heldObjRB.drag = 0;
+                //heldObjRB.drag = 0;
                 heldObjRB.constraints = RigidbodyConstraints.None;
                 heldObjRB = null;
                 Pickable pickable = heldObj.GetComponent<Pickable>();
