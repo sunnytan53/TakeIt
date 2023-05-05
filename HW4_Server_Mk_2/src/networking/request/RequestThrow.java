@@ -15,10 +15,10 @@ public class RequestThrow extends GameRequest {
     private float force_x, force_y, force_z;
 
     // Responses
-    private ResponseThrow responsePick;
+    private ResponseThrow responseThrow;
 
     public RequestThrow() {
-        responses.add(responsePick = new ResponseThrow());
+        responses.add(responseThrow = new ResponseThrow());
     }
 
     @Override
@@ -33,11 +33,11 @@ public class RequestThrow extends GameRequest {
     public void doBusiness() throws Exception {
         Player player = client.getPlayer();
 
-        responsePick.setPlayer(player);
-        responsePick.setData(index, force_x, force_y, force_z);
+        responseThrow.setPlayer(player);
+        responseThrow.setData(index, force_x, force_y, force_z);
 
         // Log.printf("In request pick, Player with id %d has taken the fruit to (%f, %f, %f)", player.getID(), force_x, force_y, force_z);
 
-        NetworkManager.addResponseForAllOnlinePlayers(player.getID(), responsePick);
+        NetworkManager.addResponseForAllOnlinePlayers(player.getID(), responseThrow);
     }
 }

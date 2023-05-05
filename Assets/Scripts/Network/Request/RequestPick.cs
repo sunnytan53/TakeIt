@@ -13,5 +13,9 @@ public class RequestPick : NetworkRequest
 	{
 		packet = new GamePacket(request_id);
 		packet.addInt32(index);
+		if (index < 0 || index >= 10)
+        {
+			Debug.LogError("abnormal index");
+        }
 	}
 }

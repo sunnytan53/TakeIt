@@ -166,12 +166,12 @@ public class PlayerController : MonoBehaviour {
 
     public void SendPickRequest(int index) {
 
-        Debug.Log("In SendPickRequest, going to call the networkManager***************************");
+        Debug.Log("In SendPickRequest, sending index: " + index);
         networkManager.SendPickRequest(index);
     }
 
     public void SendThrowRequest(int index, Vector3 force){
-        Debug.Log("In SendThrowRequest, going to call the networkManager***************************");
+        Debug.Log("In SendThrowRequest, sending index: " + index);
         networkManager.SendThrowRequest(index, force);
     }
 }

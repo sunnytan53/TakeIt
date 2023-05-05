@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 
 	private NetworkManager networkManager;
 
+
 	void Start()
 	{
 		DontDestroyOnLoad(gameObject);
@@ -72,7 +73,9 @@ public class GameManager : MonoBehaviour
 		};
 		for (int i=0; i<10; i++) {
 			fruits2[i] = Instantiate(fruitSet.ElementAt(i), fruitPos[i], Quaternion.identity);
+			fruits2[i].GetComponent<Pickable>().index = i;
 		}
+
 		StartCoroutine(updateFruitLocation());
 	}
 
@@ -106,8 +109,8 @@ public class GameManager : MonoBehaviour
 		if (args.user_id != Constants.USER_ID)
 		{
 			Transform transform = otherPlayers[args.user_id-1].transform;
-			transform.position = Vector3.Lerp(new Vector3(args.move_x, args.move_y, args.move_z), transform.position, 0.03f);
-			transform.rotation = Quaternion.Lerp(new Quaternion(args.rotate_x, args.rotate_y, args.rotate_z, args.rotate_w), transform.rotation, 0.03f);
+			transform.position = Vector3.Lerp(new Vector3(args.move_x, args.move_y, args.move_z), transform.position, 0.1f);
+			transform.rotation = Quaternion.Lerp(new Quaternion(args.rotate_x, args.rotate_y, args.rotate_z, args.rotate_w), transform.rotation, 0.1f);
 		}
 	}
 
@@ -130,9 +133,8 @@ public class GameManager : MonoBehaviour
 	public void OnResponsePick(ExtendedEventArgs eventArgs) {
 		ResponsePickEventArgs args = eventArgs as ResponsePickEventArgs;
 		Debug.Log("In OnResponsePick, the received user id is: " + args.user_id);
-		Debug.Log("In OnResponsePick, the received fruitTag is: " + args.index);
+		Debug.Log("In OnResponsePick, the received fruit index is: " + args.index);
 
-		if (args.index < 0 || args.index >= fruits2.Length) return;
 		if (args.user_id != Constants.USER_ID)
 		{
 			GameObject pickedFruit = fruits2[args.index];
@@ -187,8 +189,8 @@ public class GameManager : MonoBehaviour
 			for (int i = 0; i < fruits2.Length; i++)
             {
 				Transform transform = fruits2[i].transform;
-				transform.position = Vector3.Lerp(transform.position, args.positions[i], 0.1f);
-            }
+                transform.position = Vector3.Lerp(transform.position, args.positions[i], 0.1f);
+			}
 		}
 	}
 

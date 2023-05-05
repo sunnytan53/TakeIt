@@ -89,6 +89,7 @@ public class GameClient implements Runnable {
                     GameRequest request = GameRequestTable.get(requestCode);
                     // If the request exists, process like following:
                     if (request != null) {
+                        // Log.println(request.toString());
                         request.setGameClient(this);
                         // Pass input stream to the request object
                         request.setDataInputStream(dataInput);

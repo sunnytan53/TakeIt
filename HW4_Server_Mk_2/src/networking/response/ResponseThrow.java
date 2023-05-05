@@ -17,12 +17,13 @@ public class ResponseThrow extends GameResponse {
     private float force_z;
 
     public ResponseThrow() {
-        responseCode = Constants.SMSG_PICK;
+        responseCode = Constants.SMSG_THROW;
     }
 
     @Override
     public byte[] constructResponseInBytes() {
         GamePacket packet = new GamePacket(responseCode);
+        packet.addInt32(player.getID());
         packet.addInt32(index);
         packet.addFloat(force_x);
         packet.addFloat(force_y);

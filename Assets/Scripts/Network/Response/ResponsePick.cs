@@ -28,7 +28,7 @@ public class ResponsePick : NetworkResponse
 	public override void parse()
 	{
 		user_id = DataReader.ReadInt(dataStream);
-		Debug.Log("user_id got from ResponsePick is: " + user_id);
+		//Debug.Log("user_id got from ResponsePick is: " + user_id);
 		index = DataReader.ReadInt(dataStream);
 	}
 
