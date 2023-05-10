@@ -136,7 +136,7 @@ public class PlayerController : MonoBehaviour {
             {
                 artController.setAnimationCode(AnimationCodeEnum.throwObj);
 
-                float holdTime = Time.time - holdStartTime;
+                float holdTime = Mathf.Min(Time.time - holdStartTime, 3f);
 
                 heldObjRB.useGravity = true;
                 //heldObjRB.drag = 0;

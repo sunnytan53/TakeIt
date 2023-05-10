@@ -542,11 +542,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundTest:
     Guid:
-      Data1: -1018041295
-      Data2: 1234806320
-      Data3: -1135842644
-      Data4: 2037341183
-    Path: event:/MUSIC/Takeit_Music_Menu_v2.3_@145.5bpm
+      Data1: -1881119611
+      Data2: 1115528055
+      Data3: 1102623152
+      Data4: -722577109
+    Path: event:/MUSIC/Takeit_MusicTheme_General
 --- !u!114 &106853709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1136,11 +1136,18 @@ MonoBehaviour:
     Path: event:/UI_SFX/Takeit_VO-UI_Ready
   soundQuit:
     Guid:
-      Data1: -1113325577
-      Data2: 1139043244
-      Data3: 201440896
-      Data4: -1584556627
-    Path: event:/UI_SFX/Takeit_UI_Quit_v3
+      Data1: -2130495942
+      Data2: 1338200648
+      Data3: 1011211651
+      Data4: 1189449991
+    Path: event:/UI_SFX/Takeit_VOMusic_Quit
+  soundSendMsg:
+    Guid:
+      Data1: -1856473757
+      Data2: 1085808055
+      Data3: 2106291107
+      Data4: 1041989175
+    Path: event:/UI_SFX/Takeit_UI_Send
 --- !u!1 &329055430
 GameObject:
   m_ObjectHideFlags: 0

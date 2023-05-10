@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using FMODUnity;
 
 public class CharacterCreator : MonoBehaviour
 {
@@ -20,12 +21,18 @@ public class CharacterCreator : MonoBehaviour
 	public int scoreValueT2;
 
 
+	public EventReference soundGame;
+	private FMOD.Studio.EventInstance instance;
+
 	// Start is called before the first frame update
 	void Start()
 	{
 		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 		gameManager.createCharacters();
 		gameManager.createFruits();
+
+		instance = RuntimeManager.CreateInstance(soundGame);
+		instance.start();
 
 		startTime = Time.time; 
 		scoreValueT1 = 0;
@@ -42,7 +49,8 @@ public class CharacterCreator : MonoBehaviour
 		gameOverPanel = GameObject.Find("GameOver");
 		gameOverPanel.SetActive(false);
 		tryAgainButton.onClick.AddListener(OnButtonClick);
-		
+
+
 		StartCoroutine(IncrementScoreTest());
 	}
 
@@ -81,7 +89,13 @@ public class CharacterCreator : MonoBehaviour
 			}
 			
 		}
-    }
+	}
+
+	private void OnDestroy()
+	{
+		instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+		instance.release();
+	}
 
 	public void OnButtonClick()
 	{
