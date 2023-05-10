@@ -6,7 +6,7 @@ public class Pickable : MonoBehaviour {
     public int index { get; set; }
     public bool isFruit { get; set; }
 
-    void Start()
+    void Awake() // do not use start
     {
         isPicked = false;
         isFruit = false;

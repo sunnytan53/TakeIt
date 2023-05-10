@@ -8,13 +8,13 @@ public class WarehoseCollider : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log("total colliding :" + fruits.Count);
+        // Debug.Log("total fruits colliding :" + fruits.Count);
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Pickable"))
+        if (other.CompareTag("Pickable") && other.GetComponent<Pickable>().isFruit)
         {
             fruits.Add(other.gameObject);
         }
@@ -22,7 +22,7 @@ public class WarehoseCollider : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Pickable"))
+        if (other.CompareTag("Pickable") && other.GetComponent<Pickable>().isFruit)
         {
             fruits.Remove(other.gameObject);
         }
