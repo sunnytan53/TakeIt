@@ -1119,7 +1119,7 @@ MonoBehaviour:
       Data2: 1187595377
       Data3: -1571730801
       Data4: 1551514971
-    Path: event:/UI_SFX/Takeit_UI_playerscores_v1
+    Path: event:/UI_SFX/Takeit_UI_playerscores
   soundJoin:
     Guid:
       Data1: 978679781
@@ -1133,7 +1133,7 @@ MonoBehaviour:
       Data2: 1319906935
       Data3: -1052174957
       Data4: 1264361286
-    Path: event:/UI_SFX/Takeit_UI_Ready_v1
+    Path: event:/UI_SFX/Takeit_VO-UI_Ready
   soundQuit:
     Guid:
       Data1: -1113325577

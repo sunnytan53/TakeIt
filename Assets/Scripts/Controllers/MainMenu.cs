@@ -52,6 +52,7 @@ public class MainMenu : MonoBehaviour
 	public EventReference soundJoin;
 	public EventReference soundReady;
 	public EventReference soundQuit;
+	public EventReference soundSendMsg;
 
 	void Start()
     {
@@ -368,12 +369,11 @@ public class MainMenu : MonoBehaviour
 	public void OnResponseChat(ExtendedEventArgs eventArgs) {
 		ResponseChatEventArgs args = eventArgs as ResponseChatEventArgs;
 		chatOutput.text += "\n" + args.message;
-		/*
+
 		if (args.user_id != Constants.USER_ID)
 		{
-			chatOutput.text += "\n" + args.message;
+			RuntimeManager.PlayOneShot(soundSendMsg);
 		}
-		*/
 	}
 	#endregion
 

@@ -150,7 +150,7 @@ MonoBehaviour:
       Data2: 1135537031
       Data3: -863143545
       Data4: 668758338
-    Path: event:/SFX/Takeit_Hit_v2
+    Path: event:/SFX/Takeit_Hit
 --- !u!136 &7629705307020496650
 CapsuleCollider:
   m_ObjectHideFlags: 0
