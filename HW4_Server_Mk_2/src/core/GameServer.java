@@ -174,7 +174,7 @@ public class GameServer {
     public int getID() {
         int id = 0;
         int i = 0;
-        for(i = 0; i < 4; i++) {
+        for(i = 0; i < 4; i+=2) {
             if(!occupied[i]) {
                 id = i + 1; break;
             }
@@ -182,8 +182,19 @@ public class GameServer {
         if(i != 4) {
             occupied[i] = true;
             return id;
-        } else
-            return 0;
+        } else {
+            for(i = 1; i < 4; i+=2) {
+                if(!occupied[i]) {
+                    id = i + 1; break;
+                }
+            }
+
+            if(i != 5) {
+                occupied[i] = true;
+                return id;
+            }
+        }
+        return 0;
     }
 
     /**
