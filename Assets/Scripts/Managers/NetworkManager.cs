@@ -22,7 +22,11 @@ public class NetworkManager : MonoBehaviour
 	void Start()
     {
 		cManager = GetComponent<ConnectionManager>();
+		connect();
+	}
 
+	public void connect()
+    {
 		if (cManager)
 		{
 			cManager.setupSocket();

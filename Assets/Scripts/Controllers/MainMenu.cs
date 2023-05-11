@@ -100,6 +100,8 @@ public class MainMenu : MonoBehaviour
 	public void OnNetworkClick()
 	{
 		RuntimeManager.PlayOneShot(soundRegular);
+		networkManager.connect();
+
 		Debug.Log("Send JoinReq");
 		bool connected = networkManager.SendJoinRequest();
 		if (!connected)
