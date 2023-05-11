@@ -6,11 +6,6 @@ public class WarehoseCollider : MonoBehaviour
 {
     private List<GameObject> fruits = new List<GameObject>();
 
-    void Update()
-    {
-        // Debug.Log("total fruits colliding :" + fruits.Count);
-    }
-
 
     private void OnTriggerEnter(Collider other)
     {
@@ -18,6 +13,7 @@ public class WarehoseCollider : MonoBehaviour
         {
             fruits.Add(other.gameObject);
         }
+        Debug.Log("total fruits colliding :" + fruits.Count);
     }
 
     private void OnTriggerExit(Collider other)
@@ -26,6 +22,7 @@ public class WarehoseCollider : MonoBehaviour
         {
             fruits.Remove(other.gameObject);
         }
+        Debug.Log("total fruits colliding :" + fruits.Count);
     }
 
 }
