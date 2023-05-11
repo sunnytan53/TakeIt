@@ -137,6 +137,7 @@ public class PlayerController : MonoBehaviour {
                 artController.setAnimationCode(AnimationCodeEnum.throwObj);
 
                 float holdTime = Mathf.Min(Time.time - holdStartTime, 3f);
+                holdTime = Mathf.Max(holdTime, 0.1f); // sometimes holdTime is negative for unknown reasons
 
                 heldObjRB.useGravity = true;
                 //heldObjRB.drag = 0;
@@ -161,6 +162,7 @@ public class PlayerController : MonoBehaviour {
             {
                 // force to throw the fruit
                 artController.setAnimationCode(AnimationCodeEnum.stun);
+                bool isFruit = collision.gameObject.GetComponent<Pickable>().isFruit;
 
                 heldObjRB.useGravity = true;
                 //heldObjRB.drag = 0;
@@ -171,14 +173,15 @@ public class PlayerController : MonoBehaviour {
                 heldObj = null;
                 SendThrowRequest(pickable.index, new Vector3(0,0,0));
 
-                StartCoroutine(UnstunPlayer(collision.relativeVelocity.magnitude/10f));
+                StartCoroutine(UnstunPlayer(collision.relativeVelocity.magnitude/10f, isFruit));
                 this.enabled = false;
             }
         }
     }
 
-    IEnumerator UnstunPlayer(float time)
+    IEnumerator UnstunPlayer(float time, bool toDouble)
     {
+        if (toDouble) time *= 2;
         yield return new WaitForSeconds(time);
         this.enabled = true;
     }

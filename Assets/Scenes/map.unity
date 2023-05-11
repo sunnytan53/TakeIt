@@ -840,6 +840,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59f0c48de5a1d4dab8657825b972395f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundPoint:
+    Guid:
+      Data1: 978679781
+      Data2: 1153940163
+      Data3: 1698800782
+      Data4: -1160537782
+    Path: event:/UI_SFX/PTakeit_UI_PlayerJoins_v1
 --- !u!1 &1103496601
 GameObject:
   m_ObjectHideFlags: 0
@@ -1006,6 +1013,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59f0c48de5a1d4dab8657825b972395f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundPoint:
+    Guid:
+      Data1: 978679781
+      Data2: 1153940163
+      Data3: 1698800782
+      Data4: -1160537782
+    Path: event:/UI_SFX/PTakeit_UI_PlayerJoins_v1
 --- !u!1 &1560776781
 GameObject:
   m_ObjectHideFlags: 0

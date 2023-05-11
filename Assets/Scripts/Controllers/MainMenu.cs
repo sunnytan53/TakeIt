@@ -48,7 +48,6 @@ public class MainMenu : MonoBehaviour
     private TMP_Text chatOutput;
     private Button sendButton;
 
-	public EventReference soundRegular;
 	public EventReference soundJoin;
 	public EventReference soundReady;
 	public EventReference soundQuit;
@@ -99,7 +98,6 @@ public class MainMenu : MonoBehaviour
 	#region RootMenu
 	public void OnNetworkClick()
 	{
-		RuntimeManager.PlayOneShot(soundRegular);
 		networkManager.connect();
 
 		Debug.Log("Send JoinReq");
@@ -119,7 +117,6 @@ public class MainMenu : MonoBehaviour
 
 	public void OnExitClick()
 	{
-		RuntimeManager.PlayOneShot(soundRegular);
 #if UNITY_EDITOR
 		UnityEditor.EditorApplication.isPlaying = false;
 #else
@@ -381,7 +378,6 @@ public class MainMenu : MonoBehaviour
 
 	public void OnOKClick()
 	{
-		RuntimeManager.PlayOneShot(soundRegular);
 		rootMenuPanel.SetActive(true);
 		messageBox.SetActive(false);
 		networkMenuPanel.SetActive(false);

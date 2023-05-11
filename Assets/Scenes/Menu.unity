@@ -1113,20 +1113,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputField: {fileID: 0}
-  soundRegular:
+  soundJoin:
     Guid:
       Data1: -186553168
       Data2: 1187595377
       Data3: -1571730801
       Data4: 1551514971
     Path: event:/UI_SFX/Takeit_UI_playerscores
-  soundJoin:
-    Guid:
-      Data1: 978679781
-      Data2: 1153940163
-      Data3: 1698800782
-      Data4: -1160537782
-    Path: event:/UI_SFX/PTakeit_UI_PlayerJoins_v1
   soundReady:
     Guid:
       Data1: 941317015
