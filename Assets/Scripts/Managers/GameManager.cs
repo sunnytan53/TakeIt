@@ -98,8 +98,8 @@ public class GameManager : MonoBehaviour
 			else {
 				otherPlayers[i] = Instantiate(slimePrefab, getPosition(i+1), Quaternion.identity);
 				otherPlayers[i].GetComponentInChildren<Camera>().enabled=false;
-            	otherPlayers[i].GetComponent<PlayerController>().enabled = false;
-				otherPlayers[i].GetComponent<CapsuleCollider>().enabled = false;
+            	otherPlayers[i].GetComponentInChildren<PlayerController>().enabled = false;
+				otherPlayers[i].GetComponentInChildren<CapsuleCollider>().enabled = false;
 			}
 		}
 	}

@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour {
 
     private bool wasLanded = false;
 
+    private TMPro.TextMeshProUGUI pointUI;
+
 
     void Start()
     {
@@ -36,6 +38,7 @@ public class PlayerController : MonoBehaviour {
         holdArea = transform.Find("HoldArea");
         camera = transform.Find("Camera");
         artController = GetComponent<PlayerArtController>();
+        pointUI = GameObject.Find("Points").GetComponent<TMPro.TextMeshProUGUI>();
 
         networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
         StartCoroutine(SendMovementRequest());
@@ -113,6 +116,8 @@ public class PlayerController : MonoBehaviour {
                         pickable.isPicked = true;
 
                         SendPickRequest(pickable.index);
+
+                        pointUI.text = pickable.points.ToString();
                     }
                 }
             }
@@ -137,19 +142,21 @@ public class PlayerController : MonoBehaviour {
                 artController.setAnimationCode(AnimationCodeEnum.throwObj);
 
                 float holdTime = Mathf.Min(Time.time - holdStartTime, 3f);
-                holdTime = Mathf.Max(holdTime, 0.1f); // sometimes holdTime is negative for unknown reasons
+                holdTime = Mathf.Max(holdTime, 0.5f); // at least some power
 
                 heldObjRB.useGravity = true;
                 //heldObjRB.drag = 0;
                 heldObjRB.constraints = RigidbodyConstraints.None;
-                Vector3 addedForce = (camera.forward + camera.up * 0.3f) * throwForce * holdTime;
+                Vector3 addedForce = (camera.forward + camera.up * 0.2f) * throwForce * holdTime;
                 heldObjRB.AddForce(addedForce);
                 heldObjRB = null;
                 Pickable pickable = heldObj.GetComponent<Pickable>();
                 pickable.isPicked = false;
                 heldObj = null;
 
-                SendThrowRequest(pickable.index, addedForce);                
+                SendThrowRequest(pickable.index, addedForce);
+
+                pointUI.text = "no held";
             }
         }
     }

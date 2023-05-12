@@ -37,11 +37,11 @@ public class CharacterCreator : MonoBehaviour
 		startTime = Time.time; 
 		scoreValueT1 = 0;
 		scoreValueT2 = 0;
-		timerText = GameObject.Find("Timer").GetComponent<TMPro.TextMeshProUGUI>();
-		winCondText = GameObject.Find("WinLose").GetComponent<TMPro.TextMeshProUGUI>();
-		team1ScoreText = GameObject.Find("Team1 Score").GetComponent<TMPro.TextMeshProUGUI>();
-		team2ScoreText = GameObject.Find("Team2 Score").GetComponent<TMPro.TextMeshProUGUI>();
-		tryAgainButton = GameObject.Find("PlayAgian").GetComponent<Button>();
+		//timerText = GameObject.Find("Timer").GetComponent<TMPro.TextMeshProUGUI>();
+		//winCondText = GameObject.Find("WinLose").GetComponent<TMPro.TextMeshProUGUI>();
+		//team1ScoreText = GameObject.Find("Team1 Score").GetComponent<TMPro.TextMeshProUGUI>();
+		//team2ScoreText = GameObject.Find("Team2 Score").GetComponent<TMPro.TextMeshProUGUI>();
+		//tryAgainButton = GameObject.Find("PlayAgian").GetComponent<Button>();
 
 		team1ScoreText.text = "Team1 Score: ";
 		team2ScoreText.text = "Team2 Score: ";
@@ -51,7 +51,7 @@ public class CharacterCreator : MonoBehaviour
 		tryAgainButton.onClick.AddListener(OnButtonClick);
 
 
-		StartCoroutine(IncrementScoreTest());
+		//StartCoroutine(IncrementScoreTest());
 	}
 
 	// Update is called once per frame
