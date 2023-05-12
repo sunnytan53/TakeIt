@@ -175,4 +175,16 @@ public class NetworkManager : MonoBehaviour
         }
 		return true;
     }
+
+    public bool SendFruitPointRequest(int index, int points)
+    {
+		if (cManager && cManager.IsConnected())
+		{
+			RequestFruitPoint request = new RequestFruitPoint();
+			request.send(index, points);
+			cManager.send(request);
+			return true;
+		}
+		return true;
+	}
 }

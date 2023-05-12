@@ -33,16 +33,17 @@ public class GameManager : MonoBehaviour
 		msgQueue.AddCallback(Constants.SMSG_THROW, OnResponseThrow);
 		msgQueue.AddCallback(Constants.SMSG_ART, OnResponseArt);
 		msgQueue.AddCallback(Constants.SMSG_FRUIT, OnResponseFruitUpdate);
+		msgQueue.AddCallback(Constants.SMSG_FRUITPOINT, OnResponseFruitPoint);
 	}
 
-/*
-	public Player GetCurrentPlayer()
-	{
-		// return Players[currentPlayer - 1];
-	}
-*/
-	
-	public void Init(Player t1p1, Player t1p2, Player t2p1, Player t2p2, int currentPlayerId)
+    /*
+        public Player GetCurrentPlayer()
+        {
+            // return Players[currentPlayer - 1];
+        }
+    */
+
+    public void Init(Player t1p1, Player t1p2, Player t2p1, Player t2p2, int currentPlayerId)
 	{
 		Players[0] = t1p1;
 		Players[1] = t1p2;
@@ -195,4 +196,14 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+
+	public void OnResponseFruitPoint(ExtendedEventArgs eventArgs)
+	{
+		ResponseFruitPointEventArgs args = eventArgs as ResponseFruitPointEventArgs;
+		Debug.Log("ResponseFruitPointEventArgs is activated in the Game Manager....with user_id: " + args.user_id);
+		if (args.user_id != Constants.USER_ID)
+		{
+			fruitAndRock[args.index].GetComponent<Pickable>().points = args.points;
+		}
+	}
 }

@@ -6,8 +6,8 @@ package metadata;
 public class Constants {
     // Constants
 	final public static String CLIENT_VERSION = "1.00";
-	final public static String REMOTE_HOST = "localhost";
-    final public static int REMOTE_PORT = 9252;
+	// final public static String REMOTE_HOST = "localhost";
+    // final public static int REMOTE_PORT = 9252;
     final public static int TIMEOUT_SECONDS = 3;
     
     // Request (1xx) + Response (2xx)
@@ -31,12 +31,15 @@ public class Constants {
 	final public static short SMSG_PICK = 209;
 	final public static short CMSG_THROW = 110;
 	final public static short SMSG_THROW = 210;
+
+	final public static short CMSG_HEARTBEAT = 111;
+
 	final public static short CMSG_ART = 120;
 	final public static short SMSG_ART = 220;
 	final public static short CMSG_FRUIT = 121;
 	final public static short SMSG_FRUIT = 221;
-
-	final public static short CMSG_HEARTBEAT = 111;
+	final public static short CMSG_FRUITPOINT = 122;
+	final public static short SMSG_FRUITPOINT = 222;
 
 	final public static int USER_ID = -1;
 	final public static int OP_ID = -1;

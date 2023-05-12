@@ -26,12 +26,16 @@ public class Constants
 	public static readonly short SMSG_PICK = 209;
 	public static readonly short CMSG_THROW = 110;
 	public static readonly short SMSG_THROW = 210;
+
+	public static readonly short CMSG_HEARTBEAT = 111;
+
 	public static readonly short CMSG_ART = 120;
 	public static readonly short SMSG_ART = 220;
 	public static readonly short CMSG_FRUIT = 121;
 	public static readonly short SMSG_FRUIT = 221;
+	public static readonly short CMSG_FRUITPOINT = 122;
+	public static readonly short SMSG_FRUITPOINT = 222;
 
-	public static readonly short CMSG_HEARTBEAT = 111;
 
 	public static int USER_ID = -1;
 	public static int OP_ID = -1;

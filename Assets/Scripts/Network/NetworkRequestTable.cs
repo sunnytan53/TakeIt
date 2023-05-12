@@ -19,6 +19,7 @@ public class NetworkRequestTable {
 		add(Constants.CMSG_THROW, "RequestThrow");
 		add(Constants.CMSG_ART, "RequestArt");
 		add(Constants.CMSG_FRUIT, "RequestFruitUpdate");
+		add(Constants.CMSG_FRUITPOINT, "RequestFruitPoint");
 	}
 	
 	public static void add(short request_id, string name) {

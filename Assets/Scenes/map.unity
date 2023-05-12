@@ -794,7 +794,7 @@ GameObject:
   - component: {fileID: 959724627}
   m_Layer: 0
   m_Name: WarehouseTeam2
-  m_TagString: Untagged
+  m_TagString: Warehouse
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -810,9 +810,9 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 5.4802647
-  m_Height: 10.960529
+  m_Height: 20
   m_Direction: 1
-  m_Center: {x: -0.106414795, y: 0, z: 0.08338356}
+  m_Center: {x: -0.106414795, y: 2, z: 0.08338356}
 --- !u!4 &959724626
 Transform:
   m_ObjectHideFlags: 0
@@ -967,7 +967,7 @@ GameObject:
   - component: {fileID: 1469776232}
   m_Layer: 0
   m_Name: WarehouseTeam1
-  m_TagString: Untagged
+  m_TagString: Warehouse
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -983,9 +983,9 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 5.4802647
-  m_Height: 10.960529
+  m_Height: 20
   m_Direction: 1
-  m_Center: {x: -0.106414795, y: 0, z: 0.08338356}
+  m_Center: {x: -0.106414795, y: 2, z: 0.08338356}
 --- !u!4 &1469776231
 Transform:
   m_ObjectHideFlags: 0

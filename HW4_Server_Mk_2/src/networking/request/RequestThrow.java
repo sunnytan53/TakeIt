@@ -36,8 +36,6 @@ public class RequestThrow extends GameRequest {
         responseThrow.setPlayer(player);
         responseThrow.setData(index, force_x, force_y, force_z);
 
-        // Log.printf("In request pick, Player with id %d has taken the fruit to (%f, %f, %f)", player.getID(), force_x, force_y, force_z);
-
         NetworkManager.addResponseForAllOnlinePlayers(player.getID(), responseThrow);
     }
 }

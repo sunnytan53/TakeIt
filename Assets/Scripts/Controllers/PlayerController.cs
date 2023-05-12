@@ -160,20 +160,26 @@ public class PlayerController : MonoBehaviour {
         {
             if (collision.relativeVelocity.magnitude > 10f)
             {
-                // force to throw the fruit
                 artController.setAnimationCode(AnimationCodeEnum.stun);
-                bool isFruit = collision.gameObject.GetComponent<Pickable>().isFruit;
 
-                heldObjRB.useGravity = true;
-                //heldObjRB.drag = 0;
-                heldObjRB.constraints = RigidbodyConstraints.None;
-                heldObjRB = null;
-                Pickable pickable = heldObj.GetComponent<Pickable>();
+                Pickable pickable = collision.gameObject.GetComponent<Pickable>();
                 pickable.isPicked = false;
-                heldObj = null;
-                SendThrowRequest(pickable.index, new Vector3(0,0,0));
+                pickable.points += 1;
+                SendFruitPointRequest(pickable.index, pickable.points);
 
-                StartCoroutine(UnstunPlayer(collision.relativeVelocity.magnitude/10f, isFruit));
+                // force to throw what was holding if exists
+                if (heldObj != null)
+                {
+                    heldObjRB.useGravity = true;
+                    //heldObjRB.drag = 0;
+                    heldObjRB.constraints = RigidbodyConstraints.None;
+                    heldObjRB = null;
+
+                    heldObj = null;
+                    SendThrowRequest(pickable.index, new Vector3(0, 0, 0));
+                }
+
+                StartCoroutine(UnstunPlayer(collision.relativeVelocity.magnitude/10f, pickable.isFruit));
                 this.enabled = false;
             }
         }
@@ -206,5 +212,11 @@ public class PlayerController : MonoBehaviour {
     public void SendThrowRequest(int index, Vector3 force){
         Debug.Log("In SendThrowRequest, sending index: " + index);
         networkManager.SendThrowRequest(index, force);
+    }
+
+    public void SendFruitPointRequest(int index, int points)
+    {
+        Debug.Log("In SendFruitPointRequest, sending index: " + index + " and points: " + points);
+        networkManager.SendFruitPointRequest(index, points);
     }
 }
