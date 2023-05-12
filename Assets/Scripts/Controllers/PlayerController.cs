@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using FMODUnity;
 
 public class PlayerController : MonoBehaviour {
     public float speed = 5f;
@@ -192,9 +191,9 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    IEnumerator UnstunPlayer(float time, bool toDouble)
+    IEnumerator UnstunPlayer(float time, bool isFruit)
     {
-        if (toDouble) time *= 2;
+        if (!isFruit) time *= 2;
         yield return new WaitForSeconds(time);
         this.enabled = true;
     }
