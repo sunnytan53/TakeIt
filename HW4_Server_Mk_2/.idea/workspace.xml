@@ -10,9 +10,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca50f9d1-b623-4afa-8b01-27d3086535b2" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/../Assets/ExternalAssets/Kawaii Slimes/Render Pipelines/Built-in.unitypackage.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Assets/ExternalAssets/Kawaii Slimes/Render Pipelines/URP.unitypackage.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/WoB_Server_Basic_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/../UserSettings/EditorUserSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/../UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/WoB_Server_Basic_jar/WoB_Server_Basic.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/configuration/GameServerConf.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/core/GameClient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/core/GameServer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/core/NetworkManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/metadata/Constants.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/metadata/GameRequestTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/model/Player.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/request/GameRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/request/RequestChat.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/request/RequestHeartbeat.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/request/RequestInteract.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/request/RequestJoin.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/request/RequestLeave.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/request/RequestMove.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/request/RequestMovement.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/request/RequestName.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/request/RequestReady.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/response/GameResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/response/ResponseChat.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/response/ResponseInteract.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/response/ResponseJoin.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/response/ResponseLeave.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/response/ResponseMove.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/response/ResponseMovement.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/response/ResponseName.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/response/ResponseReady.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/utility/ConfFileParser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/utility/DataReader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/utility/GamePacket.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/utility/GamePacketStream.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/utility/Log.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,24 +107,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/qingeng/Downloads/CSC631HW4/CSC631HW4/HW4_Server_Mk_2&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.16949153&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.17159092&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/qingeng/Downloads/CSC631HW4/CSC631HW4/HW4_Server_Mk_2",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.16949153",
+    "project.structure.side.proportion": "0.17159092",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Application.GameServer">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
@@ -129,9 +165,7 @@
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <method v="2">
-        <option name="BuildArtifacts" enabled="true">
-          <artifact name="WoB_Server_Basic:jar" />
-        </option>
+        <option name="BuildArtifacts" enabled="true" />
       </method>
     </configuration>
     <configuration default="true" type="TestNG">
@@ -186,6 +220,7 @@
       <workItem from="1680285688821" duration="1580000" />
       <workItem from="1681353683583" duration="3670000" />
       <workItem from="1681935352794" duration="140000" />
+      <workItem from="1683862710716" duration="314000" />
     </task>
     <servers />
   </component>
