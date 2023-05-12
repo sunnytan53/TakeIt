@@ -15,7 +15,7 @@ public class CharacterCreator : MonoBehaviour
 	
 	private GameObject gameOverPanel;
 	private float startTime; 
-	public float timeRemaining = 10f; // 120f;
+	public float timeRemaining = 310f; // 120f;
 	public int scoreValueT1;
 	public int scoreValueT2;
 
@@ -36,21 +36,21 @@ public class CharacterCreator : MonoBehaviour
 		team2ScoreText = GameObject.Find("Team2 Score").GetComponent<TMPro.TextMeshProUGUI>();
 		tryAgainButton = GameObject.Find("PlayAgian").GetComponent<Button>();
 
-		team1ScoreText.text = "Team1 Score: ";
-		team2ScoreText.text = "Team2 Score: ";
+		team1ScoreText.text = "0";
+		team2ScoreText.text = "0";
 		
 		gameOverPanel = GameObject.Find("GameOver");
 		gameOverPanel.SetActive(false);
 		tryAgainButton.onClick.AddListener(OnButtonClick);
 		
-		StartCoroutine(IncrementScoreTest());
+		// StartCoroutine(IncrementScoreTest());
 	}
 
 	// Update is called once per frame
 	void Update()
     {
 		if (timeRemaining > 0) {
-			timeRemaining = Mathf.Clamp(timeRemaining - Time.deltaTime, 0f, 10f); // decrement time remaining by the time elapsed in each frame
+			timeRemaining = Mathf.Clamp(timeRemaining - Time.deltaTime, 0f, 310f); // decrement time remaining by the time elapsed in each frame
 			string minutes = Mathf.FloorToInt(timeRemaining / 60f).ToString();
     		string seconds = Mathf.FloorToInt(timeRemaining % 60f).ToString("00");
     		timerText.text = "Timer: " + minutes + ":" + seconds;
@@ -103,6 +103,19 @@ public class CharacterCreator : MonoBehaviour
 			StartCoroutine(Pulse(team2ScoreText));
         	yield return new WaitForSeconds(2.0f);
     	}
+	}
+
+	public void UpdateScore(int team, int score) {
+		if (team == 1){
+			scoreValueT1 += score;
+			team1ScoreText.text = scoreValueT1.ToString();
+			StartCoroutine(Pulse(team1ScoreText));
+		}
+		else {
+			scoreValueT2 += score;
+			team2ScoreText.text = scoreValueT2.ToString();
+			StartCoroutine(Pulse(team2ScoreText));
+		}
 	}
 
 	private IEnumerator Pulse(TMPro.TextMeshProUGUI scoreText) {
