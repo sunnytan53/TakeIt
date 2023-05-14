@@ -11,10 +11,7 @@ public class CharacterCreator : MonoBehaviour
 	public TMPro.TextMeshProUGUI timerText;
 	public TMPro.TextMeshProUGUI team1ScoreText;
 	public TMPro.TextMeshProUGUI team2ScoreText;
-	public TMPro.TextMeshProUGUI winCondText;
-	public Button tryAgainButton;
 	
-	private GameObject gameOverPanel;
 	private float startTime; 
 	public float timeRemaining = 10f; // 120f;
 	public int scoreValueT1;
@@ -27,6 +24,7 @@ public class CharacterCreator : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
+		DontDestroyOnLoad(gameObject);
 		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 		gameManager.createCharacters();
 		gameManager.createFruits();
@@ -37,21 +35,14 @@ public class CharacterCreator : MonoBehaviour
 		startTime = Time.time; 
 		scoreValueT1 = 0;
 		scoreValueT2 = 0;
-		//timerText = GameObject.Find("Timer").GetComponent<TMPro.TextMeshProUGUI>();
-		//winCondText = GameObject.Find("WinLose").GetComponent<TMPro.TextMeshProUGUI>();
-		//team1ScoreText = GameObject.Find("Team1 Score").GetComponent<TMPro.TextMeshProUGUI>();
-		//team2ScoreText = GameObject.Find("Team2 Score").GetComponent<TMPro.TextMeshProUGUI>();
-		//tryAgainButton = GameObject.Find("PlayAgian").GetComponent<Button>();
+		timerText = GameObject.Find("Timer").GetComponent<TMPro.TextMeshProUGUI>();
+		team1ScoreText = GameObject.Find("Team1 Score").GetComponent<TMPro.TextMeshProUGUI>();
+		team2ScoreText = GameObject.Find("Team2 Score").GetComponent<TMPro.TextMeshProUGUI>();
 
-		team1ScoreText.text = "Team1 Score: ";
-		team2ScoreText.text = "Team2 Score: ";
+		team1ScoreText.text = "0";
+		team2ScoreText.text = "0";
 		
-		gameOverPanel = GameObject.Find("GameOver");
-		gameOverPanel.SetActive(false);
-		tryAgainButton.onClick.AddListener(OnButtonClick);
-
-
-		//StartCoroutine(IncrementScoreTest());
+		// StartCoroutine(IncrementScoreTest());
 	}
 
 	// Update is called once per frame
@@ -64,30 +55,12 @@ public class CharacterCreator : MonoBehaviour
     		timerText.text = "Timer: " + minutes + ":" + seconds;
 		}
 		else {
-			if (scoreValueT1 > scoreValueT2) {
-				if (Constants.USER_ID == 1 || Constants.USER_ID == 2){
-					winCondText.text = "Congrats! Your Team Win!";
-				}
-				if (Constants.USER_ID == 3 || Constants.USER_ID == 4){
-					winCondText.text = "Oh no! Your Team Lose!";
-				}
-				gameOverPanel.SetActive(true);
-				StartCoroutine(LoadMenuSceneCoroutine());
-			}
-			else if (scoreValueT1 < scoreValueT2) {
-				if (Constants.USER_ID == 1 || Constants.USER_ID == 2){
-					winCondText.text = "Oh no! Your Team Lose!";
-				}
-				if (Constants.USER_ID == 3 || Constants.USER_ID == 4){
-					winCondText.text = "Congrats! Your Team Win!";
-				}
-				gameOverPanel.SetActive(true);
-				StartCoroutine(LoadMenuSceneCoroutine());
-			}
-			else{
+			if (scoreValueT1 == scoreValueT2) {
 				timeRemaining += 30f;
 			}
-			
+			else{
+				SceneManager.LoadScene("GameOver");
+			}
 		}
 	}
 
@@ -97,19 +70,22 @@ public class CharacterCreator : MonoBehaviour
 		instance.release();
 	}
 
-	public void OnButtonClick()
-	{
-	    SceneManager.LoadScene("Menu");
-	}
-
-	private IEnumerator LoadMenuSceneCoroutine() {
-    	yield return new WaitForSeconds(5f); 
-    	SceneManager.LoadScene("Menu"); 
+	public void UpdateScore(int team, int score) {
+		if (team == 1){
+			scoreValueT1 = score;
+			team1ScoreText.text = scoreValueT1.ToString();
+			StartCoroutine(Pulse(team1ScoreText));
+		}
+		else {
+			scoreValueT2 = score;
+			team2ScoreText.text = scoreValueT2.ToString();
+			StartCoroutine(Pulse(team2ScoreText));
+		}
 	}
 
 	private IEnumerator IncrementScoreTest() {
 		while (timeRemaining > 0) {
-        	scoreValueT1 += 10;
+        	scoreValueT1 += 8;
         	scoreValueT2 += 10;
 			team1ScoreText.text = scoreValueT1.ToString();
 			team2ScoreText.text = scoreValueT2.ToString();
