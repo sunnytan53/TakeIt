@@ -11,6 +11,7 @@ TagManager:
   - Message
   - Team1 Score
   - Warehouse
+  - Team2 Score
   layers:
   - Default
   - TransparentFX

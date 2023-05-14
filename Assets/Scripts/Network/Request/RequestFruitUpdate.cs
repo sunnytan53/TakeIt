@@ -15,10 +15,12 @@ public class RequestFruitUpdate : NetworkRequest
 		packet.addInt32(fruits.Length*3);
 		foreach (GameObject fru in fruits)
         {
-			Vector3 pos = fru.transform.position;
-			packet.addFloat32(pos.x);
-			packet.addFloat32(pos.y);
-			packet.addFloat32(pos.z);
+			if (fru != null) {
+				Vector3 pos = fru.transform.position;
+				packet.addFloat32(pos.x);
+				packet.addFloat32(pos.y);
+				packet.addFloat32(pos.z);
+			}
 		}
 	}
 }
