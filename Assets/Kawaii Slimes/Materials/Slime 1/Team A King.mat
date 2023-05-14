@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Slime1_King
+  m_Name: Team A King
   m_Shader: {fileID: 4800000, guid: abaf2020b803b6847b5c081ed22c05c5, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords:
@@ -152,7 +152,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 0.9104159, b: 0.07058823, a: 1}
+    - _Color: {r: 1, g: 0.053741038, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _RimColor: {r: 0.5, g: 0.5, b: 0.5, a: 0}
     - _ShadowColor: {r: 1, g: 0.90460354, b: 0.4666667, a: 1}
