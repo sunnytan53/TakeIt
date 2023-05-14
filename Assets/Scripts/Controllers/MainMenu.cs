@@ -114,6 +114,7 @@ public class MainMenu : MonoBehaviour
 			networkMenuPanel.SetActive(true);
 		}
 	}
+	#endregion
 
 	public void OnExitClick()
 	{
@@ -123,7 +124,6 @@ public class MainMenu : MonoBehaviour
 		Application.Quit();
 #endif
 	}
-	#endregion
 
 
 	#region NetworkMenu

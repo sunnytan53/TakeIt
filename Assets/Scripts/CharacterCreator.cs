@@ -12,14 +12,14 @@ public class CharacterCreator : MonoBehaviour
 	public TMPro.TextMeshProUGUI team1ScoreText;
 	public TMPro.TextMeshProUGUI team2ScoreText;
 	
-	private float startTime; 
-	public float timeRemaining = 10f; // 120f;
+	public float timeRemaining = 10f; // 240f;
 	public int scoreValueT1;
 	public int scoreValueT2;
 
 
 	public EventReference soundGame;
 	private FMOD.Studio.EventInstance instance;
+	private bool isEnd = false;
 
 	// Start is called before the first frame update
 	void Start()
@@ -32,7 +32,6 @@ public class CharacterCreator : MonoBehaviour
 		instance = RuntimeManager.CreateInstance(soundGame);
 		instance.start();
 
-		startTime = Time.time; 
 		scoreValueT1 = 0;
 		scoreValueT2 = 0;
 		timerText = GameObject.Find("Timer").GetComponent<TMPro.TextMeshProUGUI>();
@@ -41,8 +40,6 @@ public class CharacterCreator : MonoBehaviour
 
 		team1ScoreText.text = "0";
 		team2ScoreText.text = "0";
-		
-		// StartCoroutine(IncrementScoreTest());
 	}
 
 	// Update is called once per frame
@@ -54,21 +51,15 @@ public class CharacterCreator : MonoBehaviour
     		string seconds = Mathf.FloorToInt(timeRemaining % 60f).ToString("00");
     		timerText.text = "Timer: " + minutes + ":" + seconds;
 		}
-		else {
-			if (scoreValueT1 == scoreValueT2) {
-				timeRemaining += 30f;
-			}
-			else{
-				SceneManager.LoadScene("GameOver");
-			}
+		else if (!isEnd)
+		{
+			isEnd = true;
+			instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+			instance.release();
+			SceneManager.LoadScene("GameOver");
 		}
 	}
 
-	private void OnDestroy()
-	{
-		instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-		instance.release();
-	}
 
 	public void UpdateScore(int team, int score) {
 		if (team == 1){
@@ -81,18 +72,6 @@ public class CharacterCreator : MonoBehaviour
 			team2ScoreText.text = scoreValueT2.ToString();
 			StartCoroutine(Pulse(team2ScoreText));
 		}
-	}
-
-	private IEnumerator IncrementScoreTest() {
-		while (timeRemaining > 0) {
-        	scoreValueT1 += 8;
-        	scoreValueT2 += 10;
-			team1ScoreText.text = scoreValueT1.ToString();
-			team2ScoreText.text = scoreValueT2.ToString();
-			StartCoroutine(Pulse(team1ScoreText));
-			StartCoroutine(Pulse(team2ScoreText));
-        	yield return new WaitForSeconds(2.0f);
-    	}
 	}
 
 	private IEnumerator Pulse(TMPro.TextMeshProUGUI scoreText) {
