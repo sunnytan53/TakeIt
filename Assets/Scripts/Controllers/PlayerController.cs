@@ -40,7 +40,6 @@ public class PlayerController : MonoBehaviour {
         pointUI = GameObject.Find("Points").GetComponent<TMPro.TextMeshProUGUI>();
 
         networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
-        StartCoroutine(SendMovementRequest());
     }
 
     void Update(){
@@ -196,17 +195,6 @@ public class PlayerController : MonoBehaviour {
         if (!isFruit) time *= 2;
         yield return new WaitForSeconds(time);
         this.enabled = true;
-    }
-
-
-    IEnumerator SendMovementRequest()
-    {
-        while (true)
-        {
-            networkManager.SendMovementRequest(transform.position, transform.rotation);
-            // Wait for the next update
-            yield return new WaitForSeconds(0.1f); // update every 100ms
-        }
     }
 
     public void SendPickRequest(int index) {

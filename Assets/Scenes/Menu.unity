@@ -6072,7 +6072,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  slimePrefab: {fileID: 724548608846380696, guid: ee73576a5571642c4ad651d75019377a, type: 3}
+  playerPrefab: {fileID: 724548608846380696, guid: ee73576a5571642c4ad651d75019377a, type: 3}
   fruitToSpawn:
   - {fileID: 7322781235588886315, guid: 9aba50e20279a4e9b986487697f17bcd, type: 3}
   - {fileID: 6477220166380757193, guid: 8e13b9abbf1cd4f39a7a09119e6dc5db, type: 3}

@@ -9,7 +9,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ca50f9d1-b623-4afa-8b01-27d3086535b2" name="Default" comment="" />
+    <list default="true" id="ca50f9d1-b623-4afa-8b01-27d3086535b2" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/../Assets/Prefab/MainPlayer.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Prefab/MainPlayer.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/Scenes/Menu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scenes/Menu.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/Scenes/map.unity" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scenes/map.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/Scripts/CharacterCreator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/CharacterCreator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/Scripts/Controllers/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/Controllers/PlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/Scripts/GameOver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/GameOver.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/Scripts/Managers/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/Managers/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/../UserSettings/EditorUserSettings.asset" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -190,6 +199,7 @@
       <workItem from="1683862710716" duration="314000" />
       <workItem from="1683863824907" duration="1129000" />
       <workItem from="1684096219888" duration="129000" />
+      <workItem from="1684104832706" duration="79000" />
     </task>
     <servers />
   </component>

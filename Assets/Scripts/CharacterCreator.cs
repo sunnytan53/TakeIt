@@ -26,8 +26,9 @@ public class CharacterCreator : MonoBehaviour
 	{
 		DontDestroyOnLoad(gameObject);
 		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-		gameManager.createCharacters();
-		gameManager.createFruits();
+		gameManager.initMap(GameObject.Find("Tree").transform.position,
+			GameObject.Find("WarehouseTeam1").transform.position,
+			GameObject.Find("WarehouseTeam2").transform.position);
 
 		instance = RuntimeManager.CreateInstance(soundGame);
 		instance.start();
@@ -56,6 +57,7 @@ public class CharacterCreator : MonoBehaviour
 			isEnd = true;
 			instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 			instance.release();
+			Destroy(gameManager);
 			SceneManager.LoadScene("GameOver");
 		}
 	}

@@ -8,15 +8,15 @@ using FMODUnity;
 public class GameManager : MonoBehaviour
 {
 	public Player[] Players = new Player[4];
-	public GameObject slimePrefab;
+	public GameObject playerPrefab;
 	public GameObject[] fruitToSpawn;
 	public GameObject[] rockToSpawn;
 	private GameObject[] fruitAndRock;
 
-	private GameObject currentPrefab;
+	private GameObject currentPlayer;
 	private GameObject[] otherPlayers = new GameObject[4];
 
-	private int currentPlayer = 1;
+	private int currentPlayerID;
 
 	private NetworkManager networkManager;
 
@@ -36,12 +36,6 @@ public class GameManager : MonoBehaviour
 		msgQueue.AddCallback(Constants.SMSG_FRUITPOINT, OnResponseFruitPoint);
 	}
 
-    /*
-        public Player GetCurrentPlayer()
-        {
-            // return Players[currentPlayer - 1];
-        }
-    */
 
     public void Init(Player t1p1, Player t1p2, Player t2p1, Player t2p2, int currentPlayerId)
 	{
@@ -49,60 +43,79 @@ public class GameManager : MonoBehaviour
 		Players[1] = t1p2;
         Players[2] = t2p1;
         Players[3] = t2p2;
-		currentPlayer = currentPlayerId;
+		currentPlayerID = currentPlayerId;
 		Debug.Log("Current player id detected by GameManager is: " + currentPlayerId);
 		// useNetwork = (!player1.IsMouseControlled || !player2.IsMouseControlled);
 	}
 	
-	public void createFruits(){
-		Debug.Log("Fruits are being instantiated*************************************");
-		// an efficient way to do it is through angle and spawn them around middle
-		// need middle tree position first
-		Vector3[] fruitPos = new Vector3[] {
-			new Vector3(70, 0, 70), new Vector3(80, 0, 70), new Vector3(90, 0, 70), new Vector3(100, 0, 70), new Vector3(120, 0, 70), 
-			new Vector3(70, 0, 70), new Vector3(70, 0, 80), new Vector3(70, 0, 90), new Vector3(70, 0, 100), new Vector3(70, 0, 120)
-		};
-		for (int i=0; i< fruitToSpawn.Length; i++) {
+	public void initMap(Vector3 middle, Vector3 t1, Vector3 t2){
+		int totalLength = fruitToSpawn.Length + rockToSpawn.Length;
+		float angle = 360f / totalLength;
+
+		List<Vector3> fruitPos = new List<Vector3>();
+		List<Vector3> rockPos = new List<Vector3>();
+		for (int i = 0; i < totalLength; i++)
+        {
+			float angleRad = i * angle * Mathf.Deg2Rad;
+			Vector3 spawn = middle + new Vector3(Mathf.Cos(angleRad), 0.5f, Mathf.Sin(angleRad)) * 20f;
+			if (i % 2 == 0 && rockPos.Count < fruitToSpawn.Length)
+            {
+				fruitPos.Add(spawn);
+            }
+			else
+            {
+				rockPos.Add(spawn);
+            }
+		}
+
+		// fruits
+		for (int i = 0; i < fruitToSpawn.Length; i++) {
 			fruitAndRock[i] = Instantiate(fruitToSpawn[i], fruitPos[i], Quaternion.identity);
 			Pickable pickable = fruitAndRock[i].GetComponent<Pickable>();
 			pickable.index = i;
 			pickable.isFruit = true;
 		}
 
+		// rocks
 		for (int i = 0; i < rockToSpawn.Length; i++)
 		{
 			int real_index = i + fruitToSpawn.Length;
-			fruitAndRock[real_index] = Instantiate(rockToSpawn[i], fruitPos[i], Quaternion.identity);
+			fruitAndRock[real_index] = Instantiate(rockToSpawn[i], rockPos[i], Quaternion.identity);
 			Pickable pickable = fruitAndRock[real_index].GetComponent<Pickable>();
 			pickable.index = real_index;
 		}
 
-		StartCoroutine(updateFruitLocation());
+		// player
+		Vector3 offset = new Vector3(0, -10f, 0);
+		for (int i = 0; i < 4; i++)
+		{
+			Vector3 pos = (i < 2) ? t1 : t2;
+
+			if (i == currentPlayerID - 1)
+			{
+				currentPlayer = Instantiate(playerPrefab, pos, Quaternion.identity);
+			}
+			else
+			{
+				otherPlayers[i] = Instantiate(playerPrefab, pos + offset, Quaternion.identity);
+				otherPlayers[i].GetComponentInChildren<Camera>().enabled = false;
+				otherPlayers[i].GetComponentInChildren<PlayerController>().enabled = false;
+				otherPlayers[i].GetComponentInChildren<CapsuleCollider>().enabled = false;
+			}
+		}
+
+		StartCoroutine(updateLocation());
 	}
 
-	IEnumerator updateFruitLocation()
+	IEnumerator updateLocation()
     {
 		while (true)
         {
 			networkManager.SendFruitUpdateRequest(fruitAndRock);
+			networkManager.SendMovementRequest(currentPlayer.transform.position, currentPlayer.transform.rotation);
 			yield return new WaitForSeconds(0.1f);
 		}
     }
-
-	public void createCharacters() {
-		Debug.Log("Current player id when create characters is: " + currentPlayer);
-		for(int i = 0; i < 4; i++){
-			if (i == currentPlayer-1) {
-				currentPrefab = Instantiate(slimePrefab, getPosition(i+1), Quaternion.identity);
-			}
-			else {
-				otherPlayers[i] = Instantiate(slimePrefab, getPosition(i+1), Quaternion.identity);
-				otherPlayers[i].GetComponentInChildren<Camera>().enabled=false;
-            	otherPlayers[i].GetComponentInChildren<PlayerController>().enabled = false;
-				otherPlayers[i].GetComponentInChildren<CapsuleCollider>().enabled = false;
-			}
-		}
-	}
 
 	public void OnResponseMovement(ExtendedEventArgs eventArgs)
 	{
@@ -113,22 +126,6 @@ public class GameManager : MonoBehaviour
 			Transform transform = otherPlayers[args.user_id-1].transform;
 			transform.position = Vector3.Lerp(new Vector3(args.move_x, args.move_y, args.move_z), transform.position, 0.1f);
 			transform.rotation = Quaternion.Lerp(new Quaternion(args.rotate_x, args.rotate_y, args.rotate_z, args.rotate_w), transform.rotation, 0.1f);
-		}
-	}
-
-	public Vector3 getPosition(int usr_id){
-		switch(usr_id){
-			case 1:
-				return new Vector3(100, 0, 110);
-			case 2:
-				return new Vector3(100, 0, 90);
-			case 3:
-				return new Vector3(110, 0, 100);
-			case 4:
-				return new Vector3(90, 0, 100);
-			default:
-				Debug.Log("Something went wrong when calling getPosition() in Player.cs");
-				return new Vector3(0, 0, 0);
 		}
 	}
 

@@ -12,6 +12,7 @@ public class GameOver : MonoBehaviour
 
 	void Start()
 	{
+		Cursor.lockState = CursorLockMode.None;
 		CharacterCreator creator = GameObject.Find("Create").GetComponent<CharacterCreator>();
 		TMPro.TextMeshProUGUI winCondText = GameObject.Find("WinLose").GetComponent<TMPro.TextMeshProUGUI>();
         int scoreValueT1 = creator.scoreValueT1;
