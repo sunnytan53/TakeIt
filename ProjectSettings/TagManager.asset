@@ -10,7 +10,8 @@ TagManager:
   - Pickable
   - Message
   - Team1 Score
-  - Warehouse
+  - Warehouse1
+  - Warehouse2
   layers:
   - Default
   - TransparentFX
