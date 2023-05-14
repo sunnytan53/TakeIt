@@ -100,7 +100,6 @@ public class MainMenu : MonoBehaviour
 	}
 
 
-	#region RootMenu
 	public void OnNetworkClick()
 	{
 		networkManager.connect();
@@ -119,7 +118,6 @@ public class MainMenu : MonoBehaviour
 			networkMenuPanel.SetActive(true);
 		}
 	}
-	#endregion
 
 	public void OnExitClick()
 	{
@@ -130,8 +128,6 @@ public class MainMenu : MonoBehaviour
 #endif
 	}
 
-
-	#region NetworkMenu
 	public void OnResponseJoin(ExtendedEventArgs eventArgs)
 	{
 		t1p1Input.SetActive(false);
@@ -343,9 +339,8 @@ public class MainMenu : MonoBehaviour
 			
 		}
 	}
-	#endregion
 
-	#region ChatMenu
+
 	public void OnSendButton() {
 		
         if (chatInput.text.Length > 0) {
@@ -381,7 +376,6 @@ public class MainMenu : MonoBehaviour
 			RuntimeManager.PlayOneShot(soundSendMsg);
 		}
 	}
-	#endregion
 
 	public void OnOKClick()
 	{

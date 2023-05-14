@@ -93,7 +93,8 @@ public class GameManager : MonoBehaviour
 
 			if (i == currentPlayerID - 1)
 			{
-				currentPlayer = Instantiate(playerPrefab, pos, Quaternion.identity);
+                currentPlayer = Instantiate(playerPrefab, pos, Quaternion.identity);
+				currentPlayer.GetComponentInChildren<PlayerController>().horizontalRotation = (i < 2) ? -45 : 135;
 			}
 			else
 			{

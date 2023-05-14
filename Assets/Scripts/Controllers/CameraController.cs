@@ -7,7 +7,7 @@ public class CameraController : MonoBehaviour
     public float rotateSpeed = 3f;
 
     private Transform player;
-    private float rotationUpDown = 0;
+    private float rotationUpDown = 30f;
     private Quaternion originalRotation;
 
 

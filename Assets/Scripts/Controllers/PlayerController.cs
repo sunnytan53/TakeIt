@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour {
     private NetworkManager networkManager;
 
     private Vector3 movement = new Vector3();
-    private float horizontalRotation = 0;
+    public float horizontalRotation { get; set; } = 0;
     private Quaternion rotation;
 
     private Transform holdArea;
