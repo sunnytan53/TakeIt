@@ -506,7 +506,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &106853707
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1141,6 +1141,13 @@ MonoBehaviour:
       Data3: 2106291107
       Data4: 1041989175
     Path: event:/UI_SFX/Takeit_UI_Send
+  soundMenu:
+    Guid:
+      Data1: -1018041295
+      Data2: 1234806320
+      Data3: -1135842644
+      Data4: 2037341183
+    Path: event:/MUSIC/Takeit_Music_Menu_v2.3_@145.5bpm
 --- !u!1 &329055430
 GameObject:
   m_ObjectHideFlags: 0

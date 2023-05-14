@@ -52,9 +52,14 @@ public class MainMenu : MonoBehaviour
 	public EventReference soundReady;
 	public EventReference soundQuit;
 	public EventReference soundSendMsg;
+	public EventReference soundMenu;
+	private FMOD.Studio.EventInstance instance;
 
 	void Start()
-    {
+	{
+		instance = RuntimeManager.CreateInstance(soundMenu);
+		instance.start();
+
 		rootMenuPanel = GameObject.Find("RootMenu");
 		networkMenuPanel = GameObject.Find("NetworkMenu");
 		chatPanel = GameObject.Find("ChatMenu");
@@ -332,7 +337,9 @@ public class MainMenu : MonoBehaviour
 
 		if (t1p1Ready || t1p2Ready || t2p1Ready || t2p2Ready)
 		{
-			StartCoroutine(DoDelay(3.0f));
+			instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+			instance.release();
+			StartCoroutine(DoDelay());
 			
 		}
 	}
@@ -414,7 +421,7 @@ public class MainMenu : MonoBehaviour
 		SceneManager.LoadScene("map");
 	}
 
-	IEnumerator DoDelay(float time)
+	IEnumerator DoDelay()
     {
 		messageBox.SetActive(true);
 		//messageBoxMsg.text = "Game Will Start in 3 Seconds!";
