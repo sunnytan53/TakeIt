@@ -70,14 +70,17 @@ public class CharacterCreator : MonoBehaviour
 		instance.release();
 	}
 
-	public void OnButtonClick()
-	{
-	    SceneManager.LoadScene("Menu");
-	}
-
-	private IEnumerator LoadMenuSceneCoroutine() {
-    	yield return new WaitForSeconds(5f); 
-    	SceneManager.LoadScene("Menu"); 
+	public void UpdateScore(int team, int score) {
+		if (team == 1){
+			scoreValueT1 += score;
+			team1ScoreText.text = scoreValueT1.ToString();
+			StartCoroutine(Pulse(team1ScoreText));
+		}
+		else {
+			scoreValueT2 += score;
+			team2ScoreText.text = scoreValueT2.ToString();
+			StartCoroutine(Pulse(team2ScoreText));
+		}
 	}
 
 	private IEnumerator IncrementScoreTest() {
