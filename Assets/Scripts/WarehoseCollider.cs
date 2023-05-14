@@ -5,19 +5,16 @@ using FMODUnity;
 
 public class WarehoseCollider : MonoBehaviour
 {
-    private List<GameObject> fruits = new List<GameObject>();
+    private List<GameObject> objs = new List<GameObject>();
 
-    void Update()
-    {
-        //Debug.Log("total colliding :" + fruits.Count);
-    }
-
+    public EventReference soundPoint;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Pickable"))
         {
-            fruits.Add(other.gameObject);
+            objs.Add(other.gameObject);
+            RuntimeManager.PlayOneShot(soundPoint);
         }
         Debug.Log("total fruits colliding :" + objs.Count);
         Debug.Log("the current points are: " + getPoints());
@@ -27,7 +24,7 @@ public class WarehoseCollider : MonoBehaviour
     {
         if (other.CompareTag("Pickable"))
         {
-            fruits.Remove(other.gameObject);
+            objs.Remove(other.gameObject);
         }
         Debug.Log("total fruits colliding :" + objs.Count);
         Debug.Log("the current points are: " + getPoints());
