@@ -9,6 +9,7 @@ import core.NetworkManager;
 import model.Player;
 import networking.response.ResponseJoin;
 import networking.response.ResponseName;
+import utility.DataReader;
 import utility.Log;
 
 /**
@@ -19,6 +20,7 @@ import utility.Log;
 public class RequestJoin extends GameRequest {
     // Data
     private Player player;
+    private int i1, i2;
 
     // Responses
     private ResponseJoin responseJoin;
@@ -29,7 +31,8 @@ public class RequestJoin extends GameRequest {
 
     @Override
     public void parse() throws IOException {
-        //no parsing for this request
+        i1 = DataReader.readInt(dataInput);
+        i2 = DataReader.readInt(dataInput);
     }
 
     @Override
@@ -39,9 +42,10 @@ public class RequestJoin extends GameRequest {
         if(id != 0) {
             player = new Player(id, "Player " + id);
             player.setID(id);
-            gs.setActivePlayer(player);
-
+            player.setI1(i1);
+            player.setI2(i2);
             player.setClient(client);
+            gs.setActivePlayer(player);
             // Pass Player reference into thread
             client.setPlayer(player);
             // Set response information

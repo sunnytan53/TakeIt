@@ -101,10 +101,11 @@ public class GameManager : MonoBehaviour
 				GameObject body = Instantiate(bodies[indicies[i, 0]], pos, Quaternion.identity);
 				body.transform.GetChild(1).GetComponent<Renderer>().materials[1].SetTexture("_MainTex", faces[indicies[i, 1]]);
 				body.transform.SetParent(copy.transform);
-				copy.GetComponentInChildren<PlayerController>().horizontalRotation = (i < 2) ? -45 : 135;
 
 				currentPlayer = Instantiate(copy);
 				Destroy(copy);
+				currentPlayer.GetComponentInChildren<PlayerController>().horizontalRotation = (i < 2) ? -45 : 135;
+
 			}
 			else
 			{
@@ -113,12 +114,12 @@ public class GameManager : MonoBehaviour
 				GameObject body = Instantiate(bodies[indicies[i, 0]], pos, Quaternion.identity);
 				body.transform.GetChild(1).GetComponent<Renderer>().materials[1].SetTexture("_MainTex", faces[indicies[i, 1]]);
 				body.transform.SetParent(copy.transform);
-				copy.GetComponentInChildren<Camera>().enabled = false;
-				copy.GetComponentInChildren<PlayerController>().enabled = false;
-				copy.GetComponentInChildren<CapsuleCollider>().enabled = false;
 
 				otherPlayers[i] = Instantiate(copy);
 				Destroy(copy);
+				otherPlayers[i].GetComponentInChildren<Camera>().enabled = false;
+				otherPlayers[i].GetComponentInChildren<PlayerController>().enabled = false;
+				otherPlayers[i].GetComponentInChildren<CapsuleCollider>().enabled = false;
 			}
 		}
 

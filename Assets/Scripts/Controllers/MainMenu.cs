@@ -145,7 +145,7 @@ public class MainMenu : MonoBehaviour
 	public void onJoinClick()
     {
 		Debug.Log("Joining the room");
-        networkManager.SendJoinRequest();
+        networkManager.SendJoinRequest((int)bodySlider.value, (int)faceSlider.value);
 		Destroy(previewPlayer);
 	}
 
@@ -156,7 +156,6 @@ public class MainMenu : MonoBehaviour
 		if (args.status == 0)
 		{
 			RuntimeManager.PlayOneShot(soundJoin);
-			List<UserData> users = args.users;
 
 			if (args.user_id == 1)
 			{
@@ -190,14 +189,21 @@ public class MainMenu : MonoBehaviour
 				}
 				else {
 					Debug.Log("Something went wrong with setting other players name when a new player join");
+					continue;
 				}
+
+				int curUser = user.UserId - 1;
+				previewIndicies[curUser, 0] = user.bodyIndex;
+				previewIndicies[curUser, 1] = user.faceIndex;
+				allPreviewPlayers[curUser] = Instantiate(bodies[user.bodyIndex], allPreviewPlaces[curUser], Quaternion.Euler(0, 180, 0));
+				allPreviewPlayers[curUser].transform.GetChild(1).GetComponent<Renderer>().materials[1].SetTexture("_MainTex", faces[user.faceIndex]);
 			}
 
 			Constants.USER_ID = args.user_id;
 			string name = nameInput.text;
 			if (name == "") name = "No Name";
-			networkManager.SendSetNameRequest((int)bodySlider.value, (int)faceSlider.value, name);
-			playerName.text = nameInput.text;
+			networkManager.SendSetNameRequest(name);
+			//playerName.text = nameInput.text;
 
 			preparePanel.SetActive(false);
 			networkPanel.SetActive(true);

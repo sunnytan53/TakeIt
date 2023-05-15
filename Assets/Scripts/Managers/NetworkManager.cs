@@ -40,12 +40,12 @@ public class NetworkManager : MonoBehaviour
 		}
 	}
 
-	public bool SendJoinRequest()
+	public bool SendJoinRequest(int i1, int i2)
 	{
 		if (cManager && cManager.IsConnected())
 		{
 			RequestJoin request = new RequestJoin();
-			request.send();
+			request.send(i1, i2);
 			cManager.send(request);
 			return true;
 		}
@@ -64,13 +64,13 @@ public class NetworkManager : MonoBehaviour
 		return false;
 	}
 
-	public bool SendSetNameRequest(int i1, int i2, string name)
+	public bool SendSetNameRequest(string name)
 	{
 		Debug.Log("network manager received the name: "+ name);
 		if (cManager && cManager.IsConnected())
 		{
 			RequestSetName request = new RequestSetName();
-			request.send(i1, i2, name);
+			request.send(name);
 			cManager.send(request);
 			return true;
 		}

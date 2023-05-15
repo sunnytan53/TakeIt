@@ -16,15 +16,13 @@ public class ResponseJoinEventArgs : ExtendedEventArgs
 
 public class UserData
 {
-    public int UserId { get; }
-    public string UserName { get; }
-    public bool UserReady { get; }
+    public int UserId { get; set; }
+    public string UserName { get; set; }
+	public int bodyIndex { get; set; }
+	public int faceIndex { get; set; }
 
-    public UserData(int userId, string userName, bool userReady)
+	public UserData()
     {
-        UserId = userId;
-        UserName = userName;
-        UserReady = userReady;
     }
 }
 
@@ -46,12 +44,13 @@ public class ResponseJoin : NetworkResponse
 		{
 			user_id = DataReader.ReadInt(dataStream);
 			while (dataStream.Position < dataStream.Length) {
-				int userId = DataReader.ReadInt(dataStream);
-		    	string userName = DataReader.ReadString(dataStream);
-		    	bool userReady = DataReader.ReadBool(dataStream);
+				UserData user = new UserData();
+				user.UserId = DataReader.ReadInt(dataStream);
+				user.UserName = DataReader.ReadString(dataStream);
+		    	user.bodyIndex = DataReader.ReadInt(dataStream);
+				user.faceIndex = DataReader.ReadInt(dataStream);
 
-		    	UserData user = new UserData(userId, userName, userReady);
-		    	users.Add(user);
+				users.Add(user);
 			}
 		}
 	}

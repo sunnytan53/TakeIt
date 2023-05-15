@@ -29,9 +29,9 @@ public class ResponseSetName : NetworkResponse
 	public override void parse()
 	{
 		user_id = DataReader.ReadInt(dataStream);
+		name = DataReader.ReadString(dataStream);
 		bodyIndex = DataReader.ReadInt(dataStream);
 		faceIndex = DataReader.ReadInt(dataStream);
-		name = DataReader.ReadString(dataStream);
 	}
 
 	public override ExtendedEventArgs process()

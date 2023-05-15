@@ -10,22 +10,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca50f9d1-b623-4afa-8b01-27d3086535b2" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/../Assets/Prefab/MainPlayer.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Prefab/MainPlayer.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assets/Scenes/Menu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scenes/Menu.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assets/Scripts/Controllers/MainMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/Controllers/MainMenu.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assets/Scripts/Controllers/PlayerArtController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/Controllers/PlayerArtController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assets/Scripts/Managers/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/Managers/GameManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assets/Scripts/Managers/NetworkManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/Managers/NetworkManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assets/Scripts/Network/Constants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/Network/Constants.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/Scripts/Network/Request/RequestJoin.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/Network/Request/RequestJoin.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assets/Scripts/Network/Request/RequestSetName.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/Network/Request/RequestSetName.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/Scripts/Network/Response/ResponseJoin.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/Network/Response/ResponseJoin.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assets/Scripts/Network/Response/ResponseSetName.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/Network/Response/ResponseSetName.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/request/RequestJoin.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/request/RequestJoin.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/request/RequestName.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/request/RequestName.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/response/ResponseName.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/response/ResponseName.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/metadata/Constants 2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/networking/request/RequestJoin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/networking/request/RequestJoin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/networking/request/RequestName.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/networking/request/RequestName.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/networking/response/ResponseJoin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/networking/response/ResponseJoin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/networking/response/ResponseName.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/networking/response/ResponseName.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/../UserSettings/EditorUserSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,6 +79,9 @@
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="1YH2f2lZiSHZ51y8U7vb5Fp2onT" />
   <component name="ProjectLevelVcsManager">
@@ -208,6 +214,7 @@
       <workItem from="1683863824907" duration="1129000" />
       <workItem from="1684096219888" duration="129000" />
       <workItem from="1684104832706" duration="79000" />
+      <workItem from="1684165692854" duration="1484000" />
     </task>
     <servers />
   </component>
