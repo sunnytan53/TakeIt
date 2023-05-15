@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
 				currentPlayer = Instantiate(copy);
 				Destroy(copy);
 				currentPlayer.GetComponentInChildren<PlayerController>().horizontalRotation = (i < 2) ? -45 : 135;
-
+				currentPlayer.transform.localScale = new Vector3(1.5f,1.5f,1.5f);
 			}
 			else
 			{
@@ -120,6 +120,7 @@ public class GameManager : MonoBehaviour
 				otherPlayers[i].GetComponentInChildren<Camera>().enabled = false;
 				otherPlayers[i].GetComponentInChildren<PlayerController>().enabled = false;
 				otherPlayers[i].GetComponentInChildren<CapsuleCollider>().enabled = false;
+				otherPlayers[i].transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
 			}
 		}
 

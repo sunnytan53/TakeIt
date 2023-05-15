@@ -188,7 +188,7 @@ public class MainMenu : MonoBehaviour
 					t2p2Name.text = user.UserName;
 				}
 				else {
-					Debug.Log("Something went wrong with setting other players name when a new player join");
+					Debug.Log("No active users");
 					continue;
 				}
 
@@ -203,9 +203,9 @@ public class MainMenu : MonoBehaviour
 			string name = nameInput.text;
 			if (name == "") name = "No Name";
 			networkManager.SendSetNameRequest(name);
-			//playerName.text = nameInput.text;
+			playerName.text = name;
 
-			preparePanel.SetActive(false);
+            preparePanel.SetActive(false);
 			networkPanel.SetActive(true);
 		}
 		
@@ -365,11 +365,11 @@ public class MainMenu : MonoBehaviour
 	IEnumerator DoDelay()
     {
 		messageBox.SetActive(true);
-		//messageBoxMsg.text = "Game Will Start in 3 Seconds!";
-  //      yield return new WaitForSeconds(1.0f);
-  //      messageBoxMsg.text = "Game Will Start in 2 Seconds!";
-  //      yield return new WaitForSeconds(1.0f);
-		messageBoxMsg.text = "Game Will Start in 1 Seconds!";
+		messageBoxMsg.text = "Game Will Start in 3 Seconds!";
+        yield return new WaitForSeconds(1.0f);
+        messageBoxMsg.text = "Game Will Start in 2 Seconds!";
+        yield return new WaitForSeconds(1.0f);
+        messageBoxMsg.text = "Game Will Start in 1 Seconds!";
 		yield return new WaitForSeconds(1.0f);
 		StartNetworkGame();
     }
