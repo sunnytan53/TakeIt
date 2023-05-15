@@ -1220,11 +1220,11 @@ MonoBehaviour:
     Path: event:/UI_SFX/Takeit_UI_Send
   soundMenu:
     Guid:
-      Data1: 837226937
-      Data2: 1341050345
-      Data3: 1875590815
-      Data4: 2120773057
-    Path: event:/UI_SFX/Takeit_UI_Back
+      Data1: -1018041295
+      Data2: 1234806320
+      Data3: -1135842644
+      Data4: 2037341183
+    Path: event:/MUSIC/Takeit_Music_Menu_v2.3_@145.5bpm
 --- !u!1 &258619274
 GameObject:
   m_ObjectHideFlags: 0

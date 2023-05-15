@@ -9,6 +9,10 @@ public class GameOver : MonoBehaviour
 {
 	public EventReference soundWin;
 	public EventReference soundLose;
+	public EventReference soundEndScene;
+
+	private FMOD.Studio.EventInstance instance;
+	private bool wasEnded = false;
 
 	void Start()
 	{
@@ -18,36 +22,56 @@ public class GameOver : MonoBehaviour
         int scoreValueT1 = creator.scoreValueT1;
         int scoreValueT2 = creator.scoreValueT2;
 
-        if (scoreValueT1 > scoreValueT2) {
+		EventReference finalSound;
+		if (scoreValueT1 > scoreValueT2) {
 			if (Constants.USER_ID <= 2){
 				winCondText.text = "Congrats! Your Team Win!";
-				RuntimeManager.PlayOneShot(soundWin);
+				finalSound = soundWin;
 			}
 			else
 			{
                 winCondText.text = "Oh no! Your Team Lose!";
-				RuntimeManager.PlayOneShot(soundLose);
+				finalSound = soundLose;
 			}
 		}
 		else if (scoreValueT1 < scoreValueT2) {
             if (Constants.USER_ID <= 2){
 				winCondText.text = "Oh no! Your Team Lose!";
-				RuntimeManager.PlayOneShot(soundLose);
+				finalSound = soundLose;
 			}
 			else
 			{
 				winCondText.text = "Congrats! Your Team Win!";
-				RuntimeManager.PlayOneShot(soundWin);
+				finalSound = soundWin;
 			}
 		}
 		else
         {
 			winCondText.text = "Not bad! Your team makes a draw!";
-			RuntimeManager.PlayOneShot(soundWin);
+			finalSound = soundWin;
+		}
+
+		instance = RuntimeManager.CreateInstance(finalSound);
+		instance.start();
+	}
+
+    private void Update()
+    {
+		// loop music
+		instance.getPlaybackState(out FMOD.Studio.PLAYBACK_STATE playbackState);
+
+		if (playbackState == FMOD.Studio.PLAYBACK_STATE.STOPPED)
+		{
+			if (!wasEnded)
+            {
+				wasEnded = true;
+				instance = RuntimeManager.CreateInstance(soundEndScene);
+			}
+			instance.start();
 		}
 	}
 
-	public void OnExitClick()
+    public void OnExitClick()
 	{
 #if UNITY_EDITOR
 		UnityEditor.EditorApplication.isPlaying = false;
