@@ -156,6 +156,8 @@ public class MainMenu : MonoBehaviour
 		if (args.status == 0)
 		{
 			RuntimeManager.PlayOneShot(soundJoin);
+			List<UserData> users = args.users;
+
 			if (args.user_id == 1)
 			{
 				playerName = t1p1Name;
@@ -171,6 +173,24 @@ public class MainMenu : MonoBehaviour
 			else 
 			{
 				playerName = t2p2Name;
+			}
+
+			foreach (UserData user in args.users) {
+				if (user.UserId == 1) {
+					t1p1Name.text = user.UserName;
+				}
+				else if (user.UserId == 2) {
+					t1p2Name.text = user.UserName;
+				}
+				else if (user.UserId == 3) {
+					t2p1Name.text = user.UserName;
+				}
+				else if (user.UserId == 4) {
+					t2p2Name.text = user.UserName;
+				}
+				else {
+					Debug.Log("Something went wrong with setting other players name when a new player join");
+				}
 			}
 
 			Constants.USER_ID = args.user_id;
