@@ -2,7 +2,9 @@ public class Constants
 {
 	// Constants
 	public static readonly string CLIENT_VERSION = "1.00";
-	public static readonly string REMOTE_HOST = "18.144.87.42";
+	// public static readonly string REMOTE_HOST = "18.144.87.42";
+	// public static readonly int REMOTE_PORT = 1729;
+	public static readonly string REMOTE_HOST = "localhost";
 	public static readonly int REMOTE_PORT = 1729;
 	
 	// Request (1xx) + Response (2xx)

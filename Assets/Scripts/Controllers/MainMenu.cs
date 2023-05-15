@@ -194,10 +194,16 @@ public class MainMenu : MonoBehaviour
 			}
 
 			Constants.USER_ID = args.user_id;
+			Debug.Log("Constants.USER_ID is " + Constants.USER_ID);
 			string name = nameInput.text;
 			if (name == "") name = "No Name";
+			playerName.text = name;
+			t2p2Name.text = name;
+			
+			Debug.Log("playerName.text is " + playerName.text);
+
 			networkManager.SendSetNameRequest((int)bodySlider.value, (int)faceSlider.value, name);
-			playerName.text = nameInput.text;
+			// playerName.text = nameInput.text;
 
 			preparePanel.SetActive(false);
 			networkPanel.SetActive(true);

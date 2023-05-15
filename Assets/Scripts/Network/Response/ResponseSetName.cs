@@ -32,6 +32,11 @@ public class ResponseSetName : NetworkResponse
 		bodyIndex = DataReader.ReadInt(dataStream);
 		faceIndex = DataReader.ReadInt(dataStream);
 		name = DataReader.ReadString(dataStream);
+
+		Debug.Log("In ResponseSetName, the user_id is: " + user_id);
+		Debug.Log("In ResponseSetName, the bodyIndex is: " + bodyIndex);
+		Debug.Log("In ResponseSetName, the faceIndex is: " + faceIndex);
+		Debug.Log("In ResponseSetName, the name is: " + name);
 	}
 
 	public override ExtendedEventArgs process()

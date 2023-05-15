@@ -15,5 +15,9 @@ public class RequestSetName : NetworkRequest
 		packet.addInt32(i1);
 		packet.addInt32(i2);
 		packet.addString(name);
+
+		Debug.Log("In RequestSetName, the i1 is: " + i1);
+		Debug.Log("In RequestSetName, the i2 is: " + i2);
+		Debug.Log("In RequestSetName, the name is: " + name);
 	}
 }

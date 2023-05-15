@@ -2,6 +2,8 @@ package networking.request;
 
 // Java Imports
 import java.io.IOException;
+import utility.Log;
+
 
 // Other Imports
 import model.Player;
@@ -26,6 +28,8 @@ public class RequestName extends GameRequest {
         i1 = DataReader.readInt(dataInput);
         i2 = DataReader.readInt(dataInput);
         name = DataReader.readString(dataInput).trim();
+        
+        Log.printf("In requestName, the i1 is %d, i2 is %d, name is %s", i1, i2, name);
     }
 
     @Override
