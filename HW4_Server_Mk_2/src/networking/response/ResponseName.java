@@ -10,6 +10,7 @@ import utility.Log;
  * process.
  */
 public class ResponseName extends GameResponse {
+    private int i1, i2;
     private Player player;
 
     public ResponseName() {
@@ -20,6 +21,8 @@ public class ResponseName extends GameResponse {
     public byte[] constructResponseInBytes() {
         GamePacket packet = new GamePacket(responseCode);
         packet.addInt32(player.getID());
+        packet.addInt32(i1);
+        packet.addInt32(i2);
         packet.addString(player.getName());
 
         Log.printf("Name %s set in server. for player with id %d", player.getName(), player.getID());
@@ -29,5 +32,10 @@ public class ResponseName extends GameResponse {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public void setData(int i1, int i2) {
+        this.i1 = i1;
+        this.i2 = i2;
     }
 }

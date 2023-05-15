@@ -9,9 +9,6 @@ public class PlayerArtController : MonoBehaviour
 {
     private Animator animator;
 
-    public Face faces;
-    public GameObject SmileBody; // this should adpat to all individual slimes
-    private Material faceMaterial;
     private bool wasIdled;
 
     private AnimatorStateInfo curAnimation;
@@ -33,10 +30,10 @@ public class PlayerArtController : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        faceMaterial = SmileBody.GetComponent<Renderer>().materials[1];
         networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
         animator.SetInteger("DamageType", 2);
     }
+
 
     public void setAnimationCode(AnimationCodeEnum aCode, bool fromRequest = false)
     {
@@ -94,7 +91,6 @@ public class PlayerArtController : MonoBehaviour
                 if (wasIdled) return;
                 animator.ResetTrigger("Jump");
                 wasIdled = true;
-                //faceMaterial.SetTexture("_MainTex", faces.IdleFace);
                 break;
         }
 

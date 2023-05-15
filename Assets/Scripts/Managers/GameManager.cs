@@ -2,8 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-using FMODUnity;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,6 +17,10 @@ public class GameManager : MonoBehaviour
 	private int currentPlayerID;
 
 	private NetworkManager networkManager;
+
+	private GameObject[] bodies;
+	private Texture2D[] faces;
+	private int[,] indicies;
 
 
 	void Start()
@@ -37,15 +39,17 @@ public class GameManager : MonoBehaviour
 	}
 
 
-    public void Init(Player t1p1, Player t1p2, Player t2p1, Player t2p2, int currentPlayerId)
+    public void Init(Player t1p1, Player t1p2, Player t2p1, Player t2p2, int currentPlayerId, GameObject[] body, Texture2D[] face, int[,] index)
 	{
 		Players[0] = t1p1;
 		Players[1] = t1p2;
         Players[2] = t2p1;
         Players[3] = t2p2;
 		currentPlayerID = currentPlayerId;
+		bodies = body;
+		faces = face;
+        indicies = index;
 		Debug.Log("Current player id detected by GameManager is: " + currentPlayerId);
-		// useNetwork = (!player1.IsMouseControlled || !player2.IsMouseControlled);
 	}
 	
 	public void initMap(Vector3 middle, Vector3 t1, Vector3 t2){
@@ -90,18 +94,31 @@ public class GameManager : MonoBehaviour
 		for (int i = 0; i < 4; i++)
 		{
 			Vector3 pos = (i < 2) ? t1 : t2;
-
+			// initialize body and face
 			if (i == currentPlayerID - 1)
 			{
-                currentPlayer = Instantiate(playerPrefab, pos, Quaternion.identity);
-				currentPlayer.GetComponentInChildren<PlayerController>().horizontalRotation = (i < 2) ? -45 : 135;
+				GameObject copy = Instantiate(playerPrefab, pos, Quaternion.identity);
+				GameObject body = Instantiate(bodies[indicies[i, 0]], pos, Quaternion.identity);
+				body.transform.GetChild(1).GetComponent<Renderer>().materials[1].SetTexture("_MainTex", faces[indicies[i, 1]]);
+				body.transform.SetParent(copy.transform);
+				copy.GetComponentInChildren<PlayerController>().horizontalRotation = (i < 2) ? -45 : 135;
+
+				currentPlayer = Instantiate(copy);
+				Destroy(copy);
 			}
 			else
 			{
-				otherPlayers[i] = Instantiate(playerPrefab, pos + offset, Quaternion.identity);
-				otherPlayers[i].GetComponentInChildren<Camera>().enabled = false;
-				otherPlayers[i].GetComponentInChildren<PlayerController>().enabled = false;
-				otherPlayers[i].GetComponentInChildren<CapsuleCollider>().enabled = false;
+				pos = pos + offset;
+				GameObject copy = Instantiate(playerPrefab, pos, Quaternion.identity);
+				GameObject body = Instantiate(bodies[indicies[i, 0]], pos, Quaternion.identity);
+				body.transform.GetChild(1).GetComponent<Renderer>().materials[1].SetTexture("_MainTex", faces[indicies[i, 1]]);
+				body.transform.SetParent(copy.transform);
+				copy.GetComponentInChildren<Camera>().enabled = false;
+				copy.GetComponentInChildren<PlayerController>().enabled = false;
+				copy.GetComponentInChildren<CapsuleCollider>().enabled = false;
+
+				otherPlayers[i] = Instantiate(copy);
+				Destroy(copy);
 			}
 		}
 

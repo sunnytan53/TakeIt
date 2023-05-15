@@ -48,10 +48,6 @@ public class RequestJoin extends GameRequest {
             responseJoin.setStatus((short) 0); // Login is a success
             responseJoin.setPlayer(player);
             Log.printf("User '%s' has successfully logged in.", player.getName());
-
-            ResponseName responseName = new ResponseName();
-            responseName.setPlayer(player);
-            NetworkManager.addResponseForAllOnlinePlayers(player.getID(), responseName);
         } else {
             Log.printf("A user has tried to join, but failed to do so.");
             responseJoin.setStatus((short) 1); 

@@ -12,12 +12,20 @@
     <list default="true" id="ca50f9d1-b623-4afa-8b01-27d3086535b2" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/../Assets/Prefab/MainPlayer.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Prefab/MainPlayer.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assets/Scenes/Menu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scenes/Menu.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assets/Scenes/map.unity" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scenes/map.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assets/Scripts/CharacterCreator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/CharacterCreator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assets/Scripts/Controllers/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/Controllers/PlayerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assets/Scripts/GameOver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/GameOver.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/Scripts/Controllers/MainMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/Controllers/MainMenu.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/Scripts/Controllers/PlayerArtController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/Controllers/PlayerArtController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assets/Scripts/Managers/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/Managers/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/../UserSettings/EditorUserSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/Scripts/Managers/NetworkManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/Managers/NetworkManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/Scripts/Network/Constants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/Network/Constants.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/Scripts/Network/Request/RequestSetName.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/Network/Request/RequestSetName.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/Scripts/Network/Response/ResponseSetName.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/Scripts/Network/Response/ResponseSetName.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/request/RequestJoin.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/request/RequestJoin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/request/RequestName.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/request/RequestName.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/response/ResponseName.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WoB_Server_Basic/networking/response/ResponseName.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/networking/request/RequestJoin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/networking/request/RequestJoin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/networking/request/RequestName.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/networking/request/RequestName.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/networking/response/ResponseName.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/networking/response/ResponseName.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

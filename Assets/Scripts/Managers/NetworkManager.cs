@@ -25,12 +25,17 @@ public class NetworkManager : MonoBehaviour
 		connect();
 	}
 
+	public bool isConnected()
+    {
+		return cManager.IsConnected();
+
+	}
+
 	public void connect()
     {
 		if (cManager)
 		{
 			cManager.setupSocket();
-
 			StartCoroutine(RequestHeartbeat(0.1f));
 		}
 	}
@@ -59,13 +64,13 @@ public class NetworkManager : MonoBehaviour
 		return false;
 	}
 
-	public bool SendSetNameRequest(string Name)
+	public bool SendSetNameRequest(int i1, int i2, string name)
 	{
-		Debug.Log("network manager received the name: "+Name);
+		Debug.Log("network manager received the name: "+ name);
 		if (cManager && cManager.IsConnected())
 		{
 			RequestSetName request = new RequestSetName();
-			request.send(Name);
+			request.send(i1, i2, name);
 			cManager.send(request);
 			return true;
 		}

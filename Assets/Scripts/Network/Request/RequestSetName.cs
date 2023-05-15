@@ -9,9 +9,11 @@ public class RequestSetName : NetworkRequest
 		request_id = Constants.CMSG_SETNAME;
 	}
 
-	public void send(string name)
+	public void send(int i1, int i2, string name)
 	{
 		packet = new GamePacket(request_id);
+		packet.addInt32(i1);
+		packet.addInt32(i2);
 		packet.addString(name);
 	}
 }
