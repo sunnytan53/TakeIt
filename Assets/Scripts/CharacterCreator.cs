@@ -47,7 +47,7 @@ public class CharacterCreator : MonoBehaviour
 	void Update()
     {
 		if (timeRemaining > 0) {
-			timeRemaining = Mathf.Clamp(timeRemaining - Time.deltaTime, 0f, 10f); // decrement time remaining by the time elapsed in each frame
+			timeRemaining = timeRemaining - Mathf.Clamp(Time.deltaTime, 0f, 10f);
 			string minutes = Mathf.FloorToInt(timeRemaining / 60f).ToString();
     		string seconds = Mathf.FloorToInt(timeRemaining % 60f).ToString("00");
     		timerText.text = "Timer: " + minutes + ":" + seconds;
