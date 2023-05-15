@@ -10,8 +10,6 @@ public class WarehoseCollider : MonoBehaviour
     private int team1 = 1;
     private int team2 = 2;
 
-    public EventReference soundPoint;
-
     void Start() {
         creator = GameObject.Find("Create").GetComponent<CharacterCreator>();
     }
@@ -21,7 +19,6 @@ public class WarehoseCollider : MonoBehaviour
         if (other.CompareTag("Pickable"))
         {
             objs.Add(other.gameObject);
-            RuntimeManager.PlayOneShot(soundPoint);
             if (gameObject.CompareTag("Warehouse1")){
                 creator.UpdateScore(team1, getPoints());
                 // Debug.Log("update score with team1: "+ team1 + " and getPoints(): " + getPoints());

@@ -104,7 +104,18 @@ public class MainMenu : MonoBehaviour
     }
 
 
-	public void OnPrepareClick()
+    private void Update()
+    {
+		// loop music
+		instance.getPlaybackState(out FMOD.Studio.PLAYBACK_STATE playbackState);
+
+		if (playbackState == FMOD.Studio.PLAYBACK_STATE.STOPPED)
+		{
+			instance.start();
+		}
+	}
+
+    public void OnPrepareClick()
 	{
 		networkManager.connect();
         if (!networkManager.isConnected())

@@ -17,6 +17,8 @@ public class CharacterCreator : MonoBehaviour
 	public int scoreValueT2;
 
 
+	public EventReference soundPoint;
+
 	public EventReference soundGame;
 	private FMOD.Studio.EventInstance instance;
 	private bool isEnd = false;
@@ -64,15 +66,25 @@ public class CharacterCreator : MonoBehaviour
 
 
 	public void UpdateScore(int team, int score) {
+		bool gainOrLose;
 		if (team == 1){
+			gainOrLose = scoreValueT1 < score;
 			scoreValueT1 = score;
+			RuntimeManager.PlayOneShot(soundPoint);
 			team1ScoreText.text = scoreValueT1.ToString();
 			StartCoroutine(Pulse(team1ScoreText));
 		}
-		else {
+		else
+		{
+			gainOrLose = scoreValueT2 < score;
 			scoreValueT2 = score;
 			team2ScoreText.text = scoreValueT2.ToString();
 			StartCoroutine(Pulse(team2ScoreText));
+		}
+
+		if (gainOrLose)
+        {
+			RuntimeManager.PlayOneShot(soundPoint);
 		}
 	}
 

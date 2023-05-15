@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -933,19 +933,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8955322500898459853, guid: bc64d39352070c048aa493c2d3750cec, type: 3}
       propertyPath: m_LocalScale.x
-      value: 9
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8955322500898459853, guid: bc64d39352070c048aa493c2d3750cec, type: 3}
       propertyPath: m_LocalScale.y
-      value: 9
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8955322500898459853, guid: bc64d39352070c048aa493c2d3750cec, type: 3}
       propertyPath: m_LocalScale.z
-      value: 9
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8955322500898459853, guid: bc64d39352070c048aa493c2d3750cec, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 186.96
+      value: 193.7
       objectReference: {fileID: 0}
     - target: {fileID: 8955322500898459853, guid: bc64d39352070c048aa493c2d3750cec, type: 3}
       propertyPath: m_LocalPosition.y
@@ -953,7 +953,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8955322500898459853, guid: bc64d39352070c048aa493c2d3750cec, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11.5
+      value: 3.4
       objectReference: {fileID: 0}
     - target: {fileID: 8955322500898459853, guid: bc64d39352070c048aa493c2d3750cec, type: 3}
       propertyPath: m_LocalRotation.w
@@ -983,6 +983,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8955322500898459853, guid: bc64d39352070c048aa493c2d3750cec, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc64d39352070c048aa493c2d3750cec, type: 3}
 --- !u!4 &723155255 stripped
@@ -990,6 +994,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8955322500898459853, guid: bc64d39352070c048aa493c2d3750cec, type: 3}
   m_PrefabInstance: {fileID: 723155254}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &723155256 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 873531700701352353, guid: bc64d39352070c048aa493c2d3750cec, type: 3}
+  m_PrefabInstance: {fileID: 723155254}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &723155257
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723155256}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2659932603334005503, guid: 9981a4f80fb95b04fb9d36e07baa17cb, type: 3}
 --- !u!224 &784518958
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1166,13 +1189,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59f0c48de5a1d4dab8657825b972395f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundPoint:
-    Guid:
-      Data1: 978679781
-      Data2: 1153940163
-      Data3: 1698800782
-      Data4: -1160537782
-    Path: event:/UI_SFX/PTakeit_UI_PlayerJoins_v1
 --- !u!1 &1103496601
 GameObject:
   m_ObjectHideFlags: 0
@@ -1236,19 +1252,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8955322500898459853, guid: bc64d39352070c048aa493c2d3750cec, type: 3}
       propertyPath: m_LocalScale.x
-      value: 9
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8955322500898459853, guid: bc64d39352070c048aa493c2d3750cec, type: 3}
       propertyPath: m_LocalScale.y
-      value: 9
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8955322500898459853, guid: bc64d39352070c048aa493c2d3750cec, type: 3}
       propertyPath: m_LocalScale.z
-      value: 9
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8955322500898459853, guid: bc64d39352070c048aa493c2d3750cec, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 19.328655
+      value: 9.8
       objectReference: {fileID: 0}
     - target: {fileID: 8955322500898459853, guid: bc64d39352070c048aa493c2d3750cec, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1256,7 +1272,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8955322500898459853, guid: bc64d39352070c048aa493c2d3750cec, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 181.47884
+      value: 191.1
       objectReference: {fileID: 0}
     - target: {fileID: 8955322500898459853, guid: bc64d39352070c048aa493c2d3750cec, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1286,6 +1302,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8955322500898459853, guid: bc64d39352070c048aa493c2d3750cec, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc64d39352070c048aa493c2d3750cec, type: 3}
 --- !u!4 &1146791048 stripped
@@ -1293,6 +1313,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8955322500898459853, guid: bc64d39352070c048aa493c2d3750cec, type: 3}
   m_PrefabInstance: {fileID: 1146791047}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1146791049 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 873531700701352353, guid: bc64d39352070c048aa493c2d3750cec, type: 3}
+  m_PrefabInstance: {fileID: 1146791047}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1146791050
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146791049}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2659932603334005503, guid: 9981a4f80fb95b04fb9d36e07baa17cb, type: 3}
 --- !u!1 &1469776229
 GameObject:
   m_ObjectHideFlags: 0
@@ -1352,13 +1391,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59f0c48de5a1d4dab8657825b972395f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundPoint:
-    Guid:
-      Data1: 978679781
-      Data2: 1153940163
-      Data3: 1698800782
-      Data4: -1160537782
-    Path: event:/UI_SFX/PTakeit_UI_PlayerJoins_v1
 --- !u!1 &1590218663
 GameObject:
   m_ObjectHideFlags: 0
@@ -1754,6 +1786,13 @@ MonoBehaviour:
   team2ScoreText: {fileID: 0}
   scoreValueT1: 0
   scoreValueT2: 0
+  soundPoint:
+    Guid:
+      Data1: 978679781
+      Data2: 1153940163
+      Data3: 1698800782
+      Data4: -1160537782
+    Path: event:/UI_SFX/PTakeit_UI_PlayerJoins_v1
   soundGame:
     Guid:
       Data1: -1881119611
