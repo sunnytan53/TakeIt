@@ -16,7 +16,6 @@ public class CharacterCreator : MonoBehaviour
 	public int scoreValueT1;
 	public int scoreValueT2;
 
-
 	public EventReference soundPoint;
 
 	public EventReference soundGame;
@@ -31,6 +30,16 @@ public class CharacterCreator : MonoBehaviour
 		gameManager.initMap(GameObject.Find("Tree").transform.position,
 			GameObject.Find("WarehouseTeam1").transform.position,
 			GameObject.Find("WarehouseTeam2").transform.position);
+
+		TMPro.TextMeshProUGUI youText = GameObject.Find("you").GetComponent<TMPro.TextMeshProUGUI>();
+		if (Constants.USER_ID <= 2)
+        {
+			youText.text = "<-YOU";
+        }
+		else
+		{
+			youText.text = "\n<-YOU";
+		}
 
 		instance = RuntimeManager.CreateInstance(soundGame);
 		instance.start();
@@ -72,14 +81,14 @@ public class CharacterCreator : MonoBehaviour
 			scoreValueT1 = score;
 			RuntimeManager.PlayOneShot(soundPoint);
 			team1ScoreText.text = scoreValueT1.ToString();
-			StartCoroutine(Pulse(team1ScoreText));
+			//StartCoroutine(Pulse(team1ScoreText));
 		}
 		else
 		{
 			gainOrLose = scoreValueT2 < score;
 			scoreValueT2 = score;
 			team2ScoreText.text = scoreValueT2.ToString();
-			StartCoroutine(Pulse(team2ScoreText));
+			//StartCoroutine(Pulse(team2ScoreText));
 		}
 
 		if (gainOrLose)

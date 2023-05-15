@@ -41,9 +41,12 @@ public class MainMenu : MonoBehaviour
     private TMP_Text chatOutput;
     private Button sendButton;
 
+	public EventReference soundRegular;
+	public EventReference soundBack;
 	public EventReference soundJoin;
-	public EventReference soundReady;
-	public EventReference soundQuit;
+	public EventReference soundSelectSlime;
+	public EventReference soundStart;
+	public EventReference soundLeaveRoom;
 	public EventReference soundSendMsg;
 	public EventReference soundMenu;
 	private FMOD.Studio.EventInstance instance;
@@ -117,6 +120,7 @@ public class MainMenu : MonoBehaviour
 
     public void OnPrepareClick()
 	{
+		RuntimeManager.PlayOneShot(soundRegular);
 		networkManager.connect();
         if (!networkManager.isConnected())
 		{
@@ -150,11 +154,13 @@ public class MainMenu : MonoBehaviour
 
 	public void onFaceChange()
 	{
+		RuntimeManager.PlayOneShot(soundSelectSlime);
 		previewPlayer.transform.GetChild(1).GetComponent<Renderer>().materials[1].SetTexture("_MainTex", faces[(int) faceSlider.value]);
 	}
 
 	public void onJoinClick()
-    {
+	{
+		RuntimeManager.PlayOneShot(soundRegular);
 		Debug.Log("Joining the room");
         networkManager.SendJoinRequest((int)bodySlider.value, (int)faceSlider.value);
 		Destroy(previewPlayer);
@@ -274,6 +280,7 @@ public class MainMenu : MonoBehaviour
 		Destroy(previewPlayer);
 		rootMenuPanel.SetActive(true);
 		preparePanel.SetActive(false);
+		RuntimeManager.PlayOneShot(soundBack);
 	}
 
 	public void OnLeaveRoom()
@@ -283,7 +290,7 @@ public class MainMenu : MonoBehaviour
 		rootMenuPanel.SetActive(true);
 		networkPanel.SetActive(false);
 		deleteAllPreviews();
-		RuntimeManager.PlayOneShot(soundQuit);
+		RuntimeManager.PlayOneShot(soundLeaveRoom);
 	}
 
 	public void OnResponseLeave(ExtendedEventArgs eventArgs)
@@ -318,7 +325,7 @@ public class MainMenu : MonoBehaviour
 
 	public void OnResponseStart(ExtendedEventArgs eventArgs)
 	{
-		RuntimeManager.PlayOneShot(soundReady);
+		RuntimeManager.PlayOneShot(soundStart);
 
 		instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 		instance.release();

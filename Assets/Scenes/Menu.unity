@@ -330,7 +330,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &106853707
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1169,21 +1169,42 @@ MonoBehaviour:
   - {x: -2, y: 2.3, z: 0}
   - {x: -2, y: 0, z: 0}
   - {x: -2, y: -1, z: 0}
+  soundRegular:
+    Guid:
+      Data1: 2102860466
+      Data2: 1314367599
+      Data3: 1794343049
+      Data4: 1674517108
+    Path: event:/UI_SFX/Takeit_UI_Simpleclick
+  soundBack:
+    Guid:
+      Data1: 837226937
+      Data2: 1341050345
+      Data3: 1875590815
+      Data4: 2120773057
+    Path: event:/UI_SFX/Takeit_UI_Back
   soundJoin:
     Guid:
-      Data1: -186553168
-      Data2: 1187595377
-      Data3: -1571730801
-      Data4: 1551514971
-    Path: event:/UI_SFX/Takeit_UI_playerscores
-  soundReady:
+      Data1: 523335847
+      Data2: 1334986251
+      Data3: 2140449928
+      Data4: 961035054
+    Path: event:/UI_SFX/Takeit_UI_Join-Network
+  soundSelectSlime:
     Guid:
-      Data1: 941317015
-      Data2: 1319906935
-      Data3: -1052174957
-      Data4: 1264361286
-    Path: event:/UI_SFX/Takeit_VO-UI_Ready
-  soundQuit:
+      Data1: 684211588
+      Data2: 1313619211
+      Data3: -644888410
+      Data4: 1392648296
+    Path: event:/UI_SFX/Takeit_UI_Scroll
+  soundStart:
+    Guid:
+      Data1: 1267559141
+      Data2: 1334842116
+      Data3: -1070644843
+      Data4: -1258326192
+    Path: event:/UI_SFX/Takeit_VO-UI_Ready_v2
+  soundLeaveRoom:
     Guid:
       Data1: -2130495942
       Data2: 1338200648
@@ -1199,11 +1220,11 @@ MonoBehaviour:
     Path: event:/UI_SFX/Takeit_UI_Send
   soundMenu:
     Guid:
-      Data1: -1018041295
-      Data2: 1234806320
-      Data3: -1135842644
-      Data4: 2037341183
-    Path: event:/MUSIC/Takeit_Music_Menu_v2.3_@145.5bpm
+      Data1: 837226937
+      Data2: 1341050345
+      Data3: 1875590815
+      Data4: 2120773057
+    Path: event:/UI_SFX/Takeit_UI_Back
 --- !u!1 &258619274
 GameObject:
   m_ObjectHideFlags: 0

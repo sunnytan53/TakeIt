@@ -19,7 +19,7 @@ public class GameOver : MonoBehaviour
         int scoreValueT2 = creator.scoreValueT2;
 
         if (scoreValueT1 > scoreValueT2) {
-			if (Constants.USER_ID == 1 || Constants.USER_ID == 2){
+			if (Constants.USER_ID <= 2){
 				winCondText.text = "Congrats! Your Team Win!";
 				RuntimeManager.PlayOneShot(soundWin);
 			}
@@ -30,7 +30,7 @@ public class GameOver : MonoBehaviour
 			}
 		}
 		else if (scoreValueT1 < scoreValueT2) {
-            if (Constants.USER_ID == 1 || Constants.USER_ID == 2){
+            if (Constants.USER_ID <= 2){
 				winCondText.text = "Oh no! Your Team Lose!";
 				RuntimeManager.PlayOneShot(soundLose);
 			}
