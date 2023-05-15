@@ -12,7 +12,7 @@ public class CharacterCreator : MonoBehaviour
 	public TMPro.TextMeshProUGUI team1ScoreText;
 	public TMPro.TextMeshProUGUI team2ScoreText;
 	
-	public float timeRemaining = 240f; // 240f;
+	private float timeRemaining = 240f;
 	public int scoreValueT1;
 	public int scoreValueT2;
 
