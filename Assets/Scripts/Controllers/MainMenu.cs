@@ -172,8 +172,6 @@ public class MainMenu : MonoBehaviour
 		ResponseJoinEventArgs args = eventArgs as ResponseJoinEventArgs;
 		if (args.status == 0)
 		{
-			RuntimeManager.PlayOneShot(soundJoin);
-
 			if (args.user_id == 1)
 			{
 				playerName = t1p1Name;

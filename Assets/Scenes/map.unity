@@ -1939,11 +1939,11 @@ MonoBehaviour:
     Path: event:/UI_SFX/Takeit_UI_pointreduction
   soundGame:
     Guid:
-      Data1: -1881119611
-      Data2: 1115528055
-      Data3: 1102623152
-      Data4: -722577109
-    Path: event:/MUSIC/Takeit_MusicTheme_General
+      Data1: 1164913486
+      Data2: 1310140374
+      Data3: -1696333893
+      Data4: -274067253
+    Path: event:/MUSIC/Takeit_Music-Theme-General_V1.3
 --- !u!4 &1854227618
 Transform:
   m_ObjectHideFlags: 0

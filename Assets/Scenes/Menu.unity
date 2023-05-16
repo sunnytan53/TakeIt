@@ -330,7 +330,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &106853707
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1185,11 +1185,11 @@ MonoBehaviour:
     Path: event:/UI_SFX/Takeit_UI_Back
   soundJoin:
     Guid:
-      Data1: 523335847
-      Data2: 1334986251
-      Data3: 2140449928
-      Data4: 961035054
-    Path: event:/UI_SFX/Takeit_UI_Join-Network
+      Data1: 2058917379
+      Data2: 1244820947
+      Data3: 735325572
+      Data4: 1635843760
+    Path: event:/UI_SFX/Takeit_UI_Join-Network_v4
   soundSelectSlime:
     Guid:
       Data1: 684211588
