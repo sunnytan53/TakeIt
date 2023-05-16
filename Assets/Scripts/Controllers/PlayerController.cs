@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour {
     private bool wasLanded = false;
 
     private TMPro.TextMeshProUGUI pointUI;
+    private TMPro.TextMeshProUGUI centerUI;
 
 
     void Start()
@@ -38,6 +39,7 @@ public class PlayerController : MonoBehaviour {
         camera = transform.Find("Camera");
         artController = GetComponent<PlayerArtController>();
         pointUI = GameObject.Find("Points").GetComponent<TMPro.TextMeshProUGUI>();
+        centerUI = GameObject.Find("Target").GetComponent<TMPro.TextMeshProUGUI>();
 
         networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
     }
@@ -184,6 +186,7 @@ public class PlayerController : MonoBehaviour {
                     SendThrowRequest(pickable.index, new Vector3(0, 0, 0));
                 }
 
+                centerUI.text = "Stunning";
                 StartCoroutine(UnstunPlayer(collision.relativeVelocity.magnitude/10f, pickable.isFruit));
                 this.enabled = false;
             }
@@ -194,6 +197,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (!isFruit) time *= 2;
         yield return new WaitForSeconds(time);
+        centerUI.text = "+";
         this.enabled = true;
     }
 

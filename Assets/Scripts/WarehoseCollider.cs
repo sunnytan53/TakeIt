@@ -37,7 +37,6 @@ public class WarehoseCollider : MonoBehaviour
             objs.Remove(other.gameObject);
             if (gameObject.CompareTag("Warehouse1")){
                 creator.UpdateScore(team1, getPoints());
-                // Debug.Log("update score with team1: "+ team1 + " and getPoints(): -" + getPoints());
             }
             else {
                 creator.UpdateScore(team2, getPoints());

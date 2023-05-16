@@ -79,7 +79,6 @@ public class CharacterCreator : MonoBehaviour
 		if (team == 1){
 			gainOrLose = scoreValueT1 < score;
 			scoreValueT1 = score;
-			RuntimeManager.PlayOneShot(soundPoint);
 			team1ScoreText.text = scoreValueT1.ToString();
 			//StartCoroutine(Pulse(team1ScoreText));
 		}
