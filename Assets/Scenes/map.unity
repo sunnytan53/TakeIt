@@ -1932,11 +1932,11 @@ MonoBehaviour:
     Path: event:/UI_SFX/PTakeit_UI_PlayerJoins_v1
   soundPointLose:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 582511091
+      Data2: 1231463211
+      Data3: -1777740663
+      Data4: -406952025
+    Path: event:/UI_SFX/Takeit_UI_pointreduction
   soundGame:
     Guid:
       Data1: -1881119611
