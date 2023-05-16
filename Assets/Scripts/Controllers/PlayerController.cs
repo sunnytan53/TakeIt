@@ -170,7 +170,6 @@ public class PlayerController : MonoBehaviour {
                 artController.setAnimationCode(AnimationCodeEnum.stun);
 
                 Pickable pickable = collision.gameObject.GetComponent<Pickable>();
-                pickable.isPicked = false;
                 pickable.points += 1;
                 SendFruitPointRequest(pickable.index, pickable.points);
 
@@ -182,6 +181,7 @@ public class PlayerController : MonoBehaviour {
                     heldObjRB.constraints = RigidbodyConstraints.None;
                     heldObjRB = null;
 
+                    heldObj.GetComponentInChildren<Pickable>().isPicked = false;
                     heldObj = null;
                     SendThrowRequest(pickable.index, new Vector3(0, 0, 0));
                 }
