@@ -16,7 +16,8 @@ public class CharacterCreator : MonoBehaviour
 	public int scoreValueT1;
 	public int scoreValueT2;
 
-	public EventReference soundPoint;
+	public EventReference soundPointGain;
+	public EventReference soundPointLose;
 
 	public EventReference soundGame;
 	private FMOD.Studio.EventInstance instance;
@@ -92,7 +93,11 @@ public class CharacterCreator : MonoBehaviour
 
 		if (gainOrLose)
         {
-			RuntimeManager.PlayOneShot(soundPoint);
+			RuntimeManager.PlayOneShot(soundPointGain);
+		}
+		else
+        {
+			RuntimeManager.PlayOneShot(soundPointLose);
 		}
 	}
 

@@ -1920,15 +1920,23 @@ MonoBehaviour:
   timerText: {fileID: 0}
   team1ScoreText: {fileID: 0}
   team2ScoreText: {fileID: 0}
+  timeRemaining: 240
   scoreValueT1: 0
   scoreValueT2: 0
-  soundPoint:
+  soundPointGain:
     Guid:
       Data1: 978679781
       Data2: 1153940163
       Data3: 1698800782
       Data4: -1160537782
     Path: event:/UI_SFX/PTakeit_UI_PlayerJoins_v1
+  soundPointLose:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   soundGame:
     Guid:
       Data1: -1881119611
